@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vuurvlieg.com | Lumen in Tenebris</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #030303; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+    .container { width: 100%; max-width: 700px; padding: 20px; }
+
+    @keyframes fly1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(8px,-12px)} 66%{transform:translate(-6px,6px)} }
+    @keyframes fly2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-10px,8px)} 66%{transform:translate(6px,-5px)} }
+    @keyframes fly3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(6px,10px)} 66%{transform:translate(-8px,-7px)} }
+    @keyframes fly4 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-7px,-9px)} 66%{transform:translate(9px,5px)} }
+    @keyframes fly5 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(10px,6px)} 66%{transform:translate(-5px,-10px)} }
+
+    @keyframes pulse {
+      0%,100% { opacity: 0.3; filter: blur(3px); }
+      50% { opacity: 1; filter: blur(0px); }
+    }
+
+    .mover1 { animation: fly1 6s ease-in-out infinite; }
+    .mover2 { animation: fly2 8s ease-in-out infinite; animation-delay: -1s; }
+    .mover3 { animation: fly3 5s ease-in-out infinite; animation-delay: -3s; }
+    .mover4 { animation: fly4 9s ease-in-out infinite; animation-delay: -2s; }
+    .mover5 { animation: fly5 7s ease-in-out infinite; animation-delay: -4s; }
+
+    .light { fill: #aaff44; animation: pulse 3s ease-in-out infinite; }
+    .l1 { animation-delay: 0.2s; }
+    .l2 { animation-delay: 0.8s; }
+    .l3 { animation-delay: 1.5s; }
+    .l4 { animation-delay: 0.1s; }
+    .l5 { animation-delay: 2.2s; }
+
+    .shield-fill { fill: #080808; }
+    .gold-stroke { fill: none; stroke: #c8a84b; stroke-width: 2.5; }
+    .gold-inner { fill: none; stroke: #c8a84b; stroke-width: 0.8; opacity: 0.35; }
+    .text-gold { fill: #c8a84b; font-family: 'Times New Roman', serif; text-anchor: middle; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Achtergrond gloed -->
+    <radialGradient id="bg" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#c8a84b" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#030303" stop-opacity="0"/>
+    </radialGradient>
+    <rect width="600" height="700" fill="url(#bg)"/>
+
+    <!-- Schild -->
+    <path class="shield-fill" d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z"/>
+    <path class="gold-stroke"  d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z"/>
+    <path class="gold-inner"   d="M300 118 L445 173 V357 Q445 466 300 541 Q155 466 155 357 V173 Z"/>
+
+    <!-- Vuurvlieg 1 — midden -->
+    <g transform="translate(300,290)">
+      <g class="mover1">
+        <circle class="light l1" r="12"/>
+        <circle fill="white" r="2.5" opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- Vuurvlieg 2 — linksboven -->
+    <g transform="translate(245,248)">
+      <g class="mover2">
+        <circle class="light l2" r="9"/>
+        <circle fill="white" r="2" opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- Vuurvlieg 3 — rechtsboven -->
+    <g transform="translate(358,255)">
+      <g class="mover3">
+        <circle class="light l3" r="10"/>
+        <circle fill="white" r="2" opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- Vuurvlieg 4 — linksonder -->
+    <g transform="translate(258,378)">
+      <g class="mover4">
+        <circle class="light l4" r="8"/>
+        <circle fill="white" r="1.8" opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- Vuurvlieg 5 — rechtsonder -->
+    <g transform="translate(352,368)">
+      <g class="mover5">
+        <circle class="light l5" r="11"/>
+        <circle fill="white" r="2.5" opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- Tekst -->
+    <text class="text-gold" x="300" y="448" font-size="28" letter-spacing="8" text-transform="uppercase">VUURVLIEG</text>
+    <text class="text-gold" x="300" y="472" font-size="11" letter-spacing="4" opacity="0.55">.COM</text>
+    <line x1="210" y1="484" x2="390" y2="484" stroke="#c8a84b" stroke-width="0.5" opacity="0.4"/>
+    <text class="text-gold" x="300" y="618" font-size="13" letter-spacing="6" opacity="0.35">LUMEN IN TENEBRIS</text>
+
+  </svg>
+</div>
+</body>
+</html>
