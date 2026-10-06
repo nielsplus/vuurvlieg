@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profiel | vuurvlieg.com</title>
-  <meta name="description" content="Persoonlijk profiel op vuurvlieg.com">
+  <title>Niels van der Heijden | vuurvlieg.com</title>
+  <meta name="description" content="Niels van der Heijden: IT leadership, digital transformation and complex change.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -66,6 +66,20 @@
     nav ul::-webkit-scrollbar { display: none; }
     nav a.link { text-decoration: none; color: var(--muted); transition: color .2s; white-space: nowrap; }
     nav a.link:hover { color: var(--gold); }
+
+
+    /* Taalkeuze */
+    .lang-switch { display: flex; gap: 2px; border: 1px solid var(--line); border-radius: 99px; padding: 2px; flex-shrink: 0; }
+    .lang-switch button {
+      display: flex; align-items: center; gap: 6px; background: none; border: 0; border-radius: 99px; cursor: pointer;
+      font-family: var(--sans); font-size: 11px; letter-spacing: 1px; color: var(--muted); padding: 4px 9px;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch button svg { width: 18px; height: 12px; border-radius: 2px; opacity: .55; transition: opacity .2s; }
+    .lang-switch button:hover { color: var(--text); }
+    .lang-switch button:hover svg, .lang-switch button[aria-pressed="true"] svg { opacity: 1; }
+    .lang-switch button[aria-pressed="true"] { background: rgba(200,168,75,.14); color: var(--gold); }
+    nav ul { margin-left: auto; }
 
     /* Hero */
     .hero { min-height: calc(100vh - 56px); display: flex; align-items: center; padding: 48px 0; }
@@ -272,14 +286,17 @@
 <nav>
   <div class="wrap">
     <a class="brand" href="/">VUURVLIEG<span>·</span></a>
-    <ul>
-      <li><a class="link" href="#over">Over</a></li>
-      <li><a class="link" href="#ervaring">Ervaring</a></li>
-      <li><a class="link" href="#vaardigheden">Vaardigheden</a></li>
-      <li><a class="link" href="#projecten">Hoogtepunten</a></li>
-      <li><a class="link" href="#certificaten">Certificaten</a></li>
-      <li><a class="link" href="#contact">Contact</a></li>
-    </ul>
+    <ul id="navlinks"></ul>
+    <div class="lang-switch" role="group" aria-label="Language / Taal">
+      <button type="button" data-lang="en" aria-label="English">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-c"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+        EN
+      </button>
+      <button type="button" data-lang="nl" aria-label="Nederlands">
+        <svg viewBox="0 0 9 6" aria-hidden="true"><rect width="9" height="6" fill="#21468B"/><rect width="9" height="4" fill="#fff"/><rect width="9" height="2" fill="#AE1C28"/></svg>
+        NL
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -291,21 +308,27 @@
 /* =====================================================================
    PROFIELGEGEVENS: pas alleen dit blok aan, de rest van de pagina
    wordt hier automatisch uit opgebouwd.
+   - Tekst in twee talen schrijf je als { en: "...", nl: "..." }.
+     Gewone tekst ("...") wordt in beide talen hetzelfde getoond.
    - foto: zet een bestand (bv. foto.jpg) in deze map en vul de naam in,
      of laat leeg ("") om je initialen te tonen.
    - score: getal van 0 t/m 100. Talen: niveau 1 t/m 5.
    - lege lijsten (bv. talen: []) worden niet getoond.
-   - certificaten zonder jaar komen onder "Eerder"; thema bepaalt de kleur.
+   - certificaten zonder jaar komen onder "Earlier/Eerder";
+     thema bepaalt de kleur (leadership, strategy, tech, methods, delivery, domain).
    ===================================================================== */
 const PROFIEL = {
   naam: "Niels van der Heijden",
   initialen: "NH",
   foto: "foto.jpg",
-  functie: "IT Leadership · Excellence, Innovatie & Complexe Verandering",
-  locatie: "Randstad, Nederland",
-  extra: ["Chapter Lead bij ING", "21+ jaar ervaring"],
-  beschikbaar: "Gedreven door leiderschap in IT & AI",
-  tagline: "Ervaren leider in IT, digitale transformatie en samenwerking over afdelingen heen. Ik breng structuur in complexiteit en verbind mensen, processen en technologie, met een sterke interesse in leiderschap in IT en AI.",
+  functie: { en: "IT Leadership · Excellence, Innovation & Complex Change", nl: "IT Leadership · Excellence, Innovatie & Complexe Verandering" },
+  locatie: { en: "The Randstad, Netherlands", nl: "Randstad, Nederland" },
+  extra: [{ en: "Chapter Lead at ING", nl: "Chapter Lead bij ING" }, { en: "21+ years of experience", nl: "21+ jaar ervaring" }],
+  beschikbaar: { en: "Driven by leadership in IT & AI", nl: "Gedreven door leiderschap in IT & AI" },
+  tagline: {
+    en: "Experienced leader in IT, digital transformation and cross-functional collaboration. I bring structure to complexity and connect people, processes and technology, with a strong interest in leadership in IT and AI.",
+    nl: "Ervaren leider in IT, digitale transformatie en samenwerking over afdelingen heen. Ik breng structuur in complexiteit en verbind mensen, processen en technologie, met een sterke interesse in leiderschap in IT en AI."
+  },
 
   links: {
     email: "nielsplus@gmail.com",
@@ -314,119 +337,163 @@ const PROFIEL = {
   },
 
   cijfers: [
-    { getal: 21, plus: true, label: "Jaar bij ING" },
-    { getal: 7, plus: false, label: "Rollen" },
-    { getal: 26, plus: false, label: "Certificaten" },
-    { getal: 500, plus: true, label: "Connecties" }
+    { getal: 21, plus: true, label: { en: "Years at ING", nl: "Jaar bij ING" } },
+    { getal: 7, plus: false, label: { en: "Roles", nl: "Rollen" } },
+    { getal: 26, plus: false, label: { en: "Certificates", nl: "Certificaten" } },
+    { getal: 500, plus: true, label: { en: "Connections", nl: "Connecties" } }
   ],
 
   over: [
-    "Ik ben een ervaren leider met een sterke achtergrond in IT, digitale transformatie en samenwerking over afdelingen heen. Door de jaren heen werkte ik in rollen waarin strategie, uitvoering en leiderschap samenkomen, en hielp ik organisaties beter te presteren, hun manier van werken te versterken en betekenisvolle resultaten te leveren.",
-    "Mijn kracht ligt in het brengen van structuur in complexiteit. Ik verbind graag mensen, processen en technologie om helderheid, afstemming en vaart te creëren. Of ik nu teams leid, governance verbeter, verandering aanjaag of de delivery ondersteun: ik bouw praktische oplossingen die werken in de echte wereld.",
-    "Ik heb geleerd me snel aan te passen aan verschillende domeinen en organisaties, van IT en service management tot digitaal en operationeel leiderschap. Dat gaf me een breed perspectief en het vermogen om effectief samen te werken met zowel technische als zakelijke stakeholders.",
-    "Wat mij drijft is leiderschap in IT en de kansen die AI biedt: hoe zet je technologie slim in en neem je mensen daarin mee? Ik breng graag leiderschap, technologie en continu verbeteren samen, help teams op hun best te presteren en creëer een omgeving waarin mensen en resultaten samen groeien."
+    {
+      en: "I am an experienced leader with a strong background in IT, digital transformation and cross-functional collaboration. Over the years, I have worked in roles that combined strategy, execution and leadership, helping organisations improve performance, strengthen ways of working and deliver meaningful results.",
+      nl: "Ik ben een ervaren leider met een sterke achtergrond in IT, digitale transformatie en samenwerking over afdelingen heen. Door de jaren heen werkte ik in rollen waarin strategie, uitvoering en leiderschap samenkomen, en hielp ik organisaties beter te presteren, hun manier van werken te versterken en betekenisvolle resultaten te leveren."
+    },
+    {
+      en: "My strength lies in bringing structure to complexity. I enjoy connecting people, processes and technology to create clarity, alignment and momentum. Whether I am leading teams, improving governance, driving change or supporting delivery, I focus on building practical solutions that work in real environments.",
+      nl: "Mijn kracht ligt in het brengen van structuur in complexiteit. Ik verbind graag mensen, processen en technologie om helderheid, afstemming en vaart te creëren. Of ik nu teams leid, governance verbeter, verandering aanjaag of de delivery ondersteun: ik bouw praktische oplossingen die werken in de echte wereld."
+    },
+    {
+      en: "I have learned to adapt quickly across different domains and organisations, from IT and service management to digital and operational leadership. This has given me a broad perspective and the ability to work effectively with both technical and business stakeholders.",
+      nl: "Ik heb geleerd me snel aan te passen aan verschillende domeinen en organisaties, van IT en service management tot digitaal en operationeel leiderschap. Dat gaf me een breed perspectief en het vermogen om effectief samen te werken met zowel technische als zakelijke stakeholders."
+    },
+    {
+      en: "What drives me is leadership in IT and the opportunities AI brings: how do you put technology to smart use and take people along with you? I love bringing together leadership, technology and continuous improvement, helping teams perform at their best and creating an environment where people and results grow together.",
+      nl: "Wat mij drijft is leiderschap in IT en de kansen die AI biedt: hoe zet je technologie slim in en neem je mensen daarin mee? Ik breng graag leiderschap, technologie en continu verbeteren samen, help teams op hun best te presteren en creëer een omgeving waarin mensen en resultaten samen groeien."
+    }
   ],
-  citaat: "Mijn kracht ligt in het brengen van structuur in complexiteit.",
+  citaat: { en: "My strength lies in bringing structure to complexity.", nl: "Mijn kracht ligt in het brengen van structuur in complexiteit." },
 
   ervaring: [
     {
       functie: "Chapter Lead Enablement & Integration",
       organisatie: "ING · Amsterdam",
-      periode: "2025 – heden",
-      tekst: "Leiding geven aan het chapter Enablement & Integration: mensen, vakmanschap en de manier van werken versterken zodat teams kunnen leveren.",
-      tags: ["People Management", "IT Leadership", "Integratie"]
+      periode: { en: "2025 – present", nl: "2025 – heden" },
+      tekst: {
+        en: "Leading the Enablement & Integration chapter: strengthening people, craftsmanship and ways of working so teams can deliver.",
+        nl: "Leiding geven aan het chapter Enablement & Integration: mensen, vakmanschap en de manier van werken versterken zodat teams kunnen leveren."
+      },
+      tags: ["People Management", "IT Leadership", { en: "Integration", nl: "Integratie" }]
     },
     {
-      functie: "Management Consultant – Organisatieontwerp & Enterprise Transformatie",
-      organisatie: "ING · Amsterdam · Hybride",
+      functie: { en: "Management Consultant – Organisational Design & Enterprise Transformation", nl: "Management Consultant – Organisatieontwerp & Enterprise Transformatie" },
+      organisatie: { en: "ING · Amsterdam · Hybrid", nl: "ING · Amsterdam · Hybride" },
       periode: "2023 – 2024",
-      tekst: "Gespecialiseerd in organisatie-engineering op hoog niveau: versnipperde afdelingen integreren tot goed presterende, samenhangende divisies met structurele synergie.",
-      tags: ["IT Leadership Advisory", "Strategische planning & uitvoering", "Organisatieontwerp"]
+      tekst: {
+        en: "Specialised in high-level organisational engineering: integrating fragmented departments into high-performance, unified divisions with structural synergy.",
+        nl: "Gespecialiseerd in organisatie-engineering op hoog niveau: versnipperde afdelingen integreren tot goed presterende, samenhangende divisies met structurele synergie."
+      },
+      tags: ["IT Leadership Advisory", { en: "Strategic Planning & Execution", nl: "Strategische planning & uitvoering" }, { en: "Organisational Design", nl: "Organisatieontwerp" }]
     },
     {
       functie: "Innovation Consultant",
       organisatie: "ING · Amsterdam",
       periode: "2021 – 2022",
-      tekst: "Katalysator voor digitale volwassenheid: de brug slaan tussen opkomende technologie en bedrijfsstrategie, en de organisatie bewegen van traditionele uitvoering naar werken met hoge snelheid.",
-      tags: ["Design Thinking", "Lean Startup", "Innovatie"]
+      tekst: {
+        en: "A catalyst for digital maturity, bridging the gap between emerging technology and corporate strategy, and moving the organisation from traditional execution to a high-velocity way of working.",
+        nl: "Katalysator voor digitale volwassenheid: de brug slaan tussen opkomende technologie en bedrijfsstrategie, en de organisatie bewegen van traditionele uitvoering naar werken met hoge snelheid."
+      },
+      tags: ["Design Thinking", "Lean Startup", { en: "Innovation", nl: "Innovatie" }]
     },
     {
-      functie: "IT Strategy Consultant – Strategische Roadmaps & IT/Business Alignment",
+      functie: { en: "IT Strategy Consultant – Strategic Roadmapping & IT/Business Alignment", nl: "IT Strategy Consultant – Strategische Roadmaps & IT/Business Alignment" },
       organisatie: "ING · Amsterdam",
       periode: "2015 – 2020",
-      tekst: "Meerjarige IT-roadmaps ontwikkeld en de cultuur verschoven van reactief ‘brandjes blussen’ naar proactief plannen. Dat gaf de organisatie ‘strategische rust’: weten dat de weg vooruit vaststond.",
-      tags: ["IT-strategie", "Strategische roadmaps", "Business alignment"]
+      tekst: {
+        en: "Developed multi-year IT roadmaps, shifting the culture from reactive “firefighting” to proactive planning. This gave the organisation “strategic rest”: knowing the path forward was set.",
+        nl: "Meerjarige IT-roadmaps ontwikkeld en de cultuur verschoven van reactief ‘brandjes blussen’ naar proactief plannen. Dat gaf de organisatie ‘strategische rust’: weten dat de weg vooruit vaststond."
+      },
+      tags: [{ en: "IT Strategy", nl: "IT-strategie" }, { en: "Strategic Roadmaps", nl: "Strategische roadmaps" }, "Business alignment"]
     },
     {
       functie: "Global Project Manager",
       organisatie: "ING · Randstad",
       periode: "2009 – 2015",
-      tekst: "Grootschalige IT- en HR-transformaties geleid met de focus op SaaS-integratie en service excellence, waaronder de wereldwijde end-to-end implementatie van SuccessFactors-modules.",
-      tags: ["Change Management", "Strategische planning & uitvoering", "SaaS"]
+      tekst: {
+        en: "Led large-scale IT and HR transformation projects with a focus on SaaS integration and service excellence, including the global end-to-end implementation of SuccessFactors modules.",
+        nl: "Grootschalige IT- en HR-transformaties geleid met de focus op SaaS-integratie en service excellence, waaronder de wereldwijde end-to-end implementatie van SuccessFactors-modules."
+      },
+      tags: ["Change Management", { en: "Strategic Planning & Execution", nl: "Strategische planning & uitvoering" }, "SaaS"]
     },
     {
       functie: "Project Manager",
       organisatie: "ING · Randstad",
       periode: "2007 – 2008",
-      tekst: "Voortbouwend op ervaring met functionele systemen en verandermanagement de overstap gemaakt naar Global HR om digitale transformatie-initiatieven te leiden en een portfolio aan projecten te managen.",
+      tekst: {
+        en: "Building on my foundation in functional systems and change management, I moved into Global HR to lead digital transformation initiatives and manage a portfolio of projects.",
+        nl: "Voortbouwend op ervaring met functionele systemen en verandermanagement de overstap gemaakt naar Global HR om digitale transformatie-initiatieven te leiden en een portfolio aan projecten te managen."
+      },
       tags: ["Third-Party Vendor Management", "Talent Management"]
     },
     {
       functie: "Functional Manager – Business Continuity Management",
       organisatie: "ING · Amsterdam",
       periode: "2005 – 2007",
-      tekst: "Onderdeel van een veelzijdig team dat verantwoordelijk was voor de dagelijkse stabiliteit en functionele integriteit van de kernsystemen voor betalingen en cash van de bank.",
+      tekst: {
+        en: "Part of a versatile team responsible for the day-to-day stability and functional integrity of the bank’s core payment and cash systems.",
+        nl: "Onderdeel van een veelzijdig team dat verantwoordelijk was voor de dagelijkse stabiliteit en functionele integriteit van de kernsystemen voor betalingen en cash van de bank."
+      },
       tags: ["Change Management", "ITIL", "BCM"]
     }
   ],
 
   vaardigheden: [
-    { naam: "IT-strategie", score: 92 },
+    { naam: { en: "IT Strategy", nl: "IT-strategie" }, score: 92 },
     { naam: "People management", score: 88 },
-    { naam: "Digitale transformatie", score: 90 },
-    { naam: "Stakeholdermanagement", score: 91 },
-    { naam: "Organisatieontwerp", score: 87 },
-    { naam: "Verandermanagement", score: 89 }
+    { naam: { en: "Digital Transformation", nl: "Digitale transformatie" }, score: 90 },
+    { naam: { en: "Stakeholder Management", nl: "Stakeholdermanagement" }, score: 91 },
+    { naam: { en: "Organisational Design", nl: "Organisatieontwerp" }, score: 87 },
+    { naam: { en: "Change Management", nl: "Verandermanagement" }, score: 89 }
   ],
 
-  projectenTitel: "Hoogtepunten",
   projecten: [
-    { titel: "Wereldwijde SaaS-uitrol", tekst: "End-to-end implementatie van SuccessFactors-modules over landen heen, als onderdeel van een grote IT- en HR-transformatie.", link: "" },
-    { titel: "Van brandjes blussen naar roadmaps", tekst: "Meerjarige IT-roadmaps die de organisatie van reactief naar proactief brachten, met ‘strategische rust’ als resultaat.", link: "" },
-    { titel: "Eén sterke divisie", tekst: "Versnipperde afdelingen samengebracht tot één goed presterende, samenhangende divisie door slim organisatieontwerp.", link: "" }
+    {
+      titel: { en: "Global SaaS roll-out", nl: "Wereldwijde SaaS-uitrol" },
+      tekst: { en: "End-to-end implementation of SuccessFactors modules across countries, as part of a major IT and HR transformation.", nl: "End-to-end implementatie van SuccessFactors-modules over landen heen, als onderdeel van een grote IT- en HR-transformatie." },
+      link: ""
+    },
+    {
+      titel: { en: "From firefighting to roadmaps", nl: "Van brandjes blussen naar roadmaps" },
+      tekst: { en: "Multi-year IT roadmaps that moved the organisation from reactive to proactive, with “strategic rest” as the result.", nl: "Meerjarige IT-roadmaps die de organisatie van reactief naar proactief brachten, met ‘strategische rust’ als resultaat." },
+      link: ""
+    },
+    {
+      titel: { en: "One strong division", nl: "Eén sterke divisie" },
+      tekst: { en: "Fragmented departments brought together into one high-performing, unified division through smart organisational design.", nl: "Versnipperde afdelingen samengebracht tot één goed presterende, samenhangende divisie door slim organisatieontwerp." },
+      link: ""
+    }
   ],
 
   opleiding: [
-    { jaren: "2000 – 2004", titel: "Informatica", school: "De Haagse Hogeschool" }
+    { jaren: "2000 – 2004", titel: { en: "Computer Science", nl: "Informatica" }, school: { en: "The Hague University of Applied Sciences", nl: "De Haagse Hogeschool" } }
   ],
 
   certificaten: [
-    { jaar: "2026", titel: "Presentation Skills: Master Confident Presentations", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2026", titel: "Successful Negotiation: Master Your Negotiating Skills", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2026", titel: "Project Management", door: "Udemy", thema: "Delivery" },
-    { jaar: "2026", titel: "Stakeholder Engagement Best Practices of Fortune 500 Leaders", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2026", titel: "Stakeholder Management", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2025", titel: "Business Case", door: "Udemy", thema: "Strategie" },
-    { jaar: "2025", titel: "Intro to AI: A Beginner's Guide to Artificial Intelligence", door: "Udemy", thema: "Technologie" },
-    { jaar: "2025", titel: "Green Software for Practitioners", door: "The Linux Foundation", thema: "Technologie" },
-    { jaar: "2024", titel: "Mastering Automated Testing with INGenious – Playwright", door: "Udemy", thema: "Technologie" },
-    { jaar: "2024", titel: "API Design", door: "Udemy", thema: "Technologie" },
-    { jaar: "2024", titel: "Tech: Introduction into Public Cloud", door: "Udemy", thema: "Technologie" },
-    { jaar: "2024", titel: "Leadership: Practical Leadership Skills", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2024", titel: "Communication Fundamentals: How to Communicate Better", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2024", titel: "Emotional Intelligence at Work", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2024", titel: "OKR: Methodology and Application", door: "Udemy", thema: "Strategie" },
-    { jaar: "2024", titel: "Storytelling to Influence", door: "Udemy", thema: "Leiderschap" },
-    { jaar: "2022", titel: "Lean Kanban System Design", door: "Kanban University", thema: "Methoden" },
-    { jaar: "2021", titel: "Lean Leadership", door: "Quint", thema: "Methoden" },
-    { jaar: "2021", titel: "Lean IT", door: "Quint", thema: "Methoden" },
-    { jaar: "2019", titel: "Pace", door: "Moves The Needle", thema: "Strategie" },
-    { jaar: "", titel: "Product Owner", door: "Scrum.org", thema: "Methoden" },
-    { jaar: "", titel: "NIBE Payments", door: "", thema: "Vakkennis" },
-    { jaar: "", titel: "ABP", door: "", thema: "Vakkennis" },
-    { jaar: "", titel: "BiSL", door: "", thema: "Methoden" },
-    { jaar: "", titel: "ITIL", door: "", thema: "Methoden" },
-    { jaar: "", titel: "PRINCE2", door: "", thema: "Methoden" }
+    { jaar: "2026", titel: "Presentation Skills: Master Confident Presentations", door: "Udemy", thema: "leadership" },
+    { jaar: "2026", titel: "Successful Negotiation: Master Your Negotiating Skills", door: "Udemy", thema: "leadership" },
+    { jaar: "2026", titel: "Project Management", door: "Udemy", thema: "delivery" },
+    { jaar: "2026", titel: "Stakeholder Engagement Best Practices of Fortune 500 Leaders", door: "Udemy", thema: "leadership" },
+    { jaar: "2026", titel: "Stakeholder Management", door: "Udemy", thema: "leadership" },
+    { jaar: "2025", titel: "Business Case", door: "Udemy", thema: "strategy" },
+    { jaar: "2025", titel: "Intro to AI: A Beginner's Guide to Artificial Intelligence", door: "Udemy", thema: "tech" },
+    { jaar: "2025", titel: "Green Software for Practitioners", door: "The Linux Foundation", thema: "tech" },
+    { jaar: "2024", titel: "Mastering Automated Testing with INGenious – Playwright", door: "Udemy", thema: "tech" },
+    { jaar: "2024", titel: "API Design", door: "Udemy", thema: "tech" },
+    { jaar: "2024", titel: "Tech: Introduction into Public Cloud", door: "Udemy", thema: "tech" },
+    { jaar: "2024", titel: "Leadership: Practical Leadership Skills", door: "Udemy", thema: "leadership" },
+    { jaar: "2024", titel: "Communication Fundamentals: How to Communicate Better", door: "Udemy", thema: "leadership" },
+    { jaar: "2024", titel: "Emotional Intelligence at Work", door: "Udemy", thema: "leadership" },
+    { jaar: "2024", titel: "OKR: Methodology and Application", door: "Udemy", thema: "strategy" },
+    { jaar: "2024", titel: "Storytelling to Influence", door: "Udemy", thema: "leadership" },
+    { jaar: "2022", titel: "Lean Kanban System Design", door: "Kanban University", thema: "methods" },
+    { jaar: "2021", titel: "Lean Leadership", door: "Quint", thema: "methods" },
+    { jaar: "2021", titel: "Lean IT", door: "Quint", thema: "methods" },
+    { jaar: "2019", titel: "Pace", door: "Moves The Needle", thema: "strategy" },
+    { jaar: "", titel: "Product Owner", door: "Scrum.org", thema: "methods" },
+    { jaar: "", titel: "NIBE Payments", door: "", thema: "domain" },
+    { jaar: "", titel: "ABP", door: "", thema: "domain" },
+    { jaar: "", titel: "BiSL", door: "", thema: "methods" },
+    { jaar: "", titel: "ITIL", door: "", thema: "methods" },
+    { jaar: "", titel: "PRINCE2", door: "", thema: "methods" }
   ],
 
   methoden: ["ITIL", "BiSL", "PRINCE2", "Scrum · Product Owner", "Lean IT", "Lean Kanban", "OKR", "Design Thinking", "Lean Startup", "Business Case", "Public Cloud", "AI"],
@@ -437,7 +504,51 @@ const PROFIEL = {
 };
 /* ===================================================================== */
 
+/* Vaste teksten van de pagina in beide talen */
+const UI = {
+  en: {
+    nav: { over: "About", ervaring: "Experience", vaardigheden: "Skills", projecten: "Highlights", certificaten: "Certificates", contact: "Contact" },
+    contactBtn: "Get in touch", cv: "Download CV", photo: "Photo of",
+    aboutEyebrow: "Who I am", aboutTitle: "About me",
+    expEyebrow: "My path", expTitle: "Experience",
+    skillsEyebrow: "What I excel at", skillsTitle: "Skills", radar: "Skills web",
+    projEyebrow: "Featured", projTitle: "Highlights",
+    certEyebrow: "Always learning", certTitle: "Certificates", certChart: "Certificates per year", all: "All", earlier: "Earlier",
+    eduEyebrow: "Shaped by", eduTitle: "Education",
+    langEyebrow: "I speak", langTitle: "Languages", of5: "of 5",
+    methEyebrow: "My toolkit", methTitle: "Methods & knowledge",
+    contactEyebrow: "Let’s talk", contactTitle: "Contact",
+    contactText: "Curious, or interested in working together? Feel free to send me a message.",
+    themes: { leadership: "Leadership", strategy: "Strategy", tech: "Technology", methods: "Methods", delivery: "Delivery", domain: "Domain knowledge" }
+  },
+  nl: {
+    nav: { over: "Over", ervaring: "Ervaring", vaardigheden: "Vaardigheden", projecten: "Hoogtepunten", certificaten: "Certificaten", contact: "Contact" },
+    contactBtn: "Neem contact op", cv: "Download cv", photo: "Foto van",
+    aboutEyebrow: "Wie ik ben", aboutTitle: "Over mij",
+    expEyebrow: "Mijn pad", expTitle: "Ervaring",
+    skillsEyebrow: "Waar ik in uitblink", skillsTitle: "Vaardigheden", radar: "Vaardighedenweb",
+    projEyebrow: "Uitgelicht", projTitle: "Hoogtepunten",
+    certEyebrow: "Altijd blijven leren", certTitle: "Certificaten", certChart: "Certificaten per jaar", all: "Alle", earlier: "Eerder",
+    eduEyebrow: "Gevormd door", eduTitle: "Opleiding",
+    langEyebrow: "Ik spreek", langTitle: "Talen", of5: "van 5",
+    methEyebrow: "Mijn gereedschapskist", methTitle: "Methoden & kennis",
+    contactEyebrow: "Laten we praten", contactTitle: "Contact",
+    contactText: "Nieuwsgierig geworden of wil je samenwerken? Stuur gerust een bericht.",
+    themes: { leadership: "Leiderschap", strategy: "Strategie", tech: "Technologie", methods: "Methoden", delivery: "Delivery", domain: "Vakkennis" }
+  }
+};
+
+/* Taal: ?lang=nl in de url, anders de laatst gekozen taal, anders Engels */
+let LANG = "en";
+try {
+  const fromUrl = new URLSearchParams(location.search).get("lang");
+  const saved = localStorage.getItem("vuurvlieg-lang");
+  LANG = [fromUrl, saved].find(l => l === "en" || l === "nl") || "en";
+} catch (e) {}
+
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const T = v => (v && typeof v === "object" && !Array.isArray(v)) ? (v[LANG] ?? v.nl ?? v.en ?? "") : v;
+const t = () => UI[LANG];
 const P = PROFIEL;
 const icon = {
   mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 6 9 7 9-7"/></svg>',
@@ -447,9 +558,9 @@ const icon = {
 
 function buttons() {
   const b = [];
-  if (P.links.email) b.push(`<a class="btn solid" href="mailto:${esc(P.links.email)}">${icon.mail} Neem contact op</a>`);
+  if (P.links.email) b.push(`<a class="btn solid" href="mailto:${esc(P.links.email)}">${icon.mail} ${esc(t().contactBtn)}</a>`);
   if (P.links.linkedin) b.push(`<a class="btn" href="${esc(P.links.linkedin)}" target="_blank" rel="noopener">${icon.in} LinkedIn</a>`);
-  if (P.links.cv) b.push(`<a class="btn" href="${esc(P.links.cv)}" download>${icon.dl} Download CV</a>`);
+  if (P.links.cv) b.push(`<a class="btn" href="${esc(T(P.links.cv))}" download>${icon.dl} ${esc(t().cv)}</a>`);
   return `<div class="btns">${b.join("")}</div>`;
 }
 
@@ -469,183 +580,204 @@ function radar(items) {
     axes += `<line class="axis" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`;
     const [lx, ly] = pt(i, R + 26);
     const anchor = Math.abs(lx - cx) < 5 ? "middle" : lx > cx ? "start" : "end";
-    labels += `<text x="${lx}" y="${ly + 4}" text-anchor="${anchor}">${esc(s.naam)}</text>`;
+    labels += `<text x="${lx}" y="${ly + 4}" text-anchor="${anchor}">${esc(T(s.naam))}</text>`;
   });
   const shape = items.map((s, i) => pt(i, (R * s.score) / 100).join(",")).join(" ");
   const dots = items.map((s, i) => { const [x, y] = pt(i, (R * s.score) / 100); return `<circle class="pt" cx="${x}" cy="${y}" r="3.5"/>`; }).join("");
-  return `<svg class="radar" viewBox="-40 0 500 420" role="img" aria-label="Vaardighedenweb">
+  return `<svg class="radar" viewBox="-40 0 500 420" role="img" aria-label="${esc(t().radar)}">
     ${rings}${axes}
     <g class="radar-shape" style="transform-origin:${cx}px ${cy}px;transform:scale(0);transition:transform 1.4s cubic-bezier(.2,.8,.2,1)">
       <polygon class="shape" points="${shape}"/>${dots}
     </g>${labels}</svg>`;
 }
 
-const THEMAS = [
-  { naam: "Leiderschap", kleur: "#aaff44" },
-  { naam: "Strategie", kleur: "#c8a84b" },
-  { naam: "Technologie", kleur: "#5fd6c8" },
-  { naam: "Methoden", kleur: "#e8e2cf" },
-  { naam: "Delivery", kleur: "#f2a65a" },
-  { naam: "Vakkennis", kleur: "#9a8f7a" }
-];
-const themaKleur = n => (THEMAS.find(t => t.naam === n) || THEMAS[3]).kleur;
+const THEMAS = { leadership: "#aaff44", strategy: "#c8a84b", tech: "#5fd6c8", methods: "#e8e2cf", delivery: "#f2a65a", domain: "#9a8f7a" };
+const themaKleur = k => THEMAS[k] || THEMAS.methods;
 
 function certChart() {
   const groups = {};
-  P.certificaten.forEach(c => (groups[c.jaar || "Eerder"] ??= []).push(c));
-  const keys = Object.keys(groups).filter(k => k !== "Eerder").sort();
-  if (groups.Eerder) keys.unshift("Eerder");
-  const max = Math.max(...keys.map(k => groups[k].length));
-  return `<button class="yr-btn on" data-f="alle"><span class="stack"></span><b>${P.certificaten.length}</b><em>Alle</em></button>` +
+  P.certificaten.forEach(c => (groups[c.jaar || "earlier"] ??= []).push(c));
+  const keys = Object.keys(groups).filter(k => k !== "earlier").sort();
+  if (groups.earlier) keys.unshift("earlier");
+  return `<button class="yr-btn on" data-f="alle"><span class="stack"></span><b>${P.certificaten.length}</b><em>${esc(t().all)}</em></button>` +
     keys.map(k => `<button class="yr-btn" data-f="${esc(k)}">
       <span class="stack">${groups[k].map(c => `<i style="background:${themaKleur(c.thema)}"></i>`).join("")}</span>
-      <b>${groups[k].length}</b><em>${esc(k)}</em></button>`).join("");
+      <b>${groups[k].length}</b><em>${esc(k === "earlier" ? t().earlier : k)}</em></button>`).join("");
 }
 
 const app = document.getElementById("app");
-app.innerHTML = `
+function render() {
+  const u = t();
+  document.documentElement.lang = LANG;
+  document.getElementById("navlinks").innerHTML = Object.entries(u.nav).map(([id, label]) => `<li><a class="link" href="#${id}">${esc(label)}</a></li>`).join("");
+  document.querySelectorAll(".lang-switch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === LANG));
+
+  app.innerHTML = `
 <section class="hero"><div class="wrap hero-grid">
   <div class="avatar-wrap reveal">
     <svg class="frame" viewBox="0 0 280 320" aria-hidden="true">
       <path d="M140 6 L274 56 V178 Q274 258 140 310 Q6 258 6 178 V56 Z" fill="none" stroke="#c8a84b" stroke-width="1.5"/>
       <path d="M140 14 L266 61 V177 Q266 252 140 301 Q14 252 14 177 V61 Z" fill="none" stroke="#c8a84b" stroke-width=".6" opacity=".35"/>
     </svg>
-    <div class="avatar">${P.foto ? `<img src="${esc(P.foto)}" alt="Foto van ${esc(P.naam)}">` : esc(P.initialen)}</div>
+    <div class="avatar">${P.foto ? `<img src="${esc(P.foto)}" alt="${esc(u.photo)} ${esc(P.naam)}">` : esc(P.initialen)}</div>
   </div>
   <div class="reveal">
-    ${P.beschikbaar ? `<div class="status"><i></i>${esc(P.beschikbaar)}</div>` : ""}
+    ${P.beschikbaar ? `<div class="status"><i></i>${esc(T(P.beschikbaar))}</div>` : ""}
     <h1>${esc(P.naam)}</h1>
-    <div class="role">${esc(P.functie)}</div>
-    <div class="meta">${[P.locatie, ...P.extra].filter(Boolean).map(m => `<span>${esc(m)}</span>`).join("")}</div>
-    <p class="tagline">${esc(P.tagline)}</p>
+    <div class="role">${esc(T(P.functie))}</div>
+    <div class="meta">${[P.locatie, ...P.extra].map(T).filter(Boolean).map(m => `<span>${esc(m)}</span>`).join("")}</div>
+    <p class="tagline">${esc(T(P.tagline))}</p>
     ${buttons()}
   </div>
 </div></section>
 
 <section style="padding-top:0"><div class="wrap">
   <div class="stats reveal">
-    ${P.cijfers.map(c => `<div class="stat"><b data-count="${c.getal}" data-plus="${c.plus ? 1 : 0}">0</b><span>${esc(c.label)}</span></div>`).join("")}
+    ${P.cijfers.map(c => `<div class="stat"><b data-count="${c.getal}" data-plus="${c.plus ? 1 : 0}">0</b><span>${esc(T(c.label))}</span></div>`).join("")}
   </div>
 </div></section>
 
 <section id="over"><div class="wrap">
-  <div class="eyebrow">Wie ik ben</div><h2>Over mij</h2>
+  <div class="eyebrow">${esc(u.aboutEyebrow)}</div><h2>${esc(u.aboutTitle)}</h2>
   <div class="about">
-    <div class="reveal">${P.over.map(p => `<p>${esc(p)}</p>`).join("")}</div>
-    <blockquote class="quote reveal">“${esc(P.citaat)}”<small>${esc(P.naam)}</small></blockquote>
+    <div class="reveal">${P.over.map(p => `<p>${esc(T(p))}</p>`).join("")}</div>
+    <blockquote class="quote reveal">“${esc(T(P.citaat))}”<small>${esc(P.naam)}</small></blockquote>
   </div>
 </div></section>
 
 <section id="ervaring"><div class="wrap">
-  <div class="eyebrow">Mijn pad</div><h2>Ervaring</h2>
+  <div class="eyebrow">${esc(u.expEyebrow)}</div><h2>${esc(u.expTitle)}</h2>
   <div class="timeline">
     ${P.ervaring.map(e => `
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
         <div class="tl-card">
-          <div class="tl-head"><h3>${esc(e.functie)}</h3><span class="tl-period">${esc(e.periode)}</span></div>
-          <div class="tl-org">${esc(e.organisatie)}</div>
-          <p>${esc(e.tekst)}</p>
-          ${e.tags?.length ? `<div class="tags">${e.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+          <div class="tl-head"><h3>${esc(T(e.functie))}</h3><span class="tl-period">${esc(T(e.periode))}</span></div>
+          <div class="tl-org">${esc(T(e.organisatie))}</div>
+          <p>${esc(T(e.tekst))}</p>
+          ${e.tags?.length ? `<div class="tags">${e.tags.map(x => `<span class="tag">${esc(T(x))}</span>`).join("")}</div>` : ""}
         </div>
       </div>`).join("")}
   </div>
 </div></section>
 
 <section id="vaardigheden"><div class="wrap">
-  <div class="eyebrow">Waar ik in uitblink</div><h2>Vaardigheden</h2>
+  <div class="eyebrow">${esc(u.skillsEyebrow)}</div><h2>${esc(u.skillsTitle)}</h2>
   <div class="skills-grid">
     <div class="reveal">${radar(P.vaardigheden)}</div>
     <div class="bars reveal">
       ${P.vaardigheden.map(s => `
-        <div><div class="bar-top"><span>${esc(s.naam)}</span><span>${s.score}%</span></div>
+        <div><div class="bar-top"><span>${esc(T(s.naam))}</span><span>${s.score}%</span></div>
         <div class="bar"><i data-w="${s.score}"></i></div></div>`).join("")}
     </div>
   </div>
 </div></section>
 
 <section id="projecten"><div class="wrap">
-  <div class="eyebrow">Uitgelicht</div><h2>${esc(P.projectenTitel || "Projecten")}</h2>
+  <div class="eyebrow">${esc(u.projEyebrow)}</div><h2>${esc(u.projTitle)}</h2>
   <div class="cards">
     ${P.projecten.map((p, i) => `
       <article class="card reveal">
         <div class="num">${String(i + 1).padStart(2, "0")}</div>
-        <h3>${p.link ? `<a href="${esc(p.link)}" style="text-decoration:none">${esc(p.titel)} →</a>` : esc(p.titel)}</h3>
-        <p>${esc(p.tekst)}</p>
+        <h3>${p.link ? `<a href="${esc(p.link)}" style="text-decoration:none">${esc(T(p.titel))} →</a>` : esc(T(p.titel))}</h3>
+        <p>${esc(T(p.tekst))}</p>
       </article>`).join("")}
   </div>
 </div></section>
 
 <section id="certificaten"><div class="wrap">
-  <div class="eyebrow">Altijd blijven leren</div><h2>Certificaten</h2>
+  <div class="eyebrow">${esc(u.certEyebrow)}</div><h2>${esc(u.certTitle)}</h2>
   <div class="cert-top reveal">
-    <div class="cert-chart" role="group" aria-label="Certificaten per jaar">${certChart()}</div>
-    <div class="cert-legend">${THEMAS.filter(t => P.certificaten.some(c => c.thema === t.naam)).map(t => `<span><i style="background:${t.kleur};box-shadow:0 0 8px ${t.kleur}"></i>${esc(t.naam)}</span>`).join("")}</div>
+    <div class="cert-chart" role="group" aria-label="${esc(u.certChart)}">${certChart()}</div>
+    <div class="cert-legend">${Object.keys(THEMAS).filter(k => P.certificaten.some(c => c.thema === k)).map(k => `<span><i style="background:${THEMAS[k]};box-shadow:0 0 8px ${THEMAS[k]}"></i>${esc(u.themes[k])}</span>`).join("")}</div>
   </div>
   <div class="cert-grid">${P.certificaten.map(c => `
-    <div class="cert reveal" data-jaar="${esc(c.jaar || "Eerder")}" style="--c:${themaKleur(c.thema)}">
+    <div class="cert reveal" data-jaar="${esc(c.jaar || "earlier")}" style="--c:${themaKleur(c.thema)}">
       <div class="cert-yr">${esc(c.jaar || "—")}</div>
-      <h3>${esc(c.titel)}</h3>
-      ${c.door ? `<p>${esc(c.door)}</p>` : ""}
+      <h3>${esc(T(c.titel))}</h3>
+      ${c.door ? `<p>${esc(T(c.door))}</p>` : ""}
     </div>`).join("")}
   </div>
 </div></section>
 
 <section><div class="wrap duo">
   <div class="reveal">
-    <div class="eyebrow">Gevormd door</div><h2>Opleiding</h2>
+    <div class="eyebrow">${esc(u.eduEyebrow)}</div><h2>${esc(u.eduTitle)}</h2>
     <div class="edu">
-      ${P.opleiding.map(o => `<div class="edu-row${o.jaren ? "" : " no-yr"}">${o.jaren ? `<div class="yr">${esc(o.jaren)}</div>` : ""}<div><h3>${esc(o.titel)}</h3><p>${esc(o.school)}</p></div></div>`).join("")}
+      ${P.opleiding.map(o => `<div class="edu-row${o.jaren ? "" : " no-yr"}">${o.jaren ? `<div class="yr">${esc(o.jaren)}</div>` : ""}<div><h3>${esc(T(o.titel))}</h3><p>${esc(T(o.school))}</p></div></div>`).join("")}
     </div>
   </div>
   <div class="reveal">
-    ${P.talen?.length ? `<div class="eyebrow">Ik spreek</div><h2>Talen</h2>
-    ${P.talen.map(t => `<div class="lang"><span>${esc(t.taal)}</span><span class="dots" aria-label="${t.niveau} van 5">${[1,2,3,4,5].map(n => `<i class="${n <= t.niveau ? "on" : ""}"></i>`).join("")}</span></div>`).join("")}` : ""}
-    ${P.methoden?.length ? `<div class="eyebrow">Mijn gereedschapskist</div><h2>Methoden &amp; kennis</h2>
-    <div class="interests" style="margin-top:0">${P.methoden.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : ""}
-    ${P.interesses?.length ? `<div class="interests">${P.interesses.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : ""}
+    ${P.talen?.length ? `<div class="eyebrow">${esc(u.langEyebrow)}</div><h2>${esc(u.langTitle)}</h2>
+    ${P.talen.map(l => `<div class="lang"><span>${esc(T(l.taal))}</span><span class="dots" aria-label="${l.niveau} ${esc(u.of5)}">${[1,2,3,4,5].map(n => `<i class="${n <= l.niveau ? "on" : ""}"></i>`).join("")}</span></div>`).join("")}` : ""}
+    ${P.methoden?.length ? `<div class="eyebrow">${esc(u.methEyebrow)}</div><h2>${esc(u.methTitle)}</h2>
+    <div class="interests" style="margin-top:0">${P.methoden.map(x => `<span class="tag">${esc(T(x))}</span>`).join("")}</div>` : ""}
+    ${P.interesses?.length ? `<div class="interests">${P.interesses.map(x => `<span class="tag">${esc(T(x))}</span>`).join("")}</div>` : ""}
   </div>
 </div></section>
 
 <section id="contact" class="contact"><div class="wrap reveal">
-  <div class="eyebrow">Laten we praten</div><h2>Contact</h2>
-  <p>Nieuwsgierig geworden of wil je samenwerken? Stuur gerust een bericht.</p>
+  <div class="eyebrow">${esc(u.contactEyebrow)}</div><h2>${esc(u.contactTitle)}</h2>
+  <p>${esc(u.contactText)}</p>
   ${buttons()}
 </div></section>`;
-document.title = `${P.naam} | vuurvlieg.com`;
+  document.title = `${P.naam} | vuurvlieg.com`;
 
-document.querySelectorAll(".yr-btn").forEach(btn => btn.addEventListener("click", () => {
-  document.querySelectorAll(".yr-btn").forEach(b => b.classList.toggle("on", b === btn));
-  const f = btn.dataset.f;
-  document.querySelectorAll(".cert").forEach(c => c.classList.toggle("hide", f !== "alle" && c.dataset.jaar !== f));
-}));
+  document.querySelectorAll(".yr-btn").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".yr-btn").forEach(b => b.classList.toggle("on", b === btn));
+    const f = btn.dataset.f;
+    document.querySelectorAll(".cert").forEach(c => c.classList.toggle("hide", f !== "alle" && c.dataset.jaar !== f));
+  }));
+}
 
 /* Animaties bij in beeld komen */
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-function countUp(el) {
+function countUp(el, instant) {
   const target = +el.dataset.count, plus = el.dataset.plus === "1";
-  if (reduce) { el.textContent = target + (plus ? "+" : ""); return; }
+  if (reduce || instant) { el.textContent = target + (plus ? "+" : ""); return; }
   const t0 = performance.now(), dur = 1600;
-  const step = t => {
-    const k = Math.min(1, (t - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - k, 3)));
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - k, 3)));
     el.textContent = v + (plus && k === 1 ? "+" : "");
     if (k < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
 }
+function show(el, instant) {
+  el.classList.add("in");
+  if (el.classList.contains("tl-item")) instant ? el.classList.add("lit") : setTimeout(() => el.classList.add("lit"), 300);
+  el.querySelectorAll("[data-count]").forEach(c => countUp(c, instant));
+  el.querySelectorAll(".bar i").forEach(b => b.style.width = b.dataset.w + "%");
+  el.querySelectorAll(".radar-shape").forEach(g => g.style.transform = "scale(1)");
+}
 const io = new IntersectionObserver(entries => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;
-    const el = e.target;
-    el.classList.add("in");
-    if (el.classList.contains("tl-item")) setTimeout(() => el.classList.add("lit"), 300);
-    el.querySelectorAll("[data-count]").forEach(countUp);
-    el.querySelectorAll(".bar i").forEach(b => b.style.width = b.dataset.w + "%");
-    el.querySelectorAll(".radar-shape").forEach(g => g.style.transform = "scale(1)");
-    io.unobserve(el);
+    show(e.target, false);
+    io.unobserve(e.target);
   }
 }, { threshold: 0.15 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* Bij wisselen van taal: wat al gezien was meteen tonen, op dezelfde plek blijven */
+function mount(switching) {
+  const y = scrollY;
+  io.disconnect();
+  render();
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (switching && el.getBoundingClientRect().top < innerHeight) {
+      el.style.transition = "none"; show(el, true);
+      requestAnimationFrame(() => el.style.transition = "");
+    } else io.observe(el);
+  });
+  if (switching) scrollTo(0, y);
+}
+document.querySelectorAll(".lang-switch button").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.lang === LANG) return;
+  LANG = b.dataset.lang;
+  try { localStorage.setItem("vuurvlieg-lang", LANG); } catch (e) {}
+  mount(true);
+}));
+mount(false);
 
 /* Vuurvliegjes op de achtergrond */
 (() => {
