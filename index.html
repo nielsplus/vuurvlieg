@@ -37,6 +37,12 @@
     .gold-stroke { fill: none; stroke: #c8a84b; stroke-width: 2.5; }
     .gold-inner { fill: none; stroke: #c8a84b; stroke-width: 0.8; opacity: 0.35; }
     .text-gold { fill: #c8a84b; font-family: 'Times New Roman', serif; text-anchor: middle; }
+    .profile-link {
+      position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); white-space: nowrap; padding: 8px 4px;
+      color: #c8a84b; opacity: .45; text-decoration: none; transition: opacity .3s, text-shadow .3s;
+      font-family: 'Times New Roman', serif; font-size: 12px; letter-spacing: 5px; text-transform: uppercase;
+    }
+    .profile-link:hover { opacity: 1; text-shadow: 0 0 12px rgba(200,168,75,.5); }
   </style>
 </head>
 <body>
@@ -102,6 +108,7 @@
     <text class="text-gold" x="300" y="618" font-size="13" letter-spacing="6" opacity="0.35">LUMEN IN TENEBRIS</text>
 
   </svg>
+  <a class="profile-link" href="/profiel/">Niels van der Heijden →</a>
 </div>
 </body>
 </html>
