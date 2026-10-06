@@ -200,7 +200,7 @@
     .card:hover { transform: translateY(-4px); border-color: var(--gold-soft); }
     .card:hover::before { transform: scale(1.5); }
     .card .num { font-family: var(--serif); font-size: 15px; color: var(--gold); letter-spacing: 3px; }
-    .card h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; margin: 8px 0 10px; }
+    .card h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.2; margin: 8px 0 10px; }
     .card p { color: #bdb7a7; font-size: 14.5px; }
 
 
@@ -231,6 +231,14 @@
     .cert h3 { font-family: var(--serif); font-weight: 600; font-size: 18px; line-height: 1.25; }
     .cert p { color: var(--muted); font-size: 13px; margin-top: 4px; }
     .edu-row.no-yr { grid-template-columns: 1fr; }
+
+
+    /* Top 5: eerste kaart breed, grote rangnummers */
+    .cards.top5 .card:first-child { grid-column: span 2; }
+    .cards.top5 .card .num { font-size: 56px; line-height: .9; letter-spacing: 0; color: transparent; -webkit-text-stroke: 1px var(--gold); opacity: .8; }
+    .cards.top5 .card:first-child .num { color: var(--gold); -webkit-text-stroke: 0; text-shadow: 0 0 24px rgba(200,168,75,.35); }
+    .cards.top5 .card:first-child h3 { font-size: 30px; }
+    @media (max-width: 860px) { .cards.top5 .card:first-child { grid-column: auto; } }
 
     /* Opleiding + talen */
     .duo { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
@@ -447,18 +455,43 @@ const PROFIEL = {
 
   projecten: [
     {
-      titel: { en: "Global SaaS roll-out", nl: "Wereldwijde SaaS-uitrol" },
-      tekst: { en: "End-to-end implementation of SuccessFactors modules across countries, as part of a major IT and HR transformation.", nl: "End-to-end implementatie van SuccessFactors-modules over landen heen, als onderdeel van een grote IT- en HR-transformatie." },
+      titel: { en: "Leading the IT integrators", nl: "Leiderschap over de IT-integrators" },
+      tekst: {
+        en: "As Chapter Lead Enablement & Integration I lead the integration specialists: growing their craft, connecting them to the teams that need them and building a chapter that makes delivery possible.",
+        nl: "Als Chapter Lead Enablement & Integration geef ik leiding aan de integratiespecialisten: hun vakmanschap laten groeien, ze verbinden met de teams die hen nodig hebben en een chapter bouwen dat delivery mogelijk maakt."
+      },
       link: ""
     },
     {
-      titel: { en: "From firefighting to roadmaps", nl: "Van brandjes blussen naar roadmaps" },
-      tekst: { en: "Multi-year IT roadmaps that moved the organisation from reactive to proactive, with “strategic rest” as the result.", nl: "Meerjarige IT-roadmaps die de organisatie van reactief naar proactief brachten, met ‘strategische rust’ als resultaat." },
+      titel: { en: "CIO-level decks", nl: "Decks op CIO-niveau" },
+      tekst: {
+        en: "Turning complex IT questions into clear stories and choices for the top: decks that help CIOs and leadership decide.",
+        nl: "Complexe IT-vraagstukken vertalen naar heldere verhalen en keuzes voor de top: decks waarmee CIO’s en leiderschap kunnen besluiten."
+      },
       link: ""
     },
     {
-      titel: { en: "One strong division", nl: "Eén sterke divisie" },
-      tekst: { en: "Fragmented departments brought together into one high-performing, unified division through smart organisational design.", nl: "Versnipperde afdelingen samengebracht tot één goed presterende, samenhangende divisie door slim organisatieontwerp." },
+      titel: { en: "Management consultancy assignment", nl: "Management consultancy-opdracht" },
+      tekst: {
+        en: "Organisational design and enterprise transformation: integrating fragmented departments into one high-performing, unified division.",
+        nl: "Organisatieontwerp en enterprise transformatie: versnipperde afdelingen samengebracht tot één goed presterende, samenhangende divisie."
+      },
+      link: ""
+    },
+    {
+      titel: { en: "Strategy: from firefighting to roadmaps", nl: "Strategie: van brandjes blussen naar roadmaps" },
+      tekst: {
+        en: "Multi-year IT roadmaps that moved the organisation from reactive to proactive, with “strategic rest” as the result.",
+        nl: "Meerjarige IT-roadmaps die de organisatie van reactief naar proactief brachten, met ‘strategische rust’ als resultaat."
+      },
+      link: ""
+    },
+    {
+      titel: { en: "Global roll-outs", nl: "Wereldwijde uitrol" },
+      tekst: {
+        en: "End-to-end global implementation of SuccessFactors modules as part of a large-scale IT and HR transformation.",
+        nl: "Wereldwijde end-to-end implementatie van SuccessFactors-modules als onderdeel van een grootschalige IT- en HR-transformatie."
+      },
       link: ""
     }
   ],
@@ -512,7 +545,7 @@ const UI = {
     aboutEyebrow: "Who I am", aboutTitle: "About me",
     expEyebrow: "My path", expTitle: "Experience",
     skillsEyebrow: "What I excel at", skillsTitle: "Skills", radar: "Skills web",
-    projEyebrow: "Featured", projTitle: "Highlights",
+    projEyebrow: "Highlights", projTitle: "Top 5",
     certEyebrow: "Always learning", certTitle: "Certificates", certChart: "Certificates per year", all: "All", earlier: "Earlier",
     eduEyebrow: "Shaped by", eduTitle: "Education",
     langEyebrow: "I speak", langTitle: "Languages", of5: "of 5",
@@ -527,7 +560,7 @@ const UI = {
     aboutEyebrow: "Wie ik ben", aboutTitle: "Over mij",
     expEyebrow: "Mijn pad", expTitle: "Ervaring",
     skillsEyebrow: "Waar ik in uitblink", skillsTitle: "Vaardigheden", radar: "Vaardighedenweb",
-    projEyebrow: "Uitgelicht", projTitle: "Hoogtepunten",
+    projEyebrow: "Hoogtepunten", projTitle: "Top 5",
     certEyebrow: "Altijd blijven leren", certTitle: "Certificaten", certChart: "Certificaten per jaar", all: "Alle", earlier: "Eerder",
     eduEyebrow: "Gevormd door", eduTitle: "Opleiding",
     langEyebrow: "Ik spreek", langTitle: "Talen", of5: "van 5",
@@ -675,10 +708,10 @@ function render() {
 
 <section id="projecten"><div class="wrap">
   <div class="eyebrow">${esc(u.projEyebrow)}</div><h2>${esc(u.projTitle)}</h2>
-  <div class="cards">
+  <div class="cards${P.projecten.length === 5 ? " top5" : ""}">
     ${P.projecten.map((p, i) => `
       <article class="card reveal">
-        <div class="num">${String(i + 1).padStart(2, "0")}</div>
+        <div class="num">${i + 1}</div>
         <h3>${p.link ? `<a href="${esc(p.link)}" style="text-decoration:none">${esc(T(p.titel))} →</a>` : esc(T(p.titel))}</h3>
         <p>${esc(T(p.tekst))}</p>
       </article>`).join("")}
