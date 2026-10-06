@@ -6,21 +6,21 @@
   const NS = "vuurvlieg.com", KEY = "visits";
 
   const css = `
-    .vv-jar { position: fixed; right: 18px; bottom: 16px; z-index: 50; width: 38px; height: 54px; padding: 0;
-      background: none; border: 0; cursor: pointer; opacity: .55; transition: opacity .4s, transform .4s; }
-    .vv-jar:hover, .vv-jar:focus-visible, .vv-jar.open { opacity: 1; transform: translateY(-2px); outline: none; }
+    .vv-jar { position: fixed; right: 16px; bottom: 14px; z-index: 50; width: 26px; height: 37px; padding: 0;
+      background: none; border: 0; cursor: pointer; opacity: .28; transition: opacity .6s, transform .6s; }
+    .vv-jar:hover, .vv-jar:focus-visible, .vv-jar.open { opacity: 1; transform: translateY(-1px); outline: none; opacity: .9; }
     .vv-jar svg { width: 100%; height: 100%; overflow: visible; display: block; }
-    .vv-glass { fill: rgba(200,168,75,.05); stroke: rgba(200,168,75,.55); stroke-width: 1.2; }
-    .vv-shine { fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1.2; stroke-linecap: round; }
-    .vv-cork { fill: #6b5530; }
-    .vv-fly { fill: #aaff44; animation: vv-blink 2.6s ease-in-out infinite, vv-drift 5s ease-in-out infinite; transform-box: fill-box; }
-    @keyframes vv-blink { 0%,100% { opacity: .2 } 50% { opacity: 1; } }
+    .vv-glass { fill: rgba(200,168,75,.03); stroke: rgba(200,168,75,.45); stroke-width: 1.4; }
+    .vv-shine { fill: none; stroke: rgba(255,255,255,.12); stroke-width: 1.2; stroke-linecap: round; }
+    .vv-cork { fill: #4a3c24; }
+    .vv-fly { fill: #aaff44; animation: vv-blink 4s ease-in-out infinite, vv-drift 7s ease-in-out infinite; transform-box: fill-box; }
+    @keyframes vv-blink { 0%,100% { opacity: .1 } 50% { opacity: .75; } }
     @keyframes vv-drift { 0%,100% { transform: translate(0,0) } 33% { transform: translate(2px,-3px) } 66% { transform: translate(-2px,2px) } }
     .vv-tip { position: absolute; right: 0; bottom: calc(100% + 10px); white-space: nowrap; pointer-events: none;
-      font: 12px/1 'Inter', system-ui, sans-serif; letter-spacing: 1.5px; color: #c8a84b;
-      background: rgba(10,10,10,.92); border: 1px solid rgba(200,168,75,.35); padding: 8px 12px; border-radius: 2px;
+      font: 11px/1 'Inter', system-ui, sans-serif; letter-spacing: 1.5px; color: rgba(200,168,75,.8);
+      background: rgba(10,10,10,.85); border: 1px solid rgba(200,168,75,.2); padding: 6px 10px; border-radius: 2px;
       opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
-    .vv-tip b { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-size: 18px; font-weight: 500; color: #e9e4d6; margin-right: 6px; letter-spacing: .5px; }
+    .vv-tip b { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-size: 15px; font-weight: 500; color: #e9e4d6; margin-right: 6px; letter-spacing: .5px; }
     .vv-jar:hover .vv-tip, .vv-jar:focus-visible .vv-tip, .vv-jar.open .vv-tip { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .vv-fly { animation: none; opacity: .8; } }
   `;
