@@ -492,7 +492,7 @@ const PROFIEL = {
 
   /* Ervaring per discipline. Periodes als "JJJJ-MM"; tot: "" = tot nu.
      Periodes mogen overlappen tussen disciplines. De jaren rechts worden
-     automatisch uitgerekend. */
+     automatisch uitgerekend; de volgorde is van meeste naar minste jaren. */
   disciplines: [
     {
       naam: "Leadership",
@@ -523,6 +523,7 @@ const PROFIEL = {
       naam: { en: "IT operations & continuity", nl: "IT-operations & continuïteit" },
       periodes: [
         { van: "2005-02", tot: "2007-08", rol: { en: "Functional Manager – Business Continuity Management", nl: "Functional Manager – Business Continuity Management" } },
+        { van: "2009-01", tot: "2015-10", rol: { en: "IT operations for the global SuccessFactors platform", nl: "IT-operations voor het wereldwijde SuccessFactors-platform" } },
         { van: "2023-01", tot: "2024-01", rol: { en: "IT custodian during a project", nl: "IT custodian tijdens een project" } }
       ]
     }
@@ -738,8 +739,10 @@ function disciplineChart() {
   const ticks = [];
   for (let y = Math.ceil(start / 5) * 5; y <= end; y += 5) ticks.push(`<span style="left:${pct(y)}%">${y}</span>`);
   return `<div class="disc">
-    ${P.disciplines.map(d => {
-      const total = d.periodes.reduce((sum, x) => sum + ym(x.tot) - ym(x.van), 0);
+    ${P.disciplines
+      .map(d => ({ d, total: d.periodes.reduce((sum, x) => sum + ym(x.tot) - ym(x.van), 0) }))
+      .sort((a, b) => b.total - a.total)
+      .map(({ d, total }) => {
       return `<div class="disc-row">
         <div class="disc-name">${esc(T(d.naam))}</div>
         <div class="disc-track">${d.periodes.map(x => { const l = pct(ym(x.van)), w = pct(ym(x.tot)) - l, mid = l + w / 2;
