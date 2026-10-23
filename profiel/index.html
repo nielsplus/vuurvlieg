@@ -248,6 +248,44 @@
     .cards.top5 .card:first-child h3 { font-size: 30px; }
     @media (max-width: 860px) { .cards.top5 .card:first-child { grid-column: auto; } }
 
+    /* Ervaring per discipline */
+    .disc { display: flex; flex-direction: column; gap: 22px; }
+    .disc-row { display: grid; grid-template-columns: 240px 1fr 76px; gap: 20px; align-items: center; }
+    .disc-name { text-align: right; font-size: 15px; color: var(--text); }
+    .disc-track { position: relative; height: 10px; border-radius: 5px; background: #1a1a1a; }
+    .disc-seg {
+      position: absolute; top: 0; bottom: 0; border-radius: 5px; cursor: default; outline: none;
+      background: linear-gradient(90deg, var(--gold), var(--glow)); box-shadow: 0 0 10px rgba(170,255,68,.35);
+      transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    }
+    .disc.lit .disc-seg { transform: scaleX(1); }
+    .disc-seg.now::before {
+      content: ""; position: absolute; right: -1px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%;
+      background: #f0ffe0; box-shadow: 0 0 12px 3px var(--glow);
+    }
+    .disc-seg:hover, .disc-seg:focus { box-shadow: 0 0 16px rgba(170,255,68,.7); z-index: 2; }
+    .disc-seg::after {
+      content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%);
+      width: max-content; max-width: 280px; white-space: normal; text-align: center;
+      font-size: 12.5px; font-style: normal; line-height: 1.45; color: var(--text); background: rgba(10,10,10,.95);
+      border: 1px solid rgba(200,168,75,.35); padding: 8px 12px; border-radius: 2px;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .disc-seg:hover::after, .disc-seg:focus::after { opacity: 1; }
+    .disc-seg.tip-l::after { left: 0; transform: none; text-align: left; }
+    .disc-seg.tip-r::after { left: auto; right: 0; transform: none; text-align: right; }
+    .disc-yrs { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .disc-yrs b { font-family: var(--serif); font-size: 26px; font-weight: 500; color: var(--gold); margin-right: 2px; }
+    .disc-axis-row { margin-top: -8px; }
+    .disc-axis { position: relative; height: 16px; font-size: 11.5px; color: var(--muted); }
+    .disc-axis span { position: absolute; transform: translateX(-50%); }
+    @media (max-width: 700px) {
+      .disc-row { grid-template-columns: 1fr 68px; gap: 6px 14px; }
+      .disc-name { grid-column: 1 / -1; text-align: left; font-size: 14px; }
+      .disc-axis-row .disc-name { display: none; }
+      .disc-seg::after { max-width: 220px; }
+    }
+
     /* Opleiding + talen */
     .duo { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
     .edu { border-top: 1px solid var(--line); }
@@ -452,6 +490,44 @@ const PROFIEL = {
     }
   ],
 
+  /* Ervaring per discipline. Periodes als "JJJJ-MM"; tot: "" = tot nu.
+     Periodes mogen overlappen tussen disciplines. De jaren rechts worden
+     automatisch uitgerekend. */
+  disciplines: [
+    {
+      naam: "Leadership",
+      periodes: [
+        { van: "2007-04", tot: "", rol: { en: "Leading projects, programmes and teams; Chapter Lead since 2025", nl: "Leiding aan projecten, programma’s en teams; Chapter Lead sinds 2025" } }
+      ]
+    },
+    {
+      naam: { en: "Project & programme management", nl: "Project- & programmamanagement" },
+      periodes: [
+        { van: "2005-02", tot: "2015-10", rol: { en: "Projects in Business Continuity Management, then Project Manager and Global Project Manager", nl: "Projecten binnen Business Continuity Management, daarna Project Manager en Global Project Manager" } },
+        { van: "2025-01", tot: "", rol: { en: "Projects and programmes as Chapter Lead", nl: "Projecten en programma’s als Chapter Lead" } }
+      ]
+    },
+    {
+      naam: "Strategy & consulting",
+      periodes: [
+        { van: "2015-11", tot: "2024-12", rol: { en: "IT Strategy, Innovation and Management Consultant", nl: "IT Strategy, Innovation en Management Consultant" } }
+      ]
+    },
+    {
+      naam: { en: "Innovation & transformation", nl: "Innovatie & transformatie" },
+      periodes: [
+        { van: "2021-01", tot: "2024-12", rol: { en: "Innovation Consultant, Enterprise Transformation", nl: "Innovation Consultant, Enterprise Transformatie" } }
+      ]
+    },
+    {
+      naam: { en: "IT operations & continuity", nl: "IT-operations & continuïteit" },
+      periodes: [
+        { van: "2005-02", tot: "2007-08", rol: { en: "Functional Manager – Business Continuity Management", nl: "Functional Manager – Business Continuity Management" } },
+        { van: "2023-01", tot: "2024-01", rol: { en: "IT custodian during a project", nl: "IT custodian tijdens een project" } }
+      ]
+    }
+  ],
+
   vaardigheden: [
     { naam: { en: "IT Strategy", nl: "IT-strategie" }, score: 92 },
     { naam: "People management", score: 88 },
@@ -556,6 +632,7 @@ const UI = {
     aboutEyebrow: "Who I am", aboutTitle: "About me",
     expEyebrow: "My path", expTitle: "Experience",
     skillsEyebrow: "What I excel at", skillsTitle: "Skills", radar: "Skills web",
+    discEyebrow: "Depth", discTitle: "Experience by discipline", yrs: "yrs", now: "now",
     projEyebrow: "Highlights", projTitle: "Top 5",
     certEyebrow: "Always learning", certTitle: "Certificates", certChart: "Certificates per year", all: "All", earlier: "Earlier",
     eduEyebrow: "Shaped by", eduTitle: "Education",
@@ -571,6 +648,7 @@ const UI = {
     aboutEyebrow: "Wie ik ben", aboutTitle: "Over mij",
     expEyebrow: "Mijn pad", expTitle: "Ervaring",
     skillsEyebrow: "Waar ik in uitblink", skillsTitle: "Vaardigheden", radar: "Vaardighedenweb",
+    discEyebrow: "Diepgang", discTitle: "Ervaring per discipline", yrs: "jr", now: "nu",
     projEyebrow: "Hoogtepunten", projTitle: "Top 5",
     certEyebrow: "Altijd blijven leren", certTitle: "Certificaten", certChart: "Certificaten per jaar", all: "Alle", earlier: "Eerder",
     eduEyebrow: "Gevormd door", eduTitle: "Opleiding",
@@ -649,6 +727,34 @@ function certChart() {
       <b>${groups[k].length}</b><em>${esc(k === "earlier" ? t().earlier : k)}</em></button>`).join("");
 }
 
+/* Tijdlijn per discipline */
+const ym = v => { if (!v) { const d = new Date(); return d.getFullYear() + d.getMonth() / 12; } const [y, m] = v.split("-").map(Number); return y + ((m || 1) - 1) / 12; };
+function disciplineChart() {
+  const u = t();
+  const start = Math.floor(Math.min(...P.disciplines.flatMap(d => d.periodes.map(x => ym(x.van))))), end = ym("");
+  const pct = v => ((v - start) / (end - start)) * 100;
+  const fmtYrs = n => (Math.round(n * 2) / 2).toLocaleString(LANG === "nl" ? "nl-NL" : "en-GB");
+  const label = x => `${x.van.slice(0, 4)} – ${x.tot ? x.tot.slice(0, 4) : u.now}`;
+  const ticks = [];
+  for (let y = Math.ceil(start / 5) * 5; y <= end; y += 5) ticks.push(`<span style="left:${pct(y)}%">${y}</span>`);
+  return `<div class="disc">
+    ${P.disciplines.map(d => {
+      const total = d.periodes.reduce((sum, x) => sum + ym(x.tot) - ym(x.van), 0);
+      return `<div class="disc-row">
+        <div class="disc-name">${esc(T(d.naam))}</div>
+        <div class="disc-track">${d.periodes.map(x => { const l = pct(ym(x.van)), w = pct(ym(x.tot)) - l, mid = l + w / 2;
+          /* kleurverloop over de hele tijdlijn: goud = begin, groen = nu */
+          const bg = w < 99.9 ? `background-size:${(100 / w) * 100}% 100%;background-position:${(l / (100 - w)) * 100}% 0;` : "";
+          return `<i class="disc-seg${x.tot ? "" : " now"}${mid < 30 ? " tip-l" : mid > 70 ? " tip-r" : ""}" tabindex="0"
+          style="left:${l}%;width:${w}%;${bg}"
+          data-tip="${esc(label(x))} · ${esc(T(x.rol))}"></i>`; }).join("")}</div>
+        <div class="disc-yrs"><b>${fmtYrs(total)}</b> ${esc(u.yrs)}</div>
+      </div>`;
+    }).join("")}
+    <div class="disc-row disc-axis-row"><div class="disc-name"></div><div class="disc-axis">${ticks.join("")}</div><div class="disc-yrs"></div></div>
+  </div>`;
+}
+
 const app = document.getElementById("app");
 function render() {
   const u = t();
@@ -703,6 +809,11 @@ function render() {
         </div>
       </div>`).join("")}
   </div>
+</div></section>
+
+<section id="disciplines"><div class="wrap">
+  <div class="eyebrow">${esc(u.discEyebrow)}</div><h2>${esc(u.discTitle)}</h2>
+  <div class="reveal">${disciplineChart()}</div>
 </div></section>
 
 <section id="vaardigheden"><div class="wrap">
@@ -792,6 +903,7 @@ function show(el, instant) {
   if (el.classList.contains("tl-item")) instant ? el.classList.add("lit") : setTimeout(() => el.classList.add("lit"), 300);
   el.querySelectorAll("[data-count]").forEach(c => countUp(c, instant));
   el.querySelectorAll(".bar i").forEach(b => b.style.width = b.dataset.w + "%");
+  el.querySelectorAll(".disc").forEach(d => d.classList.add("lit"));
   el.querySelectorAll(".radar-shape").forEach(g => g.style.transform = "scale(1)");
 }
 const io = new IntersectionObserver(entries => {
