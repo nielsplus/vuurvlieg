@@ -259,10 +259,17 @@
       transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
     }
     .disc.lit .disc-seg { transform: scaleX(1); }
-    .disc-seg.now::before {
-      content: ""; position: absolute; right: -1px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%;
-      background: #f0ffe0; box-shadow: 0 0 12px 3px var(--glow);
+    /* Een klein vuurvliegje aan het eind van elke periode */
+    .disc-ff { position: absolute; right: -6px; top: 50%; width: 12px; height: 12px; margin-top: -6px; pointer-events: none; }
+    .disc-ff b {
+      position: absolute; inset: 0; border-radius: 50%; background: #f0ffe0;
+      box-shadow: 0 0 8px 3px rgba(170,255,68,.95), 0 0 26px 10px rgba(170,255,68,.4);
+      animation: disc-ff-fly 6s ease-in-out infinite, disc-ff-glow 3s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
     }
+    .disc-seg:not(.now) .disc-ff b { inset: 2px; }
+    @keyframes disc-ff-fly { 0%,100% { transform: translate(0,0) } 30% { transform: translate(3px,-7px) } 60% { transform: translate(-3px,-3px) } 80% { transform: translate(2px,2px) } }
+    @keyframes disc-ff-glow { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
     .disc-seg:hover, .disc-seg:focus { box-shadow: 0 0 16px rgba(170,255,68,.7); z-index: 2; }
     .disc-seg::after {
       content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%);
@@ -750,7 +757,7 @@ function disciplineChart() {
           const bg = w < 99.9 ? `background-size:${(100 / w) * 100}% 100%;background-position:${(l / (100 - w)) * 100}% 0;` : "";
           return `<i class="disc-seg${x.tot ? "" : " now"}${mid < 30 ? " tip-l" : mid > 70 ? " tip-r" : ""}" tabindex="0"
           style="left:${l}%;width:${w}%;${bg}"
-          data-tip="${esc(label(x))} · ${esc(T(x.rol))}"></i>`; }).join("")}</div>
+          data-tip="${esc(label(x))} · ${esc(T(x.rol))}"><span class="disc-ff"><b style="--d:-${((ym(x.van) * 7.3) % 6).toFixed(1)}s"></b></span></i>`; }).join("")}</div>
         <div class="disc-yrs"><b>${fmtYrs(total)}</b> ${esc(u.yrs)}</div>
       </div>`;
     }).join("")}
