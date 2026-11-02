@@ -116,7 +116,7 @@
       "s": "Logging / Trace",
       "g": "Cloud Logging, Cloud Trace, BigQuery",
       "what": { "nl": "Legt elke stap vast: input, output, model, betrouwbaarheid, besluit en wie goedkeurde.", "en": "Records every step: input, output, model, confidence, decision and who approved." },
-      "why": { "nl": "Een auditor moet achteraf kunnen zien waarom iets gebeurde. Deze visualisatie draait op dezelfde events.", "en": "An auditor must be able to see afterwards why something happened. This visualisation runs on the same events." },
+      "why": { "nl": "Een auditor moet achteraf kunnen zien waarom iets gebeurde.", "en": "An auditor must be able to see afterwards why something happened." },
       "poc": { "nl": "PoC 1 en 2: gestructureerde trace-events, ook gebruikt voor replay.", "en": "PoC 1 and 2: structured trace events, also used for replay." },
       "it": { "nl": "Events in een vast formaat naar de bestaande logging en monitoring, met één trace-id door de hele keten.", "en": "Events in a fixed format to existing logging and monitoring, with one trace id through the whole chain." }
     },
@@ -147,7 +147,7 @@
       "g": { "nl": "Eigen review-UI op Cloud Run", "en": "Own review UI on Cloud Run" },
       "what": { "nl": "Een medewerker ziet het voorstel met context en keurt goed of af. De agent wacht en hervat daarna.", "en": "An employee sees the proposal with context and approves or rejects it. The agent waits and then resumes." },
       "why": { "nl": "Voor onomkeerbare of risicovolle acties blijft een mens verantwoordelijk.", "en": "For irreversible or risky actions a person remains accountable." },
-      "poc": { "nl": "PoC 2: wachtrij met goedkeuren/afwijzen, zoals in deze schets.", "en": "PoC 2: a queue with approve/reject, as in this sketch." },
+      "poc": { "nl": "PoC 2: wachtrij met goedkeuren en afwijzen.", "en": "PoC 2: a queue with approve and reject." },
       "it": { "nl": "Human review laten aansluiten op het bestaande werkproces van medewerkers, in plaats van er een losse tool naast te zetten.", "en": "Fitting human review into employees' existing work process, instead of putting a separate tool next to it." }
     },
     "gemini": {
