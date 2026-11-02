@@ -16,7 +16,7 @@ const U = {
     mapEyebrow: "De plaat",
     title: "De plaat: een agentarchitectuur per level",
     sub: "Een agentarchitectuur voor klantverzoeken bij de fictieve Acme Bank, op Google Cloud. Kies een maturity level en zie de architectuur en de harness meegroeien. Kijk door de integrator-bril en klik op elk blok voor uitleg.",
-    tags: ["fictieve bank", "synthetische data", "publieke Google Cloud-componenten", "conceptschets PoC 1 + 2"],
+    tags: ["fictieve bank", "synthetische data", "publieke Google Cloud-componenten", "conceptschets"],
     lens: "Integrator-bril", controls: "Bediening",
     maturity: "Maturity level", svgT: "Agentarchitectuur",
     svgD: "Kanaal, harness-diensten, agent-runtime met sessiestatus, model en tools, kennisbank en andere agents, API-gateway met MCP-tools, bronsystemen en human review. Welke blokken zichtbaar zijn, hangt af van het gekozen maturity level.",
@@ -37,7 +37,7 @@ const U = {
     introT: "Werkpaneel", hint: "Klik op een blok, een concept of een trend voor uitleg.",
     trend: "Trend", q: ["1. Op welk level?", "2. Welk blok verandert?", "3. Wat betekent het voor de harness?", "4. Wat moet de integrator ermee?"], status: "Atlas", source: "bron", lichtpunt: "lees het lichtpunt",
     onLevel: lv => `Op level ${lv}`, evolT: "Hoe dit blok verandert per level",
-    block: "Bouwblok", gcloud: "Google Cloud", what: "Wat het doet", why: "Waarom het er zit", poc: "In de PoC",
+    block: "Bouwblok", gcloud: "Google Cloud", what: "Wat het doet", why: "Waarom het er zit",
     lvSince: (lv, s) => `level ${lv} · sinds L${s}`, lvFrom: lv => `vanaf level ${lv}`,
     comesAt: (lv, n) => `Komt erbij vanaf level ${lv} (${n}).`, harOff: "Staat nu uit. Zet de harness aan om dit blok mee te laten draaien.",
     concept: (lv, n) => `Concept · level ${lv} (${n})`, relBlocks: "Betrokken blokken", conceptLater: lv => `Dit concept wordt pas belangrijk vanaf level ${lv}. Kies dat level om het in de flow te zien.`,
@@ -52,7 +52,7 @@ const U = {
     mapEyebrow: "The map",
     title: "The map: an agent architecture per level",
     sub: "An agent architecture for customer requests at the fictional Acme Bank, on Google Cloud. Choose a maturity level and watch the architecture and the harness grow. Look through the integrator lens and click any block for an explanation.",
-    tags: ["fictional bank", "synthetic data", "public Google Cloud components", "concept sketch PoC 1 + 2"],
+    tags: ["fictional bank", "synthetic data", "public Google Cloud components", "concept sketch"],
     lens: "Integrator lens", controls: "Controls",
     maturity: "Maturity level", svgT: "Agent architecture",
     svgD: "Channel, harness services, agent runtime with session state, model and tools, knowledge base and other agents, API gateway with MCP tools, source systems and human review. Which blocks are visible depends on the chosen maturity level.",
@@ -73,7 +73,7 @@ const U = {
     introT: "Work panel", hint: "Click a block, a concept or a trend for an explanation.",
     trend: "Trend", q: ["1. Which level?", "2. Which block changes?", "3. What does it mean for the harness?", "4. What should the integrator do with it?"], status: "Atlas", source: "source", lichtpunt: "read the Glimmer",
     onLevel: lv => `At level ${lv}`, evolT: "How this block changes per level",
-    block: "Building block", gcloud: "Google Cloud", what: "What it does", why: "Why it is there", poc: "In the PoC",
+    block: "Building block", gcloud: "Google Cloud", what: "What it does", why: "Why it is there",
     lvSince: (lv, s) => `level ${lv} · since L${s}`, lvFrom: lv => `from level ${lv}`,
     comesAt: (lv, n) => `Added from level ${lv} (${n}).`, harOff: "Currently off. Turn the harness on to let this block take part.",
     concept: (lv, n) => `Concept · level ${lv} (${n})`, relBlocks: "Blocks involved", conceptLater: lv => `This concept only becomes important from level ${lv}. Choose that level to see it in the flow.`,
@@ -101,10 +101,12 @@ function shell() {
   const t = u();
   $("atlas").innerHTML = `
   <section class="fw">
+    <div class="hero-grid"><div>
     <div class="eyebrow">${esc(t.fwEyebrow)}</div>
     <h1 class="lm-title">${esc(t.fwTitle)}</h1>
     <p class="kern">${esc(t.kern)}</p>
     <p class="lead">${esc(t.fwLead)}</p>
+    </div>${Lumen.shield()}</div>
     <div class="eyebrow" style="margin-top:40px">${esc(t.pEyebrow)}</div>
     <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
   </section>
@@ -279,7 +281,7 @@ function showNode(id) {
   let extra = "";
   if (n.lv > S0.lv) extra = '<div class="note n-warn">' + esc(t.comesAt(n.lv, T(LEVELS[n.lv].n))) + "</div>";
   else if (n.har && !S0.h) extra = '<div class="note n-warn">' + esc(t.harOff) + "</div>";
-  $("panel").innerHTML = "<h2>" + esc(t.block) + '</h2><p class="ptitle">' + esc(labelOf(id, S0.lv).l) + "</p><div>" + badge(n.t) + (n.har ? '<span class="badge b-har">harness</span>' : "") + '<span class="badge b-lv">' + esc(n.lv <= S0.lv ? t.lvSince(S0.lv, n.lv) : t.lvFrom(n.lv)) + '</span></div><div class="lbl">' + esc(t.gcloud) + "</div><p>" + esc(T(n.g)) + '</p><div class="lbl">' + esc(t.what) + "</div><p>" + esc(T(n.what)) + "</p>" + evoHtml(id) + '<div class="lbl">' + esc(t.why) + "</div><p>" + esc(T(n.why)) + '</p><div class="lbl">' + esc(t.poc) + "</div><p>" + esc(T(n.poc)) + "</p>" + extra + integNote(n);
+  $("panel").innerHTML = "<h2>" + esc(t.block) + '</h2><p class="ptitle">' + esc(labelOf(id, S0.lv).l) + "</p><div>" + badge(n.t) + (n.har ? '<span class="badge b-har">harness</span>' : "") + '<span class="badge b-lv">' + esc(n.lv <= S0.lv ? t.lvSince(S0.lv, n.lv) : t.lvFrom(n.lv)) + '</span></div><div class="lbl">' + esc(t.gcloud) + "</div><p>" + esc(T(n.g)) + '</p><div class="lbl">' + esc(t.what) + "</div><p>" + esc(T(n.what)) + "</p>" + evoHtml(id) + '<div class="lbl">' + esc(t.why) + "</div><p>" + esc(T(n.why)) + "</p>" + extra + integNote(n);
 }
 function showConcept(c, keep) {
   S0.trendSel = null; if (!keep) S0.concept = S0.concept === c ? null : c; S0.sel = null; paint();

@@ -11,22 +11,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/lumen/assets/lumen.css">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css?v=2026-11-02">
   <style>
     .hero { padding: 88px 0 40px; position: relative; }
     .hero .sub { font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); color: var(--gold); margin-top: 6px; }
-    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: center; }
-    /* Het schild van de homepage: de vuurvlieg is de agent, het schild zijn de controles */
-    .shield { text-align: center; }
-    .shield svg { width: 100%; max-width: 280px; height: auto; overflow: visible; }
-    .shield .agent { animation: roam 16s ease-in-out infinite; }
-    .shield .agent .halo { fill: #aaff44; animation: glow 3s ease-in-out infinite; }
-    @keyframes roam {
-      0%, 100% { transform: translate(0, 0) } 15% { transform: translate(70px, -60px) } 32% { transform: translate(-60px, -90px) }
-      50% { transform: translate(-80px, 60px) } 68% { transform: translate(40px, 140px) } 84% { transform: translate(85px, 20px) }
-    }
-    @keyframes glow { 0%, 100% { opacity: .35; filter: blur(3px) } 50% { opacity: 1; filter: blur(0) } }
-    @media (prefers-reduced-motion: reduce) { .shield .agent, .shield .agent .halo { animation: none; } }
 
     .parts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .part { display: block; text-decoration: none; color: var(--text); position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
@@ -58,13 +46,13 @@
     .about { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
     .about p { color: #c4beae; max-width: 640px; }
     .origin { color: var(--muted); font-size: 14px; max-width: 760px; margin-top: 18px; }
-    @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } .shield { order: -1; } .shield svg { max-width: 150px; } .parts { grid-template-columns: 1fr; } .cycle { grid-template-columns: 1fr 1fr; row-gap: 40px; } .cycle::before, .cycle .ff { display: none; } }
+    @media (max-width: 860px) { .parts { grid-template-columns: 1fr; } .cycle { grid-template-columns: 1fr 1fr; row-gap: 40px; } .cycle::before, .cycle .ff { display: none; } }
     @media (max-width: 480px) { .cycle { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 <main id="app"></main>
-<script src="/lumen/assets/lumen.js"></script>
+<script src="/lumen/assets/lumen.js?v=2026-11-02"></script>
 <script>
 const TXT = {
   en: {
@@ -134,19 +122,7 @@ function render() {
       <p class="kern">${esc(t.kern)}</p>
       <p class="lead">${esc(t.lead)}</p>
     </div>
-    <figure class="shield">
-      <svg viewBox="110 80 380 500" aria-hidden="true">
-        <defs><radialGradient id="sh-bg" cx="50%" cy="45%" r="45%"><stop offset="0%" stop-color="#c8a84b" stop-opacity="0.07"/><stop offset="100%" stop-color="#030303" stop-opacity="0"/></radialGradient></defs>
-        <rect width="600" height="700" fill="url(#sh-bg)"/>
-        <path d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z" fill="#080808"/>
-        <path d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
-        <path d="M300 118 L445 173 V357 Q445 466 300 541 Q155 466 155 357 V173 Z" fill="none" stroke="#c8a84b" stroke-width="0.8" opacity="0.35"/>
-        <g transform="translate(300,300)"><g class="agent">
-          <circle class="halo" r="18"/>
-          <circle r="3" fill="#ffffff" opacity="0.95"/>
-        </g></g>
-      </svg>
-    </figure>
+    ${Lumen.shield()}
   </div></section>
 
   <section class="lm-sec"><div class="wrap">
