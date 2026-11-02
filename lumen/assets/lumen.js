@@ -13,8 +13,8 @@
   const T = v => (v && typeof v === "object" && !Array.isArray(v)) ? (v[LANG] ?? v.nl ?? v.en ?? "") : (v ?? "");
 
   const UI = {
-    en: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Atlas", lights: "Lichtpunten", foot: "Lumen · agentic AI mapped. A personal framework; all names and data in examples are fictional.", loadErr: "This content could not be loaded." },
-    nl: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Atlas", lights: "Lichtpunten", foot: "Lumen · agentic AI in kaart. Een persoonlijk kader; alle namen en data in voorbeelden zijn verzonnen.", loadErr: "Deze inhoud kon niet worden geladen." }
+    en: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lights: "Glimmers", foot: "Lumen · agentic AI, mapped. A personal project; all names and data in examples are fictional.", loadErr: "This content could not be loaded." },
+    nl: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lights: "Lichtpunten", foot: "Lumen · agentic AI in kaart. Een persoonlijk project; alle namen en data in voorbeelden zijn verzonnen.", loadErr: "Deze inhoud kon niet worden geladen." }
   };
   const MONTHS = {
     en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],

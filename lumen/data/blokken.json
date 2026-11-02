@@ -106,7 +106,7 @@
       "s": { "nl": "permissies per actie", "en": "permissions per action" },
       "g": { "nl": "Eigen policy-engine naast IAM", "en": "Own policy engine next to IAM" },
       "what": { "nl": "Bepaalt per actie of de agent mag handelen, eerst een mens moet vragen, of het nooit mag. Bewaakt ook budget en maximaal aantal stappen.", "en": "Decides per action whether the agent may act, must ask a person first, or may never do it. Also guards the budget and the maximum number of steps." },
-      "why": { "nl": "Autonomie wordt een bewuste keuze per risico, niet iets wat het model zelf bepaalt.", "en": "Autonomy becomes a deliberate choice per risk, not something the model decides for itself." },
+      "why": { "nl": "Hoeveel een agent zelf mag, wordt een bewuste keuze per risico, niet iets wat het model zelf bepaalt.", "en": "How much an agent may do on its own becomes a deliberate choice per risk, not something the model decides for itself." },
       "poc": { "nl": "PoC 2: YAML-policy met de klassen \"mag zelf\", \"eerst vragen\" en \"nooit\".", "en": "PoC 2: a YAML policy with the classes \"may act\", \"ask first\" and \"never\"." },
       "it": { "nl": "Risk bepaalt de inhoud. De integrator zorgt dat de policy bij elke actie technisch wordt afgedwongen.", "en": "Risk decides the content. The integrator makes sure the policy is technically enforced on every action." }
     },
