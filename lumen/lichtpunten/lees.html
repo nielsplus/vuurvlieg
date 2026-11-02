@@ -29,8 +29,8 @@
 <script src="/lumen/assets/lumen.js"></script>
 <script>
 const TXT = {
-  en: { back: "← All Lichtpunten", level: "Level", sources: "Sources", atlas: "Show in the Atlas →", notFound: "This Lichtpunt could not be found.", fallback: "Not yet available in English; showing the Dutch version.", st: { volgen: "follow", proberen: "try", inzetten: "adopt" } },
-  nl: { back: "← Alle Lichtpunten", level: "Level", sources: "Bronnen", atlas: "Bekijk in de Atlas →", notFound: "Dit lichtpunt is niet gevonden.", fallback: "Nog niet beschikbaar in het Nederlands; de Engelse versie wordt getoond.", st: { volgen: "volgen", proberen: "proberen", inzetten: "inzetten" } }
+  en: { back: "← All Glimmers", level: "Level", sources: "Sources", atlas: "Show in the Agentic Atlas →", notFound: "This Glimmer could not be found.", fallback: "Not yet available in English; showing the Dutch version.", st: { volgen: "follow", proberen: "try", inzetten: "adopt" } },
+  nl: { back: "← Alle Lichtpunten", level: "Level", sources: "Bronnen", atlas: "Bekijk in de Agentic Atlas →", notFound: "Dit lichtpunt is niet gevonden.", fallback: "Nog niet beschikbaar in het Nederlands; de Engelse versie wordt getoond.", st: { volgen: "volgen", proberen: "proberen", inzetten: "inzetten" } }
 };
 const ID = new URLSearchParams(location.search).get("id") || "";
 const VALID = /^[a-z0-9-]+$/i.test(ID);
@@ -52,7 +52,7 @@ async function render() {
   if (!doc) { app.innerHTML = `<section class="art"><div class="wrap"><a class="back" href="/lumen/lichtpunten/">${esc(t.back)}</a><p class="lead" style="margin-top:24px">${esc(t.notFound)}</p></div></section>`; return; }
   const { meta, body } = Lumen.frontMatter(doc.text);
   const blokken = (meta.blokken || []).map(k => BLOKKEN[k] ? T(BLOKKEN[k].l) : k);
-  document.title = `${meta.titel || "Lichtpunt"} | Lumen`;
+  document.title = `${meta.titel || (Lumen.lang === "nl" ? "Lichtpunt" : "Glimmer")} | Lumen`;
   app.innerHTML = `<section class="art"><div class="wrap">
     <a class="back" href="/lumen/lichtpunten/">${esc(t.back)}</a>
     <h1>${esc(meta.titel || "")}</h1>

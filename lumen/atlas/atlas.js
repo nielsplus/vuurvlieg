@@ -9,7 +9,13 @@ const L = (a, b) => nl() ? a : b;
 /* Vaste teksten van de pagina */
 const U = {
   nl: {
-    title: "Agentic Intake Atlas",
+    fwTitle: "Agentic Atlas", fwLead: "Mijn framework voor agentic AI. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles (de harness) daarin meegroeien. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe ontwikkeling te plaatsen.",
+    kern: "Een agent verdient zijn ruimte met controles, niet andersom.",
+    pEyebrow: "Drie principes",
+    p: [["De harness groeit mee met wat een agent mag.", "Hoe meer een agent zelf mag doen, hoe meer controles erbij komen."], ["Zo deterministisch mogelijk, zo probabilistisch als nodig.", "Het model begrijpt en stelt voor; code valideert, autoriseert en voert uit. Niet elk proces wordt beter met een agent."], ["Het werk zit op de naden.", "Tussen model en code, tussen agent en bronsystemen, en tussen agent en mens. Daar zit de integrator."]],
+    qEyebrow: "Vier vragen bij elke trend", qs: [["Level", "Op welk level hoort het?"], ["Blok", "Welk blok verandert er, of is het een nieuw blok?"], ["Harness", "Wat betekent het voor de harness?"], ["Integrator", "Wat moet de integrator ermee?"]], qNote: "Elk lichtpunt beantwoordt deze vragen en sluit af met volgen, proberen of inzetten. Het antwoord komt in de trendlog onderaan deze pagina.",
+    mapEyebrow: "De plaat",
+    title: "Agentic Intake: één klantverzoek",
     sub: "Een klantverzoek bij de fictieve Acme Bank loopt door een agentarchitectuur op Google Cloud. Kies een maturity level en zie de architectuur en de harness meegroeien. Kijk door de integrator-bril en klik op elk blok voor uitleg.",
     tags: ["fictieve bank", "synthetische data", "publieke Google Cloud-componenten", "conceptschets PoC 1 + 2"],
     scn: "Scenario", scns: { random: "Willekeurige klantverzoeken", adres: "Adreswijziging, alles klopt", fout: "Model maakt een fout", iban: "Rekeningwijziging, hoog risico", inject: "Prompt injection in e-mail" },
@@ -53,7 +59,13 @@ const U = {
     loadErr: "De Atlas kon zijn data niet laden. Open de pagina via de website (of een lokale server), niet als los bestand."
   },
   en: {
-    title: "Agentic Intake Atlas",
+    fwTitle: "Agentic Atlas", fwLead: "My framework for agentic AI. It shows how an agent architecture grows over six maturity levels, and which controls (the harness) grow along with it. I use it to design architectures and to place every new development.",
+    kern: "An agent earns its room to act through controls, not the other way around.",
+    pEyebrow: "Three principles",
+    p: [["The harness grows with what an agent may do.", "The more an agent may do on its own, the more controls are added."], ["As deterministic as possible, as probabilistic as needed.", "The model understands and proposes; code validates, authorises and executes. Not every process gets better with an agent."], ["The work sits on the seams.", "Between model and code, between agent and source systems, and between agent and people. That is where the integrator works."]],
+    qEyebrow: "Four questions for every trend", qs: [["Level", "Which level does it belong to?"], ["Block", "Which block changes, or is it a new block?"], ["Harness", "What does it mean for the harness?"], ["Integrator", "What should the integrator do with it?"]], qNote: "Every Glimmer answers these questions and ends with follow, try or adopt. The answer lands in the trend log at the bottom of this page.",
+    mapEyebrow: "The map",
+    title: "Agentic Intake: one customer request",
     sub: "A customer request at the fictional Acme Bank travels through an agent architecture on Google Cloud. Choose a maturity level and watch the architecture and the harness grow. Look through the integrator lens and click any block for an explanation.",
     tags: ["fictional bank", "synthetic data", "public Google Cloud components", "concept sketch PoC 1 + 2"],
     scn: "Scenario", scns: { random: "Random customer requests", adres: "Address change, all correct", fout: "Model makes a mistake", iban: "Account change, high risk", inject: "Prompt injection in e-mail" },
@@ -81,7 +93,7 @@ const U = {
     introP1: "Choose a maturity level at the top. The architecture grows with it: blocks that are only needed at a higher level stay faint in the background. Blocks with a green subtitle are new or change at this level; click them to see how they develop per level. The route of one customer request builds up step by step with numbered arrows. Turn on \"Whole route\" to see all steps in advance, and click a number to jump to that step.",
     introP2: "Click <b>Next step</b> to follow the request step by step; the request travels through the map as a firefly. Play the same scenario at different levels and see which controls are added. Click a block for an explanation.",
     introN: "From level 4 the flow sometimes stops at Human review. Then you decide, as the employee.",
-    trend: "Trend", q: ["1. Which level?", "2. Which block changes?", "3. What does it mean for the harness?", "4. What should the integrator do with it?"], status: "Status", source: "source", lichtpunt: "read the Lichtpunt",
+    trend: "Trend", q: ["1. Which level?", "2. Which block changes?", "3. What does it mean for the harness?", "4. What should the integrator do with it?"], status: "Status", source: "source", lichtpunt: "read the Glimmer",
     stepOf: (a, b, lv) => `Step ${a} of ${b} · level ${lv}`, in: "In", out: "Out",
     waiting: "The agent has paused and is waiting for your decision.", approve: "Approve", reject: "Reject",
     decided: d => `Decision: ${d === "ok" ? "approved" : "rejected"}. The agent resumes.`, end: "End: ",
@@ -93,7 +105,7 @@ const U = {
     concept: (lv, n) => `Concept · level ${lv} (${n})`, relBlocks: "Blocks involved", conceptLater: lv => `This concept only becomes important from level ${lv}. Choose that level to see it in the flow.`,
     noSteps: "No steps yet. Click Next step.",
     m: ["Steps", "Deterministic", "Model calls", "Errors caught", "Person involved"], yes: "yes", no: "no", waitHuman: "Waiting for a person", outcome: lv => `Outcome at level ${lv}`,
-    hlNote: "Highlighted from a Lichtpunt: the blocks involved have a teal outline.",
+    hlNote: "Highlighted from a Glimmer: the blocks involved have a teal outline.",
     loadErr: "The Atlas could not load its data. Open the page through the website (or a local server), not as a loose file."
   }
 };
@@ -325,9 +337,20 @@ function txt(tag, attrs, s, parent) { const e = el(tag, attrs, parent); e.textCo
 function shell() {
   const t = u();
   $("atlas").innerHTML = `
+  <section class="fw">
+    <div class="eyebrow">Lumen</div>
+    <h1 class="lm-title">${esc(t.fwTitle)}</h1>
+    <p class="kern">${esc(t.kern)}</p>
+    <p class="lead">${esc(t.fwLead)}</p>
+    <div class="eyebrow" style="margin-top:40px">${esc(t.pEyebrow)}</div>
+    <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
+    <div class="eyebrow" style="margin-top:40px">${esc(t.qEyebrow)}</div>
+    <ol class="questions">${t.qs.map((q, i) => `<li><b>${i + 1} · ${esc(q[0])}</b>${esc(q[1])}</li>`).join("")}</ol>
+    <p class="qnote">${esc(t.qNote)}</p>
+  </section>
   <header>
-    <div class="eyebrow">Lumen · Atlas</div>
-    <h1 class="lm-title" style="font-size:clamp(34px,5vw,54px)">${esc(t.title)}</h1>
+    <div class="eyebrow">${esc(t.mapEyebrow)}</div>
+    <h2 class="lm-h2" style="margin-bottom:0">${esc(t.title)}</h2>
     <p class="sub">${esc(t.sub)}</p>
     <div class="tagline">${t.tags.map(x => `<span class="pill">${esc(x)}</span>`).join("")}</div>
   </header>
