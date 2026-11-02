@@ -3,7 +3,7 @@ titel: Eén agent die doelen krijgt in plaats van stappen
 datum: 2026-10-08
 level: 5
 blokken: [orch, gemini, state]
-status: volgen
+status: mapped
 bronnen:
   - https://9to5google.com/2026/10/08/gemini-agent-google-cloud/
 ---
@@ -25,5 +25,5 @@ Taken die dagen duren vragen checkpoints, budgetten en een maximum aan stappen. 
 ## 4. Wat moet de integrator ermee?
 Kerngebied: welke bronnen en API's zo'n agent mag gebruiken, één toegangslaag tot modellen, en hoe het geheugen een storing overleeft.
 
-## Mijn oordeel: volgen
-De richting is duidelijk: van losse agents naar één agent die werk verdeelt. Maar zolang het in private preview is, ligt de waarde vooral in de vragen die het oproept over geheugen en toezicht. Die kun je nu al in een architectuur meenemen.
+## Verwerkt in de Atlas
+De Atlas laat dit op level 5 zien: de orchestrator als router met subagents, het model als modelrouter en sessiestatus als geheugenlaag met vier soorten geheugen. De richting is duidelijk: van losse agents naar één agent die werk verdeelt. Maar zolang het in private preview is, ligt de waarde vooral in de vragen die het oproept over geheugen en toezicht. Die kun je nu al in een architectuur meenemen.

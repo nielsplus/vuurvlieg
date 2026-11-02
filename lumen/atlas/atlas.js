@@ -9,11 +9,10 @@ const L = (a, b) => nl() ? a : b;
 /* Vaste teksten van de pagina */
 const U = {
   nl: {
-    fwTitle: "Agentic Atlas", fwLead: "Mijn framework voor agentic AI. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles (de harness) daarin meegroeien. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe ontwikkeling te plaatsen.",
+    fwEyebrow: "Het framework", fwTitle: "Lumen Agentic Atlas", fwLead: "Mijn framework voor agentic AI. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles (de harness) daarin meegroeien. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe ontwikkeling te plaatsen.",
     kern: "Een agent verdient zijn ruimte met controles, niet andersom.",
     pEyebrow: "Drie principes",
     p: [["De harness groeit mee met wat een agent mag.", "Hoe meer een agent zelf mag doen, hoe meer controles erbij komen."], ["Zo deterministisch mogelijk, zo probabilistisch als nodig.", "Het model begrijpt en stelt voor; code valideert, autoriseert en voert uit. Niet elk proces wordt beter met een agent."], ["Het werk zit op de naden.", "Tussen model en code, tussen agent en bronsystemen, en tussen agent en mens. Daar zit de integrator."]],
-    qEyebrow: "Vier vragen bij elke trend", qs: [["Level", "Op welk level hoort het?"], ["Blok", "Welk blok verandert er, of is het een nieuw blok?"], ["Harness", "Wat betekent het voor de harness?"], ["Integrator", "Wat moet de integrator ermee?"]], qNote: "Elk lichtpunt beantwoordt deze vragen en sluit af met volgen, proberen of inzetten. Het antwoord komt in de trendlog onderaan deze pagina.",
     mapEyebrow: "De plaat",
     title: "De plaat: een agentarchitectuur per level",
     sub: "Een agentarchitectuur voor klantverzoeken bij de fictieve Acme Bank, op Google Cloud. Kies een maturity level en zie de architectuur en de harness meegroeien. Kijk door de integrator-bril en klik op elk blok voor uitleg.",
@@ -23,25 +22,20 @@ const U = {
     svgD: "Kanaal, harness-diensten, agent-runtime met sessiestatus, model en tools, kennisbank en andere agents, API-gateway met MCP-tools, bronsystemen en human review. Welke blokken zichtbaar zijn, hangt af van het gekozen maturity level.",
     lg: { det: "Deterministisch: code", prob: "Probabilistisch: model", human: "Mens beslist", har: "Harness", evo: "Groene ondertitel: nieuw of veranderd op dit level", k: "Kerngebied integrator", m: "Integrator denkt mee" },
     concepts: "Concepten per level", trendlog: "Trendlog",
-    tlead: "Elke nieuwe trend gaat door dezelfde vier vragen: op welk level hoort het, welk blok verandert, wat betekent het voor de harness en wat moet de integrator ermee? Klik op een trend om het antwoord en de betrokken blokken te zien.",
-    th: ["Datum", "Trend", "Level", "Blok", "Status"],
-    checkT: "Toetsen tegen een referentiearchitectuur",
-    checks: ["Waar zit de grens tussen model en deterministische controle?", "Welke data mag het model zien, en wie bepaalt dat?", "Welke acties vragen altijd om een mens?", "Is elke stap herleidbaar voor audit en risk?", "Kun je het model vervangen zonder de harness te herbouwen?"],
+    tlead: "Elke nieuwe trend gaat door dezelfde vier vragen: op welk level hoort het, welk blok verandert, wat betekent het voor de harness en wat moet de integrator ermee? Klik op een trend om het antwoord en de betrokken blokken te zien. Verwerkt = opgenomen in de Atlas; beoordeeld = bekeken, de Atlas verandert (nog) niet.",
+    th: ["Datum", "Trend", "Level", "Blok", "Atlas"],
     foot: "Conceptschets voor een persoonlijk leerproject. Alle namen, klanten en bedragen zijn verzonnen. Componentnamen verwijzen naar publiek beschikbare Google Cloud-diensten (Gemini, Gemini Enterprise Agent Platform met Agent Runtime, Agent Identity, Agent Gateway, Memory Bank en Agent Inbox, Agent Development Kit, Vertex AI Search, Knowledge Catalog, Model Armor, Sensitive Data Protection, IAM, Apigee met MCP, Cloud Logging en Trace) en de open standaarden MCP en A2A.",
     zones: { kan: "Kanaal", mod: "Model en tools", run: "Agent-runtime", ken: "Kennis en agents", bron: "Bronsystemen en data", ctl: "Control plane" },
     harlabel: "HARNESS · GROEIT MEE PER LEVEL",
     type: { det: "CODE", prob: "MODEL", human: "MENS" }, typelong: { det: "deterministisch", prob: "probabilistisch", human: "mens beslist" },
     ir: { kern: "Kerngebied integrator", mee: "Integrator denkt mee", geen: "Vooral andere rollen" },
-    st: { volgen: "volgen", proberen: "proberen", inzetten: "inzetten" },
+    st: { reviewed: "beoordeeld", mapped: "verwerkt" },
     hOn: (a, b) => `Harness op dit level: ${a} van ${b}`, from: "vanaf L",
     integT: "Integrator-bril", integQ: "Waar maakt de integrator het verschil?",
     integP: "De integrator werkt op de naden van het systeem: tussen model en code, tussen agent en bronsystemen, en tussen agent en mens. Gevulde stippen zijn kerngebied, open stippen betekenen meedenken. Blokken zonder stip liggen vooral bij andere rollen.",
     iBelang: "Integratorbelang",
-    introT: "Werkpaneel", introQ: "Hoe lees je deze plaat?",
-    introP1: "Kies bovenaan een maturity level. De architectuur groeit mee: blokken die pas op een hoger level nodig zijn, staan vaag op de achtergrond. Blokken met een groene ondertitel zijn nieuw of veranderen op dit level; klik erop om hun ontwikkeling per level te zien.",
-    introP2: "De lijnen laten zien hoe de blokken samenwerken. Vergelijk twee levels en zie welke controles erbij komen. Zet de <b>integrator-bril</b> aan om te zien waar de integrator het verschil maakt, en klik op een blok voor uitleg.",
-    introN: "Vanaf level 4 beslist bij risicovolle acties een mens: zie Human review.",
-    trend: "Trend", q: ["1. Op welk level?", "2. Welk blok verandert?", "3. Wat betekent het voor de harness?", "4. Wat moet de integrator ermee?"], status: "Status", source: "bron", lichtpunt: "lees het lichtpunt",
+    introT: "Werkpaneel", hint: "Klik op een blok, een concept of een trend voor uitleg.",
+    trend: "Trend", q: ["1. Op welk level?", "2. Welk blok verandert?", "3. Wat betekent het voor de harness?", "4. Wat moet de integrator ermee?"], status: "Atlas", source: "bron", lichtpunt: "lees het lichtpunt",
     onLevel: lv => `Op level ${lv}`, evolT: "Hoe dit blok verandert per level",
     block: "Bouwblok", gcloud: "Google Cloud", what: "Wat het doet", why: "Waarom het er zit", poc: "In de PoC",
     lvSince: (lv, s) => `level ${lv} · sinds L${s}`, lvFrom: lv => `vanaf level ${lv}`,
@@ -51,11 +45,10 @@ const U = {
     loadErr: "De Atlas kon zijn data niet laden. Open de pagina via de website (of een lokale server), niet als los bestand."
   },
   en: {
-    fwTitle: "Agentic Atlas", fwLead: "My framework for agentic AI. It shows how an agent architecture grows over six maturity levels, and which controls (the harness) grow along with it. I use it to design architectures and to place every new development.",
+    fwEyebrow: "The framework", fwTitle: "Lumen Agentic Atlas", fwLead: "My framework for agentic AI. It shows how an agent architecture grows over six maturity levels, and which controls (the harness) grow along with it. I use it to design architectures and to place every new development.",
     kern: "An agent earns its room to act through controls, not the other way around.",
     pEyebrow: "Three principles",
     p: [["The harness grows with what an agent may do.", "The more an agent may do on its own, the more controls are added."], ["As deterministic as possible, as probabilistic as needed.", "The model understands and proposes; code validates, authorises and executes. Not every process gets better with an agent."], ["The work sits on the seams.", "Between model and code, between agent and source systems, and between agent and people. That is where the integrator works."]],
-    qEyebrow: "Four questions for every trend", qs: [["Level", "Which level does it belong to?"], ["Block", "Which block changes, or is it a new block?"], ["Harness", "What does it mean for the harness?"], ["Integrator", "What should the integrator do with it?"]], qNote: "Every Glimmer answers these questions and ends with follow, try or adopt. The answer lands in the trend log at the bottom of this page.",
     mapEyebrow: "The map",
     title: "The map: an agent architecture per level",
     sub: "An agent architecture for customer requests at the fictional Acme Bank, on Google Cloud. Choose a maturity level and watch the architecture and the harness grow. Look through the integrator lens and click any block for an explanation.",
@@ -65,25 +58,20 @@ const U = {
     svgD: "Channel, harness services, agent runtime with session state, model and tools, knowledge base and other agents, API gateway with MCP tools, source systems and human review. Which blocks are visible depends on the chosen maturity level.",
     lg: { det: "Deterministic: code", prob: "Probabilistic: model", human: "A person decides", har: "Harness", evo: "Green subtitle: new or changed at this level", k: "Integrator core area", m: "Integrator contributes" },
     concepts: "Concepts per level", trendlog: "Trend log",
-    tlead: "Every new trend goes through the same four questions: which level does it belong to, which block changes, what does it mean for the harness and what should the integrator do with it? Click a trend to see the answer and the blocks involved.",
-    th: ["Date", "Trend", "Level", "Block", "Status"],
-    checkT: "Testing against a reference architecture",
-    checks: ["Where is the boundary between the model and deterministic control?", "Which data may the model see, and who decides that?", "Which actions always require a person?", "Is every step traceable for audit and risk?", "Can you replace the model without rebuilding the harness?"],
+    tlead: "Every new trend goes through the same four questions: which level does it belong to, which block changes, what does it mean for the harness and what should the integrator do with it? Click a trend to see the answer and the blocks involved. Mapped = worked into the Atlas; reviewed = assessed, the Atlas does not change (yet).",
+    th: ["Date", "Trend", "Level", "Block", "Atlas"],
     foot: "Concept sketch for a personal learning project. All names, customers and amounts are made up. Component names refer to publicly available Google Cloud services (Gemini, Gemini Enterprise Agent Platform with Agent Runtime, Agent Identity, Agent Gateway, Memory Bank and Agent Inbox, Agent Development Kit, Vertex AI Search, Knowledge Catalog, Model Armor, Sensitive Data Protection, IAM, Apigee with MCP, Cloud Logging and Trace) and the open standards MCP and A2A.",
     zones: { kan: "Channel", mod: "Model and tools", run: "Agent runtime", ken: "Knowledge and agents", bron: "Source systems and data", ctl: "Control plane" },
     harlabel: "HARNESS · GROWS WITH EACH LEVEL",
     type: { det: "CODE", prob: "MODEL", human: "HUMAN" }, typelong: { det: "deterministic", prob: "probabilistic", human: "a person decides" },
     ir: { kern: "Integrator core area", mee: "Integrator contributes", geen: "Mostly other roles" },
-    st: { volgen: "follow", proberen: "try", inzetten: "adopt" },
+    st: { reviewed: "reviewed", mapped: "mapped" },
     hOn: (a, b) => `Harness at this level: ${a} of ${b}`, from: "from L",
     integT: "Integrator lens", integQ: "Where does the integrator make the difference?",
     integP: "The integrator works on the seams of the system: between model and code, between agent and source systems, and between agent and people. Filled dots are core area, open dots mean contributing. Blocks without a dot sit mostly with other roles.",
     iBelang: "Integrator relevance",
-    introT: "Work panel", introQ: "How do you read this map?",
-    introP1: "Choose a maturity level at the top. The architecture grows with it: blocks that are only needed at a higher level stay faint in the background. Blocks with a green subtitle are new or change at this level; click them to see how they develop per level.",
-    introP2: "The lines show how the blocks work together. Compare two levels and see which controls are added. Turn on the <b>integrator lens</b> to see where the integrator makes the difference, and click any block for an explanation.",
-    introN: "From level 4 a person decides on risky actions: see Human review.",
-    trend: "Trend", q: ["1. Which level?", "2. Which block changes?", "3. What does it mean for the harness?", "4. What should the integrator do with it?"], status: "Status", source: "source", lichtpunt: "read the Glimmer",
+    introT: "Work panel", hint: "Click a block, a concept or a trend for an explanation.",
+    trend: "Trend", q: ["1. Which level?", "2. Which block changes?", "3. What does it mean for the harness?", "4. What should the integrator do with it?"], status: "Atlas", source: "source", lichtpunt: "read the Glimmer",
     onLevel: lv => `At level ${lv}`, evolT: "How this block changes per level",
     block: "Building block", gcloud: "Google Cloud", what: "What it does", why: "Why it is there", poc: "In the PoC",
     lvSince: (lv, s) => `level ${lv} · since L${s}`, lvFrom: lv => `from level ${lv}`,
@@ -113,15 +101,12 @@ function shell() {
   const t = u();
   $("atlas").innerHTML = `
   <section class="fw">
-    <div class="eyebrow">Lumen</div>
+    <div class="eyebrow">${esc(t.fwEyebrow)}</div>
     <h1 class="lm-title">${esc(t.fwTitle)}</h1>
     <p class="kern">${esc(t.kern)}</p>
     <p class="lead">${esc(t.fwLead)}</p>
     <div class="eyebrow" style="margin-top:40px">${esc(t.pEyebrow)}</div>
     <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
-    <div class="eyebrow" style="margin-top:40px">${esc(t.qEyebrow)}</div>
-    <ol class="questions">${t.qs.map((q, i) => `<li><b>${i + 1} · ${esc(q[0])}</b>${esc(q[1])}</li>`).join("")}</ol>
-    <p class="qnote">${esc(t.qNote)}</p>
   </section>
   <header>
     <div class="eyebrow">${esc(t.mapEyebrow)}</div>
@@ -152,7 +137,6 @@ function shell() {
   <section class="card"><h2>${esc(t.concepts)}</h2><div class="chips" id="chips"></div></section>
   <section class="card"><h2>${esc(t.trendlog)}</h2><p class="tlead">${esc(t.tlead)}</p>
     <div class="tlwrap"><table class="tl"><thead><tr>${t.th.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody id="trendrows"></tbody></table></div></section>
-  <section class="card"><h2>${esc(t.checkT)}</h2><ul class="checklist">${t.checks.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>
   <p class="foot">${esc(t.foot)}</p>`;
   svg = $("svg");
 }
@@ -261,7 +245,7 @@ function renderIntro() {
     $("panel").innerHTML = "<h2>" + esc(t.integT) + '</h2><p class="ptitle">' + esc(t.integQ) + "</p><p>" + esc(t.integP) + '</p><ul class="ilist">' + LEVELS.map((lvl, i) => "<li><b>L" + i + '</b><span><span class="w">' + esc(T(lvl.iw)) + ".</span> " + esc(T(lvl.it)) + "</span></li>").join("") + "</ul>";
     return;
   }
-  $("panel").innerHTML = "<h2>" + esc(t.introT) + '</h2><p class="ptitle">' + esc(t.introQ) + "</p><p>" + esc(t.introP1) + "</p><p>" + t.introP2 + '</p><div class="note n-human">' + esc(t.introN) + "</div>" + (HL.length ? '<div class="note n-ok" style="background:var(--harness-soft);color:var(--harness)">' + esc(t.hlNote) + "</div>" : "");
+  $("panel").innerHTML = "<h2>" + esc(t.introT) + '</h2><p class="hint">' + esc(t.hint) + "</p>" + (HL.length ? '<div class="note n-ok" style="background:var(--harness-soft);color:var(--harness)">' + esc(t.hlNote) + "</div>" : "");
 }
 function renderTrends() {
   const tb = $("trendrows"); if (!tb) return; const t = u();

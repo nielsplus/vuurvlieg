@@ -33,6 +33,10 @@ a { color: var(--gold); }
 a:hover { color: #e0c262; }
 :focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
 
+/* Vuurvliegjes achter de inhoud, zoals op het profiel */
+#fireflies { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+main, footer.lm-foot { position: relative; z-index: 1; }
+
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 .wrap.wide { max-width: 1320px; }
 
@@ -68,8 +72,7 @@ section.lm-sec { padding: 64px 0; }
 
 /* Status van een trend */
 .st { display: inline-block; font: 500 11.5px var(--mono); padding: 3px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
-.st-proberen { border-color: rgba(181,156,255,.5); color: var(--model-ink); background: rgba(181,156,255,.08); }
-.st-inzetten { border-color: rgba(170,255,68,.45); color: var(--glow); background: rgba(170,255,68,.07); }
+.st-mapped { border-color: rgba(170,255,68,.45); color: var(--glow); background: rgba(170,255,68,.07); }
 
 /* Lichtpunt-artikel (Markdown) */
 .md { max-width: 720px; }

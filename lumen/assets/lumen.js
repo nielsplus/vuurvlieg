@@ -123,6 +123,46 @@
     els.forEach(e => io.observe(e));
   }
 
+  /* Zwevende vuurvliegjes op de achtergrond, dezelfde als op het profiel */
+  function fireflies() {
+    if (document.getElementById("fireflies")) return;
+    const c = document.createElement("canvas"); c.id = "fireflies"; c.setAttribute("aria-hidden", "true");
+    document.body.prepend(c);
+    const ctx = c.getContext("2d"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let w, h, flies = [];
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = innerWidth; h = innerHeight;
+      c.width = w * dpr; c.height = h * dpr; c.style.width = w + "px"; c.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.round(Math.min(40, (w * h) / 32000));
+      flies = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25,
+        r: 1 + Math.random() * 1.8, p: Math.random() * Math.PI * 2, s: .008 + Math.random() * .018
+      }));
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const f of flies) {
+        if (!reduce) {
+          f.p += f.s; f.x += f.vx + Math.sin(f.p * .7) * .15; f.y += f.vy + Math.cos(f.p * .5) * .15;
+          if (f.x < -20) f.x = w + 20; if (f.x > w + 20) f.x = -20;
+          if (f.y < -20) f.y = h + 20; if (f.y > h + 20) f.y = -20;
+        }
+        const a = .15 + .85 * Math.pow((Math.sin(f.p) + 1) / 2, 3);
+        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * 9);
+        g.addColorStop(0, `rgba(170,255,68,${.5 * a})`);
+        g.addColorStop(1, "rgba(170,255,68,0)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(f.x, f.y, f.r * 9, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(240,255,220,${a})`; ctx.beginPath(); ctx.arc(f.x, f.y, f.r * .6, 0, Math.PI * 2); ctx.fill();
+      }
+      if (!reduce) requestAnimationFrame(draw);
+    };
+    addEventListener("resize", () => { resize(); if (reduce) draw(); });
+    resize(); draw();
+  }
+
   window.Lumen = {
     get lang() { return LANG; },
     T, esc, json, month, fullDate, frontMatter, markdown, reveal,
@@ -131,6 +171,7 @@
     start(key, render) {
       active = key;
       header();
+      fireflies();
       if (render) { renderers.push(render); render(false); }
     }
   };
