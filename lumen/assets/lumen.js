@@ -163,9 +163,25 @@
     resize(); draw();
   }
 
+  /* Het schild van de homepage met één vuurvlieg erin: de agent binnen zijn controles */
+  const SHIELD = `<figure class="shield">
+  <svg viewBox="110 80 380 500" aria-hidden="true">
+    <defs><radialGradient id="sh-bg" cx="50%" cy="45%" r="45%"><stop offset="0%" stop-color="#c8a84b" stop-opacity="0.07"/><stop offset="100%" stop-color="#030303" stop-opacity="0"/></radialGradient></defs>
+    <rect width="600" height="700" fill="url(#sh-bg)"/>
+    <path d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z" fill="#080808"/>
+    <path d="M300 100 L460 160 V360 Q460 480 300 560 Q140 480 140 360 V160 Z" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
+    <path d="M300 118 L445 173 V357 Q445 466 300 541 Q155 466 155 357 V173 Z" fill="none" stroke="#c8a84b" stroke-width="0.8" opacity="0.35"/>
+    <g transform="translate(300,300)"><g class="agent">
+      <circle class="halo" r="18"/>
+      <circle r="3" fill="#ffffff" opacity="0.95"/>
+    </g></g>
+  </svg>
+</figure>`;
+
   window.Lumen = {
     get lang() { return LANG; },
     T, esc, json, month, fullDate, frontMatter, markdown, reveal,
+    shield: () => SHIELD,
     ui: k => UI[LANG][k],
     /* start("atlas", render): kopregel tekenen en render(isSwitch) nu en bij elke taalwissel aanroepen */
     start(key, render) {
