@@ -1,0 +1,79 @@
+{
+  "_uitleg": "Eén databron voor de trendlog in de Atlas en de tijdlijn van de Lichtpunten. Nieuwe trend = één object in 'trends'. Nieuw lichtpunt = één object in 'lichtpunten' plus twee Markdown-bestanden in lumen/lichtpunten/<id>.nl.md en <id>.en.md. datum = JJJJ-MM of JJJJ-MM-DD. st = volgen, proberen of inzetten. rel = betrokken blokken (sleutels uit blokken.json). lichtpunt = id van het lichtpunt waar de trend in wordt uitgewerkt (optioneel).",
+  "lichtpunten": [
+    {
+      "id": "2026-10-gemini-agent",
+      "datum": "2026-10-08",
+      "lv": 5,
+      "rel": ["orch", "gemini", "state"],
+      "st": "volgen",
+      "t": { "nl": "Eén agent die doelen krijgt in plaats van stappen", "en": "One agent that gets goals instead of steps" },
+      "samenvatting": { "nl": "De Gemini agent verdeelt werk over sub-agents, kiest per taak een model en heeft vier soorten geheugen. Drie blokken veranderen tegelijk: een goede test voor het kader.", "en": "The Gemini agent distributes work over sub-agents, chooses a model per task and has four kinds of memory. Three blocks change at once: a good test for the framework." }
+    }
+  ],
+  "trends": [
+    {
+      "datum": "2026-10", "lv": 5, "rel": ["orch", "a2a"], "st": "volgen", "lichtpunt": "2026-10-gemini-agent",
+      "src": "https://9to5google.com/2026/10/08/gemini-agent-google-cloud/",
+      "t": { "nl": "Universele Gemini agent met sub-agents", "en": "Universal Gemini agent with sub-agents" },
+      "wat": { "nl": "Eén agent voor werk die doelen krijgt in plaats van stappen, werk verdeelt over sub-agents en taken uitvoert die uren of dagen duren. Nog in private preview.", "en": "One agent for work that gets goals instead of steps, distributes work over sub-agents and carries out tasks that take hours or days. Still in private preview." },
+      "blok": { "nl": "Agent-orchestrator wordt een router met subagents.", "en": "The agent orchestrator becomes a router with sub-agents." },
+      "har": { "nl": "Langlopende taken vragen checkpoints, budgetten en een maximum aan stappen.", "en": "Long-running tasks need checkpoints, budgets and a maximum number of steps." },
+      "int": { "nl": "Kerngebied: welke bronnen en API's zo'n agent mag gebruiken, en hoe je dat afschermt.", "en": "Core area: which sources and APIs such an agent may use, and how you shield that." }
+    },
+    {
+      "datum": "2026-10", "lv": 5, "rel": ["state"], "st": "volgen", "lichtpunt": "2026-10-gemini-agent",
+      "src": "https://9to5google.com/2026/10/08/gemini-agent-google-cloud/",
+      "t": { "nl": "Vier soorten agentgeheugen", "en": "Four kinds of agent memory" },
+      "wat": { "nl": "Sessie-, semantisch, procedureel (inclusief zelfgeschreven skills) en episodisch geheugen.", "en": "Session, semantic, procedural (including self-written skills) and episodic memory." },
+      "blok": { "nl": "Sessiestatus wordt een geheugenlaag met vier soorten.", "en": "Session state becomes a memory layer with four kinds." },
+      "har": { "nl": "Wat mag een agent onthouden, hoe lang, en zit er PII in het geheugen?", "en": "What may an agent remember, for how long, and is there PII in the memory?" },
+      "int": { "nl": "Meedenken: bewaartermijnen, opslag en herstel na een storing.", "en": "Contributing: retention periods, storage and recovery after an outage." }
+    },
+    {
+      "datum": "2026-10", "lv": 5, "rel": ["gemini"], "st": "proberen", "lichtpunt": "2026-10-gemini-agent",
+      "src": "https://9to5google.com/2026/10/08/gemini-agent-google-cloud/",
+      "t": { "nl": "Modelrouting over aanbieders heen", "en": "Model routing across providers" },
+      "wat": { "nl": "Per taak het beste model kiezen, waaronder Gemini en modellen van andere aanbieders.", "en": "Choosing the best model per task, including Gemini and models from other providers." },
+      "blok": { "nl": "Gemini wordt een modelrouter.", "en": "Gemini becomes a model router." },
+      "har": { "nl": "Dezelfde controles ongeacht het model; evals per model voordat het mag meedraaien.", "en": "The same checks whatever the model; evals per model before it may join in." },
+      "int": { "nl": "Kerngebied: één toegangslaag tot modellen, met kosten- en latencybewaking.", "en": "Core area: one access layer to models, with cost and latency monitoring." }
+    },
+    {
+      "datum": "2026-04", "lv": 4, "rel": ["ident", "gateway"], "st": "inzetten",
+      "src": "https://www.forrester.com/blogs/google-cloud-next-2026-the-end-of-the-ai-pilot-era/",
+      "t": { "nl": "Agent Identity algemeen beschikbaar", "en": "Agent Identity generally available" },
+      "wat": { "nl": "Elke agent een eigen cryptografische identiteit, met een auditbaar spoor van zijn acties.", "en": "Every agent its own cryptographic identity, with an auditable trail of its actions." },
+      "blok": { "nl": "Agentidentiteit krijgt een standaardinvulling.", "en": "Agent identity gets a standard implementation." },
+      "har": { "nl": "Least privilege wordt afdwingbaar per agent in plaats van per team.", "en": "Least privilege becomes enforceable per agent instead of per team." },
+      "int": { "nl": "Kerngebied: scopes per agent ontwerpen en laten afdwingen door de gateway.", "en": "Core area: designing scopes per agent and having the gateway enforce them." }
+    },
+    {
+      "datum": "2026-04", "lv": 4, "rel": ["gateway"], "st": "proberen",
+      "src": "https://kartaca.com/en/welcoming-the-agentic-era-with-gemini-enterprise-agent-platform/",
+      "t": "Agent Gateway",
+      "wat": { "nl": "Beheert veilige verbindingen tussen agents, tools en data, met bescherming tegen prompt injection en datalekken.", "en": "Manages secure connections between agents, tools and data, with protection against prompt injection and data leaks." },
+      "blok": { "nl": "API-gateway wordt Agent Gateway, met Apigee erachter voor bestaande API's.", "en": "The API gateway becomes Agent Gateway, with Apigee behind it for existing APIs." },
+      "har": { "nl": "Bescherming centraal in plaats van per agent.", "en": "Protection centrally instead of per agent." },
+      "int": { "nl": "Kerngebied: hoe Agent Gateway en de bestaande API-gateway samenwerken.", "en": "Core area: how Agent Gateway and the existing API gateway work together." }
+    },
+    {
+      "datum": "2026-04", "lv": 5, "rel": ["hitl"], "st": "volgen",
+      "src": "https://kartaca.com/en/welcoming-the-agentic-era-with-gemini-enterprise-agent-platform/",
+      "t": { "nl": "Agent Inbox voor toezicht", "en": "Agent Inbox for oversight" },
+      "wat": { "nl": "Managers volgen agents realtime en sturen ze bij.", "en": "Managers follow agents in real time and steer them." },
+      "blok": { "nl": "Human review wordt toezicht op veel agents tegelijk.", "en": "Human review becomes oversight of many agents at once." },
+      "har": { "nl": "Mensen beoordelen uitzonderingen in plaats van elke actie.", "en": "People review exceptions instead of every action." },
+      "int": { "nl": "Meedenken: aansluiten op bestaande werkprocessen van medewerkers.", "en": "Contributing: fitting into employees' existing work processes." }
+    },
+    {
+      "datum": "2026-04", "lv": 3, "rel": ["data"], "st": "proberen",
+      "src": "https://kartaca.com/en/welcoming-the-agentic-era-with-gemini-enterprise-agent-platform/",
+      "t": { "nl": "Knowledge Catalog en Agentic Data Cloud", "en": "Knowledge Catalog and Agentic Data Cloud" },
+      "wat": { "nl": "Agents begrijpen bedrijfsspecifieke termen en context over databronnen heen.", "en": "Agents understand business-specific terms and context across data sources." },
+      "blok": { "nl": "Data-access-API krijgt een semantische laag uit de catalogus.", "en": "The data access API gets a semantic layer from the catalogue." },
+      "har": { "nl": "Toegangsregels en betekenis komen uit dezelfde metadata.", "en": "Access rules and meaning come from the same metadata." },
+      "int": { "nl": "Kerngebied: metadata omzetten naar toolbeschrijvingen en API-logica.", "en": "Core area: turning metadata into tool descriptions and API logic." }
+    }
+  ]
+}
