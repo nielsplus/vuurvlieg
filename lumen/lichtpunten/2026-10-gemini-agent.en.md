@@ -3,7 +3,7 @@ titel: One agent that gets goals instead of steps
 datum: 2026-10-08
 level: 5
 blokken: [orch, gemini, state]
-status: volgen
+status: mapped
 bronnen:
   - https://9to5google.com/2026/10/08/gemini-agent-google-cloud/
 ---
@@ -25,5 +25,5 @@ Tasks that take days need checkpoints, budgets and a maximum number of steps. Me
 ## 4. What should the integrator do with it?
 Core area: which sources and APIs such an agent may use, one access layer to models, and how the memory survives an outage.
 
-## My verdict: follow
-The direction is clear: from separate agents to one agent that distributes work. But as long as it is in private preview, the value lies mainly in the questions it raises about memory and oversight. You can already take those into account in an architecture today.
+## Mapped
+The Atlas shows this at level 5: the orchestrator as a router with sub-agents, the model as a model router and session state as a memory layer with four kinds of memory. The direction is clear: from separate agents to one agent that distributes work. But as long as it is in private preview, the value lies mainly in the questions it raises about memory and oversight. You can already take those into account in an architecture today.
