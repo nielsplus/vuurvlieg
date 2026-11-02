@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Lichtpunt | Lumen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css">
+  <style>
+    .art { padding: 64px 0 40px; }
+    .back { font-size: 13px; letter-spacing: 1px; text-decoration: none; }
+    .art h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(34px, 5.5vw, 52px); line-height: 1.1; margin: 18px 0 18px; max-width: 820px; }
+    .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 13px; color: var(--muted); padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 30px; max-width: 720px; }
+    .facts .lv { font-family: var(--mono); color: var(--gold); }
+    .facts .blk { border: 1px solid var(--line); border-radius: 99px; padding: 2px 9px; color: var(--text); font-size: 12px; }
+    .sources { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line); max-width: 720px; font-size: 13.5px; color: var(--muted); }
+    .sources a { word-break: break-all; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .note { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  </style>
+</head>
+<body>
+<main id="app"></main>
+<script src="/lumen/assets/lumen.js"></script>
+<script>
+const TXT = {
+  en: { back: "← All Lichtpunten", level: "Level", sources: "Sources", atlas: "Show in the Atlas →", notFound: "This Lichtpunt could not be found.", fallback: "Not yet available in English; showing the Dutch version.", st: { volgen: "follow", proberen: "try", inzetten: "adopt" } },
+  nl: { back: "← Alle Lichtpunten", level: "Level", sources: "Bronnen", atlas: "Bekijk in de Atlas →", notFound: "Dit lichtpunt is niet gevonden.", fallback: "Nog niet beschikbaar in het Nederlands; de Engelse versie wordt getoond.", st: { volgen: "volgen", proberen: "proberen", inzetten: "inzetten" } }
+};
+const ID = new URLSearchParams(location.search).get("id") || "";
+const VALID = /^[a-z0-9-]+$/i.test(ID);
+let BLOKKEN = {}, CACHE = {};
+
+/* Haal de Markdown op in de gekozen taal; valt terug op de andere taal als die er (nog) niet is */
+async function load(lang) {
+  if (CACHE[lang]) return CACHE[lang];
+  const tryLang = async l => { const r = await fetch(`/lumen/lichtpunten/${ID}.${l}.md`, { cache: "no-cache" }); if (!r.ok) throw 0; return r.text(); };
+  try { CACHE[lang] = { text: await tryLang(lang), lang }; }
+  catch (e) { const other = lang === "nl" ? "en" : "nl"; CACHE[lang] = { text: await tryLang(other), lang: other }; }
+  return CACHE[lang];
+}
+
+async function render() {
+  const t = TXT[Lumen.lang], { T, esc } = Lumen, app = document.getElementById("app");
+  let doc = null;
+  if (VALID) { try { doc = await load(Lumen.lang); } catch (e) {} }
+  if (!doc) { app.innerHTML = `<section class="art"><div class="wrap"><a class="back" href="/lumen/lichtpunten/">${esc(t.back)}</a><p class="lead" style="margin-top:24px">${esc(t.notFound)}</p></div></section>`; return; }
+  const { meta, body } = Lumen.frontMatter(doc.text);
+  const blokken = (meta.blokken || []).map(k => BLOKKEN[k] ? T(BLOKKEN[k].l) : k);
+  document.title = `${meta.titel || "Lichtpunt"} | Lumen`;
+  app.innerHTML = `<section class="art"><div class="wrap">
+    <a class="back" href="/lumen/lichtpunten/">${esc(t.back)}</a>
+    <h1>${esc(meta.titel || "")}</h1>
+    <div class="facts">
+      ${meta.datum ? `<span>${esc(Lumen.fullDate(meta.datum))}</span>` : ""}
+      ${meta.level ? `<span class="lv">${esc(t.level)} ${esc(meta.level)}</span>` : ""}
+      ${blokken.map(b => `<span class="blk">${esc(b)}</span>`).join("")}
+      ${meta.status ? `<span class="st st-${esc(meta.status)}">${esc(t.st[meta.status] || meta.status)}</span>` : ""}
+    </div>
+    ${doc.lang !== Lumen.lang ? `<p class="note">${esc(t.fallback)}</p>` : ""}
+    <article class="md">${Lumen.markdown(body)}</article>
+    ${(meta.bronnen || []).length ? `<div class="sources">${esc(t.sources)}: ${meta.bronnen.filter(u => /^https?:\/\//.test(u)).map(u => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(u)}</a>`).join(" · ")}</div>` : ""}
+    <div class="actions">
+      ${meta.level ? `<a class="lm-btn" href="/lumen/atlas/?lv=${encodeURIComponent(meta.level)}${(meta.blokken || []).length ? "&blokken=" + encodeURIComponent(meta.blokken.join(",")) : ""}">${esc(t.atlas)}</a>` : ""}
+      <a class="lm-btn" href="/lumen/lichtpunten/">${esc(t.back)}</a>
+    </div>
+  </div></section>`;
+}
+Lumen.json("/lumen/data/blokken.json").then(d => { BLOKKEN = d.blokken; render(); }).catch(() => {});
+Lumen.start("lights", render);
+</script>
+</body>
+</html>

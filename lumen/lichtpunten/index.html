@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Lichtpunten | Lumen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css">
+  <style>
+    .head { padding: 72px 0 24px; }
+    .tl { position: relative; padding-left: 40px; margin-top: 24px; }
+    .tl::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(var(--gold), rgba(200,168,75,.08)); }
+    .month { position: relative; margin-bottom: 44px; }
+    .month-dot { position: absolute; left: -40px; top: 2px; width: 23px; height: 23px; border-radius: 50%; border: 1px solid var(--gold-soft); background: var(--bg); display: flex; align-items: center; justify-content: center; }
+    .month-dot::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 12px 3px rgba(170,255,68,.6); animation: lp-pulse 3s ease-in-out infinite; }
+    @keyframes lp-pulse { 0%,100% { opacity: .45 } 50% { opacity: 1 } }
+    .month h2 { font-family: var(--serif); font-weight: 500; font-size: 26px; text-transform: capitalize; margin-bottom: 14px; }
+    .lp { display: block; text-decoration: none; color: var(--text); margin-bottom: 12px; transition: border-color .3s, transform .3s; }
+    .lp:hover { border-color: var(--gold-soft); transform: translateX(4px); color: var(--text); }
+    .lp .tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--glow); }
+    .lp h3 { font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1.2; margin: 6px 0 8px; }
+    .lp p { color: #c4beae; font-size: 15px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+    .meta .lv { font-family: var(--mono); color: var(--gold); }
+    .lp .go { color: var(--gold); font-size: 13px; letter-spacing: 1px; margin-left: auto; }
+    .trend { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+    .trend b { font-weight: 500; color: var(--text); }
+    .trend .w { grid-column: 1 / -1; color: var(--muted); font-size: 14px; }
+    .trend .src { font-size: 12.5px; }
+    .empty { color: var(--muted); }
+  </style>
+</head>
+<body>
+<main id="app"></main>
+<script src="/lumen/assets/lumen.js"></script>
+<script>
+const TXT = {
+  en: { eyebrow: "Lumen", title: "Lichtpunten", lead: "Every month one new trend in agentic AI, placed in the Earned Autonomy framework with the same four questions. Smaller trends get one line. Newest first.", note: "Lichtpunt", read: "Read →", trends: "Trends this month", src: "source", st: { volgen: "follow", proberen: "try", inzetten: "adopt" }, err: "The Lichtpunten could not be loaded." },
+  nl: { eyebrow: "Lumen", title: "Lichtpunten", lead: "Elke maand één nieuwe trend in agentic AI, geplaatst in het kader Earned Autonomy met dezelfde vier vragen. Kleinere trends krijgen één regel. Nieuwste boven.", note: "Lichtpunt", read: "Lezen →", trends: "Trends deze maand", src: "bron", st: { volgen: "volgen", proberen: "proberen", inzetten: "inzetten" }, err: "De Lichtpunten konden niet worden geladen." }
+};
+let DATA = null, FAILED = false;
+
+function render() {
+  const t = TXT[Lumen.lang], { T, esc } = Lumen;
+  let body = "";
+  if (FAILED) body = `<p class="empty">${esc(t.err)}</p>`;
+  else if (DATA) {
+    /* Groeperen per maand, nieuwste boven */
+    const months = {};
+    DATA.lichtpunten.forEach(l => (months[l.datum.slice(0, 7)] ??= { lp: [], tr: [] }).lp.push(l));
+    DATA.trends.forEach(x => (months[x.datum.slice(0, 7)] ??= { lp: [], tr: [] }).tr.push(x));
+    body = `<div class="tl">${Object.keys(months).sort().reverse().map(m => `
+      <div class="month reveal"><div class="month-dot"></div><h2>${esc(Lumen.month(m))}</h2>
+        ${months[m].lp.map(l => `<a class="lm-card lp" href="/lumen/lichtpunten/lees.html?id=${encodeURIComponent(l.id)}">
+          <span class="tag">${esc(t.note)}</span><h3>${esc(T(l.t))}</h3><p>${esc(T(l.samenvatting))}</p>
+          <div class="meta"><span class="lv">L${l.lv}</span><span class="st st-${esc(l.st)}">${esc(t.st[l.st] || l.st)}</span><span>${esc(Lumen.fullDate(l.datum))}</span><span class="go">${esc(t.read)}</span></div></a>`).join("")}
+        ${months[m].tr.map(x => `<div class="trend"><b>${esc(T(x.t))}</b><span><span class="st st-${esc(x.st)}">${esc(t.st[x.st] || x.st)}</span></span>
+          <span class="w">L${x.lv} · ${esc(T(x.wat))} ${x.src ? `<a class="src" href="${esc(x.src)}" rel="noopener" target="_blank">${esc(t.src)}</a>` : ""}</span></div>`).join("")}
+      </div>`).join("")}</div>`;
+  }
+  document.getElementById("app").innerHTML = `<section class="head"><div class="wrap">
+    <div class="eyebrow">${esc(t.eyebrow)}</div><h1 class="lm-title">${esc(t.title)}</h1><p class="lead" style="margin-top:18px">${esc(t.lead)}</p>
+  </div></section><section style="padding-bottom:40px"><div class="wrap">${body}</div></section>`;
+  Lumen.reveal();
+}
+Lumen.json("/lumen/data/trends.json").then(d => { DATA = d; render(); }).catch(() => { FAILED = true; render(); });
+Lumen.start("lights", render);
+</script>
+</body>
+</html>

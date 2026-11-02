@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Lumen | vuurvlieg.com</title>
+  <meta name="description" content="Lumen: agentic AI mapped. Earned Autonomy, a framework for agentic AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css">
+  <style>
+    .hero { padding: 88px 0 48px; position: relative; }
+    .hero .kern { font-family: var(--serif); font-style: italic; font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; color: var(--text); margin: 26px 0 22px; max-width: 760px; border-left: 1px solid var(--gold); padding-left: 22px; }
+    .hero .fly { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #f0ffe0; box-shadow: 0 0 10px 3px rgba(170,255,68,.8), 0 0 30px 10px rgba(170,255,68,.25); animation: lm-fly 7s ease-in-out infinite, lm-pulse 3s ease-in-out infinite; }
+    @keyframes lm-fly { 0%,100% { transform: translate(0,0) } 33% { transform: translate(10px,-14px) } 66% { transform: translate(-8px,6px) } }
+    @keyframes lm-pulse { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: p; }
+    .principle { position: relative; }
+    .principle .n { font-family: var(--serif); font-size: 52px; line-height: .9; color: transparent; -webkit-text-stroke: 1px var(--gold); opacity: .85; }
+    .principle h3 { font-family: var(--serif); font-weight: 600; font-size: 23px; line-height: 1.2; margin: 10px 0 8px; }
+    .principle p { color: #c4beae; font-size: 15px; }
+    .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .door { display: block; text-decoration: none; color: var(--text); position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+    .door:hover { border-color: var(--gold-soft); transform: translateY(-3px); color: var(--text); }
+    .door::before { content: ""; position: absolute; width: 220px; height: 220px; right: -80px; top: -80px; border-radius: 50%; background: radial-gradient(rgba(170,255,68,.14), transparent 70%); }
+    .door h3 { font-family: var(--serif); font-weight: 600; font-size: 30px; margin: 4px 0 8px; }
+    .door p { color: #c4beae; font-size: 15px; margin-bottom: 14px; }
+    .door .go { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+    .latest { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .latest b { display: block; font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--text); }
+    .levels-mini { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 8px; }
+    .levels-mini div { border: 1px solid var(--line); padding: 10px; font-size: 12.5px; color: var(--muted); }
+    .levels-mini b { display: block; font-size: 16px; color: var(--gold); font-weight: 500; }
+    .levels-mini span { color: var(--text); }
+    .origin { color: var(--muted); font-size: 14px; max-width: 760px; }
+    @media (max-width: 820px) { .principles, .doors { grid-template-columns: 1fr; } .levels-mini { grid-template-columns: repeat(3, 1fr); } }
+  </style>
+</head>
+<body>
+<main id="app"></main>
+<script src="/lumen/assets/lumen.js"></script>
+<script>
+const TXT = {
+  en: {
+    eyebrow: "Lumen · agentic AI mapped",
+    title: "Earned Autonomy",
+    kern: "Autonomy is something you earn with controls, not the other way around.",
+    lead: "Earned Autonomy is my own framework for agentic AI. I use it to design architectures and to place and assess every new trend. It is a living framework: it grows with what happens in the field.",
+    pEyebrow: "Three principles", pTitle: "What the framework rests on",
+    p: [
+      ["The harness grows with the autonomy.", "The more an agent may do on its own, the more controls are added."],
+      ["As deterministic as possible, as probabilistic as needed.", "The model understands and proposes; code validates, authorises and executes. Not every process gets better with an agent."],
+      ["The work sits on the seams.", "Between model and code, between agent and source systems, and between agent and people. That is where the integrator works."]
+    ],
+    lvEyebrow: "Six maturity levels", lvTitle: "From chat to scale",
+    dEyebrow: "Explore",
+    atlasT: "The Atlas", atlasD: "An interactive map: choose a maturity level and watch the architecture and the harness grow. Follow a customer request step by step, look through the integrator lens and click any block for an explanation.", atlasGo: "Open the Atlas →",
+    lightsT: "Lichtpunten", lightsD: "Monthly notes on new trends, each assessed with the same four questions and a verdict: follow, try or adopt.", lightsGo: "See all Lichtpunten →", latest: "Latest",
+    origin: "Honest about where it comes from: the framework builds on existing maturity models and Google's public patterns. My contribution is the combination and the integrator's perspective. Examples use a fictional bank and synthetic data."
+  },
+  nl: {
+    eyebrow: "Lumen · agentic AI in kaart",
+    title: "Earned Autonomy",
+    kern: "Autonomie moet je verdienen met controles, niet andersom.",
+    lead: "Earned Autonomy is mijn eigen kader voor agentic AI. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe trend te plaatsen en te beoordelen. Het is een levend kader: het groeit mee met wat er in het vakgebied gebeurt.",
+    pEyebrow: "Drie principes", pTitle: "Waar het kader op rust",
+    p: [
+      ["De harness groeit mee met de autonomie.", "Hoe meer een agent zelf mag doen, hoe meer controles erbij komen."],
+      ["Zo deterministisch mogelijk, zo probabilistisch als nodig.", "Het model begrijpt en stelt voor; code valideert, autoriseert en voert uit. Niet elk proces wordt beter met een agent."],
+      ["Het werk zit op de naden.", "Tussen model en code, tussen agent en bronsystemen, en tussen agent en mens. Daar zit de integrator."]
+    ],
+    lvEyebrow: "Zes maturity levels", lvTitle: "Van chat naar schaal",
+    dEyebrow: "Verkennen",
+    atlasT: "De Atlas", atlasD: "Een interactieve plaat: kies een maturity level en zie de architectuur en de harness meegroeien. Volg een klantverzoek stap voor stap, kijk door de integrator-bril en klik op elk blok voor uitleg.", atlasGo: "Open de Atlas →",
+    lightsT: "Lichtpunten", lightsD: "Maandelijkse notities over nieuwe trends, elk beoordeeld met dezelfde vier vragen en een oordeel: volgen, proberen of inzetten.", lightsGo: "Bekijk alle Lichtpunten →", latest: "Nieuwste",
+    origin: "Eerlijk over de herkomst: het kader bouwt voort op bestaande maturity models en de publieke patronen van Google. Mijn toevoeging is de combinatie en het integratorperspectief. Voorbeelden gebruiken een fictieve bank en synthetische data."
+  }
+};
+let DATA = { levels: [], lichtpunten: [] };
+
+function render() {
+  const t = TXT[Lumen.lang], { T, esc } = Lumen;
+  const lp = [...DATA.lichtpunten].sort((a, b) => b.datum.localeCompare(a.datum))[0];
+  document.getElementById("app").innerHTML = `
+  <section class="hero"><div class="wrap">
+    <span class="fly" style="left:72%;top:110px"></span>
+    <span class="fly" style="left:86%;top:200px;animation-delay:-2s,-1s;width:5px;height:5px"></span>
+    <span class="fly" style="left:64%;top:250px;animation-delay:-4s,-2s;width:4px;height:4px"></span>
+    <div class="eyebrow">${esc(t.eyebrow)}</div>
+    <h1 class="lm-title">${esc(t.title)}</h1>
+    <p class="kern">${esc(t.kern)}</p>
+    <p class="lead">${esc(t.lead)}</p>
+  </div></section>
+
+  <section class="lm-sec"><div class="wrap">
+    <div class="eyebrow">${esc(t.pEyebrow)}</div><h2 class="lm-h2">${esc(t.pTitle)}</h2>
+    <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle reveal"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
+  </div></section>
+
+  ${DATA.levels.length ? `<section class="lm-sec" style="padding-top:0"><div class="wrap">
+    <div class="eyebrow">${esc(t.lvEyebrow)}</div><h2 class="lm-h2">${esc(t.lvTitle)}</h2>
+    <div class="levels-mini reveal">${DATA.levels.map((l, i) => `<div><b>L${i}</b><span>${esc(T(l.n))}</span></div>`).join("")}</div>
+  </div></section>` : ""}
+
+  <section class="lm-sec" style="padding-top:0"><div class="wrap">
+    <div class="eyebrow">${esc(t.dEyebrow)}</div>
+    <div class="doors">
+      <a class="lm-card door reveal" href="/lumen/atlas/"><div class="eyebrow">Atlas</div><h3>${esc(t.atlasT)}</h3><p>${esc(t.atlasD)}</p><span class="go">${esc(t.atlasGo)}</span></a>
+      <a class="lm-card door reveal" href="/lumen/lichtpunten/"><div class="eyebrow">Lichtpunten</div><h3>${esc(t.lightsT)}</h3><p>${esc(t.lightsD)}</p><span class="go">${esc(t.lightsGo)}</span>
+        ${lp ? `<div class="latest">${esc(t.latest)} · ${esc(Lumen.month(lp.datum))}<b>${esc(T(lp.t))}</b></div>` : ""}</a>
+    </div>
+    <p class="origin" style="margin-top:36px">${esc(t.origin)}</p>
+  </div></section>`;
+  Lumen.reveal();
+}
+
+Promise.all([Lumen.json("/lumen/data/blokken.json"), Lumen.json("/lumen/data/trends.json")])
+  .then(([b, tr]) => { DATA = { levels: b.levels, lichtpunten: tr.lichtpunten }; render(); })
+  .catch(() => render());
+Lumen.start("lumen", render);
+</script>
+</body>
+</html>

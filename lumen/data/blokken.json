@@ -1,0 +1,348 @@
+{
+  "_uitleg": "Levels, bouwblokken en hun evolutie per level voor de Atlas. Tekst als { \"nl\": \"...\", \"en\": \"...\" }; gewone tekst is in beide talen gelijk. t = det (code), prob (model) of human (mens). lv = level waarop het blok erbij komt. har = 1 als het blok bij de harness hoort. ir = kern, mee of geen (integratorbelang). In 'evolutie' erven levels die niet genoemd zijn van het vorige level.",
+  "levels": [
+    {
+      "n": { "nl": "Chat", "en": "Chat" },
+      "d": { "nl": "Mens vraagt, model antwoordt. Het model voert niets uit.", "en": "A person asks, the model answers. The model executes nothing." },
+      "iw": { "nl": "Beperkt", "en": "Limited" },
+      "it": { "nl": "Vooral kanalen aansluiten.", "en": "Mostly connecting channels." }
+    },
+    {
+      "n": { "nl": "Geïnformeerd", "en": "Informed" },
+      "d": { "nl": "Het model antwoordt op basis van eigen bronnen (RAG).", "en": "The model answers based on your own sources (RAG)." },
+      "iw": { "nl": "Beperkt", "en": "Limited" },
+      "it": { "nl": "Bronnen ontsluiten met behoud van toegangsrechten.", "en": "Opening up sources while keeping access rights intact." }
+    },
+    {
+      "n": { "nl": "Gestructureerd", "en": "Structured" },
+      "d": { "nl": "Een vaste pijplijn zet tekst om in data voor systemen. Dit is PoC 1.", "en": "A fixed pipeline turns text into data for systems. This is PoC 1." },
+      "iw": { "nl": "Groot", "en": "Large" },
+      "it": { "nl": "Modeloutput wordt een contract met andere systemen: schema's, mapping en foutafhandeling.", "en": "Model output becomes a contract with other systems: schemas, mapping and error handling." }
+    },
+    {
+      "n": { "nl": "Handelend", "en": "Acting" },
+      "d": { "nl": "Een agent kiest zelf tools en stappen. Dit is PoC 2, deel 1.", "en": "An agent chooses its own tools and steps. This is PoC 2, part 1." },
+      "iw": { "nl": "Zeer groot", "en": "Very large" },
+      "it": { "nl": "Tools zijn API's: ontsluiten via gateway en MCP, met idempotentie en sessiestatus.", "en": "Tools are APIs: exposed through a gateway and MCP, with idempotency and session state." }
+    },
+    {
+      "n": { "nl": "Beheerst", "en": "Governed" },
+      "d": { "nl": "De agent handelt binnen harde grenzen, met een mens waar nodig. Dit is PoC 2, deel 2.", "en": "The agent acts within hard boundaries, with a person where needed. This is PoC 2, part 2." },
+      "iw": { "nl": "Groot, samen met security en risk", "en": "Large, together with security and risk" },
+      "it": { "nl": "Identiteit, policy-afdwinging, aansluiting op werkprocessen en audit end-to-end laten kloppen.", "en": "Making identity, policy enforcement, the fit with work processes and end-to-end audit add up." }
+    },
+    {
+      "n": { "nl": "Geschaald", "en": "Scaled" },
+      "d": { "nl": "Meerdere agents werken samen via standaarden.", "en": "Multiple agents work together through standards." },
+      "iw": { "nl": "Het grootst", "en": "The largest" },
+      "it": { "nl": "Standaarden, toolcatalogus en ketentesten over teams heen. Hier zit de chapter-lead-rol.", "en": "Standards, a tool catalogue and end-to-end chain tests across teams. This is where the chapter lead role sits." }
+    }
+  ],
+  "harnessStrook": ["armor", "sdp", "validator", "audit", "gateway", "ident", "policy", "hitl"],
+  "blokken": {
+    "input": {
+      "x": 88, "y": 300, "w": 140, "h": 62, "t": "det", "lv": 0, "ir": "mee",
+      "l": { "nl": "Kanaal", "en": "Channel" },
+      "s": { "nl": "e-mail / portaal", "en": "e-mail / portal" },
+      "g": { "nl": "Cloud Run-endpoint of Pub/Sub", "en": "Cloud Run endpoint or Pub/Sub" },
+      "what": { "nl": "Neemt het klantverzoek aan en maakt er een taak van met een uniek id. Doet zelf niets inhoudelijks.", "en": "Receives the customer request and turns it into a task with a unique id. Does nothing with the content itself." },
+      "why": { "nl": "Eén vaste ingang maakt het makkelijk om alles erachter te beveiligen en te loggen.", "en": "A single fixed entry point makes it easy to secure and log everything behind it." },
+      "poc": { "nl": "PoC 1 en 2: map met synthetische e-mails of een FastAPI-endpoint.", "en": "PoC 1 and 2: a folder of synthetic e-mails or a FastAPI endpoint." },
+      "it": { "nl": "Kanalen aansluiten en één taakformaat afspreken, zodat elk kanaal dezelfde flow in kan.", "en": "Connecting channels and agreeing on one task format, so every channel can enter the same flow." }
+    },
+    "reply": {
+      "x": 88, "y": 450, "w": 140, "h": 62, "t": "prob", "lv": 0, "ir": "mee",
+      "l": { "nl": "Antwoord klant", "en": "Customer reply" },
+      "s": { "nl": "opgesteld door Gemini", "en": "drafted by Gemini" },
+      "g": { "nl": "Gemini, met Model Armor op de response", "en": "Gemini, with Model Armor on the response" },
+      "what": { "nl": "Stelt de bevestiging aan de klant op en verstuurt die via het oorspronkelijke kanaal.", "en": "Drafts the confirmation to the customer and sends it through the original channel." },
+      "why": { "nl": "Ook wat naar buiten gaat is modeloutput. Het moet gecontroleerd worden op gegevens van anderen, toon en beloftes die niet kloppen.", "en": "What goes out is model output too. It has to be checked for other people's data, tone and promises that don't hold." },
+      "poc": { "nl": "PoC 2: vast sjabloon met modeltekst, gescreend vóór verzending.", "en": "PoC 2: a fixed template with model text, screened before sending." },
+      "it": { "nl": "Antwoord terug via het juiste kanaal, met sjablonen en een koppeling naar de oorspronkelijke taak.", "en": "The reply goes back through the right channel, with templates and a link to the original task." }
+    },
+    "armor": {
+      "x": 232, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 1, "har": 1, "ir": "mee",
+      "l": "Model Armor",
+      "s": { "nl": "in- en uitgang", "en": "input and output" },
+      "g": "Model Armor",
+      "what": { "nl": "Scant binnenkomende tekst op prompt injection, jailbreaks en kwaadaardige links, en uitgaande antwoorden op datalekken en ongepaste inhoud.", "en": "Scans incoming text for prompt injection, jailbreaks and malicious links, and outgoing replies for data leaks and inappropriate content." },
+      "why": { "nl": "Een e-mail is onbetrouwbare input en een antwoord is onvoorspelbare output. Beide kanten krijgen een poort.", "en": "An e-mail is untrusted input and a reply is unpredictable output. Both sides get a gate." },
+      "poc": { "nl": "PoC 2: Model Armor-template of een eigen regelset als mock.", "en": "PoC 2: a Model Armor template or a custom rule set as a mock." },
+      "it": { "nl": "Model Armor inline in de keten plaatsen, op in- en uitgang, zonder dat de doorlooptijd eronder lijdt.", "en": "Placing Model Armor inline in the chain, on input and output, without hurting throughput time." }
+    },
+    "sdp": {
+      "x": 368, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 1, "har": 1, "ir": "kern",
+      "l": { "nl": "PII-redactie", "en": "PII redaction" },
+      "s": "Sensitive Data Prot.",
+      "g": "Sensitive Data Protection (DLP API)",
+      "what": { "nl": "Vervangt naam, IBAN en klantnummer door tokens. De echte waarden blijven in een kluis buiten het model.", "en": "Replaces name, IBAN and customer number with tokens. The real values stay in a vault outside the model." },
+      "why": { "nl": "Dataminimalisatie: het model hoeft niet te weten wie de klant is om te begrijpen wat hij vraagt.", "en": "Data minimisation: the model doesn't need to know who the customer is to understand what they are asking." },
+      "poc": { "nl": "PoC 2: DLP API of regex-detectoren met een tokenkluis.", "en": "PoC 2: the DLP API or regex detectors with a token vault." },
+      "it": { "nl": "Tokenkluis en de-tokenisatie op de juiste plek in de keten: eruit vóór het model, terug bij de API. Een fout hier lekt data of breekt de wijziging.", "en": "Token vault and de-tokenisation in the right place in the chain: out before the model, back in at the API. A mistake here leaks data or breaks the change." }
+    },
+    "ident": {
+      "x": 504, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 4, "har": 1, "ir": "kern",
+      "l": "Agent Identity",
+      "s": "IAM · least privilege",
+      "g": { "nl": "Agent Identity (Gemini Enterprise Agent Platform): een eigen cryptografische ID per agent, met minimale scopes en kortlevende tokens", "en": "Agent Identity (Gemini Enterprise Agent Platform): a cryptographic ID per agent, with minimal scopes and short-lived tokens" },
+      "what": { "nl": "De agent heeft een eigen identiteit met alleen de rechten die bij deze taak horen: klant lezen, adres schrijven, nooit betalen.", "en": "The agent has its own identity with only the rights this task needs: read customer, write address, never pay." },
+      "why": { "nl": "Ook als het model ontspoort, kan het niets doen waarvoor de identiteit geen rechten heeft. Dat is een harde grens buiten het model.", "en": "Even if the model goes off the rails, it can't do anything the identity has no rights for. That is a hard boundary outside the model." },
+      "poc": { "nl": "PoC 2: aparte identiteit met minimale scopes, gecontroleerd door de gateway.", "en": "PoC 2: a separate identity with minimal scopes, checked by the gateway." },
+      "it": { "nl": "Serviceaccounts, scopes en kortlevende tokens inrichten en laten afdwingen door de gateway.", "en": "Setting up service accounts, scopes and short-lived tokens, enforced by the gateway." }
+    },
+    "validator": {
+      "x": 640, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 2, "har": 1, "ir": "kern",
+      "l": "Validator",
+      "s": { "nl": "schema + regels", "en": "schema + rules" },
+      "g": { "nl": "Pydantic in Cloud Run of als ADK-callback", "en": "Pydantic in Cloud Run or as an ADK callback" },
+      "what": { "nl": "Controleert elke modeluitvoer: klopt het schema, bestaat de datum, is de IBAN-checksum geldig, zijn verplichte velden gevuld?", "en": "Checks every model output: is the schema right, does the date exist, is the IBAN checksum valid, are required fields filled?" },
+      "why": { "nl": "Het model kan zich vergissen. Code vangt dat af voordat het schade doet.", "en": "The model can make mistakes. Code catches them before they do damage." },
+      "poc": { "nl": "PoC 1: kern van de pijplijn, met retry bij fouten.", "en": "PoC 1: the core of the pipeline, with a retry on errors." },
+      "it": { "nl": "Het contract tussen model en systemen: schema's, mapping naar bestaande datamodellen en wat er gebeurt bij een fout.", "en": "The contract between model and systems: schemas, mapping to existing data models and what happens on an error." }
+    },
+    "policy": {
+      "x": 776, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 4, "har": 1, "ir": "mee",
+      "l": "Policy & budget",
+      "s": { "nl": "permissies per actie", "en": "permissions per action" },
+      "g": { "nl": "Eigen policy-engine naast IAM", "en": "Own policy engine next to IAM" },
+      "what": { "nl": "Bepaalt per actie of de agent mag handelen, eerst een mens moet vragen, of het nooit mag. Bewaakt ook budget en maximaal aantal stappen.", "en": "Decides per action whether the agent may act, must ask a person first, or may never do it. Also guards the budget and the maximum number of steps." },
+      "why": { "nl": "Autonomie wordt een bewuste keuze per risico, niet iets wat het model zelf bepaalt.", "en": "Autonomy becomes a deliberate choice per risk, not something the model decides for itself." },
+      "poc": { "nl": "PoC 2: YAML-policy met de klassen \"mag zelf\", \"eerst vragen\" en \"nooit\".", "en": "PoC 2: a YAML policy with the classes \"may act\", \"ask first\" and \"never\"." },
+      "it": { "nl": "Risk bepaalt de inhoud. De integrator zorgt dat de policy bij elke actie technisch wordt afgedwongen.", "en": "Risk decides the content. The integrator makes sure the policy is technically enforced on every action." }
+    },
+    "audit": {
+      "x": 912, "y": 105, "w": 124, "h": 60, "t": "det", "lv": 2, "har": 1, "ir": "kern",
+      "l": "Trace & audit",
+      "s": "Logging / Trace",
+      "g": "Cloud Logging, Cloud Trace, BigQuery",
+      "what": { "nl": "Legt elke stap vast: input, output, model, betrouwbaarheid, besluit en wie goedkeurde.", "en": "Records every step: input, output, model, confidence, decision and who approved." },
+      "why": { "nl": "Een auditor moet achteraf kunnen zien waarom iets gebeurde. Deze visualisatie draait op dezelfde events.", "en": "An auditor must be able to see afterwards why something happened. This visualisation runs on the same events." },
+      "poc": { "nl": "PoC 1 en 2: gestructureerde trace-events, ook gebruikt voor replay.", "en": "PoC 1 and 2: structured trace events, also used for replay." },
+      "it": { "nl": "Events in een vast formaat naar de bestaande logging en monitoring, met één trace-id door de hele keten.", "en": "Events in a fixed format to existing logging and monitoring, with one trace id through the whole chain." }
+    },
+    "orch": {
+      "x": 390, "y": 300, "w": 200, "h": 74, "t": "det", "lv": 3, "ir": "mee",
+      "l": { "nl": "Agent-orchestrator", "en": "Agent orchestrator" },
+      "s": { "nl": "ADK op Agent Engine", "en": "ADK on Agent Engine" },
+      "g": { "nl": "Agent Development Kit (ADK) op Agent Runtime, onderdeel van het Gemini Enterprise Agent Platform (voorheen Vertex AI Agent Engine)", "en": "Agent Development Kit (ADK) on Agent Runtime, part of the Gemini Enterprise Agent Platform (formerly Vertex AI Agent Engine)" },
+      "what": { "nl": "De agent-loop: vraagt het model wat de volgende stap is, roept de gekozen tool aan, geeft resultaten terug en houdt de toestand bij.", "en": "The agent loop: asks the model what the next step is, calls the chosen tool, returns the results and keeps track of the state." },
+      "why": { "nl": "De loop zelf is gewone code. De keuzes die erin vallen komen van het model. Hier komen harness en model samen.", "en": "The loop itself is ordinary code. The choices made inside it come from the model. This is where harness and model meet." },
+      "poc": { "nl": "PoC 2: ADK-agent met tools en sessiestatus.", "en": "PoC 2: an ADK agent with tools and session state." },
+      "it": { "nl": "De loop samen met engineers ontwerpen: timeouts, retries en wat er gebeurt als een stap halverwege faalt.", "en": "Designing the loop together with engineers: timeouts, retries and what happens when a step fails halfway." }
+    },
+    "state": {
+      "x": 615, "y": 300, "w": 140, "h": 60, "t": "det", "lv": 3, "ir": "kern",
+      "l": { "nl": "Sessiestatus", "en": "Session state" },
+      "s": "Agent Engine Sessions",
+      "g": { "nl": "Sessions en Memory Bank op Agent Runtime", "en": "Sessions and Memory Bank on Agent Runtime" },
+      "what": { "nl": "Bewaart de toestand van de taak: welke stappen gedaan zijn, tussenresultaten en waar de agent op wacht.", "en": "Keeps the state of the task: which steps are done, intermediate results and what the agent is waiting for." },
+      "why": { "nl": "Bij human review kan een taak uren stilstaan. De agent moet daarna precies verder kunnen waar hij was, ook na een herstart.", "en": "During human review a task can sit still for hours. Afterwards the agent must be able to continue exactly where it was, even after a restart." },
+      "poc": { "nl": "PoC 2: sessiestore met een checkpoint vóór elke risicovolle stap.", "en": "PoC 2: a session store with a checkpoint before every risky step." },
+      "it": { "nl": "Checkpoints en hervatten na uren wachten, zonder dat stappen dubbel worden uitgevoerd.", "en": "Checkpoints and resuming after hours of waiting, without steps being executed twice." }
+    },
+    "hitl": {
+      "x": 850, "y": 300, "w": 150, "h": 64, "t": "human", "lv": 4, "har": 1, "ir": "kern",
+      "l": "Human review",
+      "s": { "nl": "goedkeuringswachtrij", "en": "approval queue" },
+      "g": { "nl": "Eigen review-UI op Cloud Run", "en": "Own review UI on Cloud Run" },
+      "what": { "nl": "Een medewerker ziet het voorstel met context en keurt goed of af. De agent wacht en hervat daarna.", "en": "An employee sees the proposal with context and approves or rejects it. The agent waits and then resumes." },
+      "why": { "nl": "Voor onomkeerbare of risicovolle acties blijft een mens verantwoordelijk.", "en": "For irreversible or risky actions a person remains accountable." },
+      "poc": { "nl": "PoC 2: wachtrij met goedkeuren/afwijzen, zoals in deze schets.", "en": "PoC 2: a queue with approve/reject, as in this sketch." },
+      "it": { "nl": "Human review laten aansluiten op het bestaande werkproces van medewerkers, in plaats van er een losse tool naast te zetten.", "en": "Fitting human review into employees' existing work process, instead of putting a separate tool next to it." }
+    },
+    "gemini": {
+      "x": 232, "y": 490, "w": 140, "h": 62, "t": "prob", "lv": 0, "ir": "geen",
+      "l": "Gemini",
+      "s": { "nl": "redeneren & classificeren", "en": "reasoning & classifying" },
+      "g": "Gemini via Vertex AI",
+      "what": { "nl": "Begrijpt de vrije tekst, bepaalt wat voor verzoek het is en stelt de volgende stap voor.", "en": "Understands the free text, determines what kind of request it is and proposes the next step." },
+      "why": { "nl": "Hier zit de kracht én de onzekerheid. Alles rondom deze stap is bedoeld om die onzekerheid te beheersen.", "en": "This is where the power and the uncertainty sit. Everything around this step is there to control that uncertainty." },
+      "poc": { "nl": "PoC 1 en 2: uitwisselbare LLM-laag met een mock voor tests.", "en": "PoC 1 and 2: an interchangeable LLM layer with a mock for tests." },
+      "it": { "nl": "Modelkeuze en prompts liggen vooral bij AI-engineers. De integrator bewaakt kosten, latency en of het model vervangbaar blijft.", "en": "Model choice and prompts sit mostly with AI engineers. The integrator watches cost, latency and whether the model stays replaceable." }
+    },
+    "extract": {
+      "x": 398, "y": 490, "w": 150, "h": 62, "t": "prob", "lv": 2, "ir": "mee",
+      "l": { "nl": "Extractie-tool", "en": "Extraction tool" },
+      "s": { "nl": "document naar JSON", "en": "document to JSON" },
+      "g": { "nl": "Gemini met response_schema", "en": "Gemini with response_schema" },
+      "what": { "nl": "Haalt velden uit het document volgens een vast schema.", "en": "Pulls fields out of the document according to a fixed schema." },
+      "why": { "nl": "Gestructureerde output maakt validatie mogelijk. Toch kan de inhoud fout zijn.", "en": "Structured output makes validation possible. The content can still be wrong." },
+      "poc": { "nl": "PoC 1 in zijn geheel; in PoC 2 een tool van de agent.", "en": "All of PoC 1; in PoC 2 a tool of the agent." },
+      "it": { "nl": "Het schema waar de extractie naartoe schrijft is een integratiecontract en wordt samen vastgesteld.", "en": "The schema the extraction writes to is an integration contract and is agreed together." }
+    },
+    "gateway": {
+      "x": 690, "y": 490, "w": 190, "h": 66, "t": "det", "lv": 3, "har": 1, "ir": "kern",
+      "l": { "nl": "API-gateway", "en": "API gateway" },
+      "s": "Apigee · MCP-tools",
+      "g": { "nl": "Apigee met MCP-ondersteuning; vanaf level 4 Agent Gateway ervoor", "en": "Apigee with MCP support; from level 4 Agent Gateway in front of it" },
+      "what": { "nl": "De enige weg van de agent naar bronsystemen. Bestaande API's worden als MCP-tools aangeboden. De gateway controleert identiteit, scopes en rate limits en logt elke aanroep.", "en": "The only route from the agent to source systems. Existing APIs are offered as MCP tools. The gateway checks identity, scopes and rate limits and logs every call." },
+      "why": { "nl": "Een agent krijgt geen directe toegang tot backends, maar wordt beheerd als elke andere API-consument.", "en": "An agent gets no direct access to back ends, but is managed like any other API consumer." },
+      "poc": { "nl": "PoC 2: MCP-server voor de CRM- en core-mocks, achter een lichte gateway.", "en": "PoC 2: an MCP server for the CRM and core mocks, behind a light gateway." },
+      "it": { "nl": "Bestaande API's als MCP-tools ontsluiten: authenticatie, rate limits, versiebeheer en monitoring. Het hart van de rol.", "en": "Exposing existing APIs as MCP tools: authentication, rate limits, versioning and monitoring. The heart of the role." }
+    },
+    "kb": {
+      "x": 240, "y": 630, "w": 140, "h": 60, "t": "det", "lv": 1, "ir": "mee",
+      "l": { "nl": "Kennisbank", "en": "Knowledge base" },
+      "s": "Vertex AI Search",
+      "g": { "nl": "Vertex AI Search over procedures en beleid", "en": "Vertex AI Search over procedures and policy" },
+      "what": { "nl": "Zoekt relevante passages in procedures en beleidsdocumenten en geeft ze met bronvermelding aan het model.", "en": "Finds relevant passages in procedures and policy documents and passes them to the model with citations." },
+      "why": { "nl": "Het model antwoordt dan op basis van eigen bronnen in plaats van wat het denkt te weten.", "en": "The model then answers based on your own sources instead of what it thinks it knows." },
+      "poc": { "nl": "PoC 2: kleine index met verzonnen procedures.", "en": "PoC 2: a small index of made-up procedures." },
+      "it": { "nl": "Bronnen ontsluiten met behoud van toegangsrechten, en zorgen dat de index actueel blijft.", "en": "Opening up sources while keeping access rights, and keeping the index up to date." }
+    },
+    "a2a": {
+      "x": 420, "y": 630, "w": 150, "h": 60, "t": "det", "lv": 5, "ir": "kern",
+      "l": { "nl": "Andere agents", "en": "Other agents" },
+      "s": "A2A · agent-registry",
+      "g": { "nl": "Agent2Agent-protocol (A2A) met een agent-registry", "en": "Agent2Agent protocol (A2A) with an agent registry" },
+      "what": { "nl": "Laat agents elkaar vinden en taken aan elkaar doorgeven, bijvoorbeeld een router-agent of een fraude-agent. Draaien agents in van elkaar afgeschermde omgevingen, dan gaat dat via beheerde koppelpatronen.", "en": "Lets agents find each other and hand tasks to each other, for example a router agent or a fraud agent. When agents run in environments shielded from each other, that happens through managed connection patterns." },
+      "why": { "nl": "Op schaal bouw je geen superagent, maar laat je gespecialiseerde agents samenwerken via een standaard.", "en": "At scale you don't build a super-agent; you let specialised agents work together through a standard." },
+      "poc": { "nl": "Buiten de PoC. Benoemen in de README als volgende stap.", "en": "Outside the PoC. Named in the README as a next step." },
+      "it": { "nl": "Standaarden voor hoe agents elkaar vinden en aanroepen: registry, contracten en ketentesten over teams heen.", "en": "Standards for how agents find and call each other: registry, contracts and chain tests across teams." }
+    },
+    "registry": {
+      "x": 88, "y": 105, "w": 140, "h": 60, "t": "det", "lv": 5, "ir": "kern",
+      "l": "Registries",
+      "s": { "nl": "agents · tools · API's", "en": "agents · tools · APIs" },
+      "g": { "nl": "Agent-registry, tool- en MCP-catalogus en API-registry (bijvoorbeeld Apigee API hub)", "en": "Agent registry, tool and MCP catalogue and API registry (for example Apigee API hub)" },
+      "what": { "nl": "Centrale lijsten van goedgekeurde agents, tools, API's en events, met eigenaar, versie en status. Samen met golden paths: sjablonen, documentatie en een standaardroute van bouwen naar productie.", "en": "Central lists of approved agents, tools, APIs and events, with owner, version and status. Together with golden paths: templates, documentation and a standard route from build to production." },
+      "why": { "nl": "Op schaal moet je weten welke agents er draaien, wat ze mogen en wie verantwoordelijk is. Zonder registers ontstaat wildgroei.", "en": "At scale you need to know which agents are running, what they may do and who is responsible. Without registries you get sprawl." },
+      "poc": { "nl": "Buiten de PoC. Benoemen in de README als volgende stap.", "en": "Outside the PoC. Named in the README as a next step." },
+      "it": { "nl": "Standaarden voor hoe teams agents en tools registreren en aansluiten, en golden paths die de goede route de makkelijkste maken.", "en": "Standards for how teams register and connect agents and tools, and golden paths that make the right route the easiest one." }
+    },
+    "bus": {
+      "x": 900, "y": 490, "w": 130, "h": 60, "t": "det", "lv": 3, "ir": "kern",
+      "l": "Event bus",
+      "s": "Pub/Sub",
+      "g": { "nl": "Pub/Sub of een bestaande enterprise event bus", "en": "Pub/Sub or an existing enterprise event bus" },
+      "what": { "nl": "Publiceert gebeurtenissen zoals \"adres gewijzigd\", zodat andere systemen asynchroon kunnen reageren.", "en": "Publishes events such as \"address changed\", so other systems can react asynchronously." },
+      "why": { "nl": "Niet elke integratie is een directe API-aanroep. Andere systemen moeten van een wijziging weten zonder dat de agent ze allemaal zelf aanroept.", "en": "Not every integration is a direct API call. Other systems need to know about a change without the agent calling each of them itself." },
+      "poc": { "nl": "PoC 2: event naar een lokale queue of logbestand.", "en": "PoC 2: an event to a local queue or log file." },
+      "it": { "nl": "Eventcontracten, topics en abonnementen. Klassiek integratiewerk dat bij agents net zo hard nodig is.", "en": "Event contracts, topics and subscriptions. Classic integration work that agents need just as much." }
+    },
+    "data": {
+      "x": 905, "y": 630, "w": 150, "h": 60, "t": "det", "lv": 3, "ir": "kern",
+      "l": { "nl": "Data-access-API", "en": "Data access API" },
+      "s": { "nl": "+ semantische laag", "en": "+ semantic layer" },
+      "g": { "nl": "Data-access-API op BigQuery, met metadata uit de datacatalogus (bijvoorbeeld Dataplex)", "en": "Data access API on BigQuery, with metadata from the data catalogue (for example Dataplex)" },
+      "what": { "nl": "Geeft gecontroleerd toegang tot dataproducten. De semantische laag beschrijft entiteiten, relaties, businessregels en toegangsbeperkingen.", "en": "Gives controlled access to data products. The semantic layer describes entities, relationships, business rules and access restrictions." },
+      "why": { "nl": "Dezelfde betekenis voedt twee kanten: de toolbeschrijving voor de agent (wat betekent deze data, welke vragen zijn zinvol) en de query-logica van de API (welke tabellen, welke filters, welke rechten).", "en": "The same meaning feeds two sides: the tool description for the agent (what does this data mean, which questions make sense) and the query logic of the API (which tables, which filters, which rights)." },
+      "poc": { "nl": "PoC 2: een mock-dataproduct met een toolbeschrijving die uit metadata wordt gegenereerd.", "en": "PoC 2: a mock data product with a tool description generated from metadata." },
+      "it": { "nl": "Metadata uit de catalogus omzetten naar toolbeschrijvingen en API-logica, zodat agent en data dezelfde taal spreken.", "en": "Turning catalogue metadata into tool descriptions and API logic, so agent and data speak the same language." }
+    },
+    "crm": {
+      "x": 595, "y": 630, "w": 140, "h": 60, "t": "det", "lv": 3, "ir": "kern",
+      "l": "CRM",
+      "s": { "nl": "klantgegevens (mock)", "en": "customer data (mock)" },
+      "g": { "nl": "Interne API, via de gateway (gesimuleerd)", "en": "Internal API, through the gateway (simulated)" },
+      "what": { "nl": "Levert klantgegevens om het verzoek mee te vergelijken.", "en": "Provides customer data to compare the request against." },
+      "why": { "nl": "De agent baseert zich op bronsystemen, niet alleen op wat de klant schrijft.", "en": "The agent relies on source systems, not only on what the customer writes." },
+      "poc": { "nl": "PoC 2: FastAPI-mock met synthetische klanten.", "en": "PoC 2: a FastAPI mock with synthetic customers." },
+      "it": { "nl": "Leesrechten, datakwaliteit en beschikbaarheid van bronsystemen. Wat doet de agent als het CRM niet antwoordt?", "en": "Read rights, data quality and availability of source systems. What does the agent do when the CRM doesn't respond?" }
+    },
+    "core": {
+      "x": 745, "y": 630, "w": 140, "h": 60, "t": "det", "lv": 2, "ir": "kern",
+      "l": { "nl": "Core-API", "en": "Core API" },
+      "s": { "nl": "wijziging doorvoeren", "en": "applies the change" },
+      "g": { "nl": "Core banking-API (gesimuleerd)", "en": "Core banking API (simulated)" },
+      "what": { "nl": "Voert de wijziging echt door. Dit is het punt van geen terugkeer.", "en": "Actually applies the change. This is the point of no return." },
+      "why": { "nl": "Alles daarvoor bepaalt of deze aanroep veilig is. Een idempotency-key voorkomt dat een retry dubbel boekt.", "en": "Everything before it decides whether this call is safe. An idempotency key prevents a retry from booking twice." },
+      "poc": { "nl": "PoC 1: eindpunt van de pijplijn. PoC 2: FastAPI-mock die elke aanroep registreert.", "en": "PoC 1: the end point of the pipeline. PoC 2: a FastAPI mock that records every call." },
+      "it": { "nl": "Idempotentie, transacties en rollback. Dit is de aanroep die nooit dubbel of half mag gebeuren.", "en": "Idempotency, transactions and rollback. This is the call that must never happen twice or halfway." }
+    }
+  },
+  "evolutie": {
+    "input": {
+      "0": { "s": { "nl": "chatvenster", "en": "chat window" }, "d": { "nl": "Eén kanaal: de klant typt een vraag.", "en": "One channel: the customer types a question." } },
+      "2": { "s": { "nl": "e-mail · scan", "en": "e-mail · scan" }, "d": { "nl": "Mails en gescande documenten komen binnen als taak met een uniek id.", "en": "E-mails and scanned documents come in as a task with a unique id." } },
+      "3": { "s": { "nl": "e-mail · portaal", "en": "e-mail · portal" }, "d": { "nl": "Meerdere kanalen leveren hetzelfde taakformaat aan.", "en": "Several channels deliver the same task format." } },
+      "5": { "s": { "nl": "tekst · scan · spraak", "en": "text · scan · speech" }, "d": { "nl": "Multimodaal: tekst, foto's, scans en spraak komen binnen via één taakformaat.", "en": "Multimodal: text, photos, scans and speech come in through one task format." } }
+    },
+    "reply": {
+      "0": { "s": { "nl": "vrije modeltekst", "en": "free model text" }, "d": { "nl": "Het model schrijft het antwoord vrij uit.", "en": "The model writes the reply freely." } },
+      "2": { "s": { "nl": "sjabloon + modeltekst", "en": "template + model text" }, "d": { "nl": "Een vast sjabloon met een passage die het model invult.", "en": "A fixed template with a passage the model fills in." } },
+      "4": { "s": { "nl": "gescreend sjabloon", "en": "screened template" }, "d": { "nl": "Sjabloon en modeltekst, gescreend op de uitgang en gekoppeld aan de taak.", "en": "Template and model text, screened on the way out and linked to the task." } }
+    },
+    "armor": {
+      "1": { "s": { "nl": "filter op ingang", "en": "input filter" }, "d": { "nl": "Basisfilter op prompt injection en jailbreaks bij binnenkomst.", "en": "A basic filter for prompt injection and jailbreaks on the way in." } },
+      "3": { "s": { "nl": "ook toolresultaten", "en": "tool results too" }, "d": { "nl": "Ook wat tools teruggeven wordt gescand, want ook dat kan verborgen instructies bevatten.", "en": "What tools return is scanned too, because that can also contain hidden instructions." } },
+      "4": { "s": { "nl": "in- en uitgang", "en": "input and output" }, "d": { "nl": "Scant in- en uitgang, met drempels per risiconiveau.", "en": "Scans input and output, with thresholds per risk level." } },
+      "5": { "s": { "nl": "centraal beleid", "en": "central policy" }, "d": { "nl": "Eén centraal beleid voor alle agents en modellen.", "en": "One central policy for all agents and models." } }
+    },
+    "sdp": {
+      "1": { "s": { "nl": "maskeren", "en": "masking" }, "d": { "nl": "Gevoelige data wordt gemaskeerd voordat het model het ziet.", "en": "Sensitive data is masked before the model sees it." } },
+      "2": { "s": { "nl": "tokenkluis", "en": "token vault" }, "d": { "nl": "Tokens met een kluis, zodat de echte waarden later teruggezet kunnen worden.", "en": "Tokens with a vault, so the real values can be put back later." } },
+      "5": { "s": { "nl": "ook beeld en audio", "en": "images and audio too" }, "d": { "nl": "Redactie werkt ook op scans, foto's en spraaktranscripten.", "en": "Redaction also works on scans, photos and speech transcripts." } }
+    },
+    "ident": {
+      "4": { "s": { "nl": "eigen account", "en": "own account" }, "d": { "nl": "Eén identiteit per agent met minimale scopes en kortlevende tokens.", "en": "One identity per agent with minimal scopes and short-lived tokens." } },
+      "5": { "s": { "nl": "namens de klant", "en": "on behalf of the customer" }, "d": { "nl": "Elke agent een eigen identiteit; acties namens de klant met gedelegeerde toestemming.", "en": "Every agent has its own identity; actions on behalf of the customer with delegated consent." } }
+    },
+    "validator": {
+      "2": { "s": { "nl": "schema + regels", "en": "schema + rules" }, "d": { "nl": "Schema en businessregels op de output van de pijplijn.", "en": "Schema and business rules on the output of the pipeline." } },
+      "3": { "s": { "nl": "ook toolargumenten", "en": "tool arguments too" }, "d": { "nl": "Ook de argumenten die de agent aan tools meegeeft, worden gevalideerd vóór de aanroep.", "en": "The arguments the agent passes to tools are also validated before the call." } }
+    },
+    "policy": {
+      "4": { "s": { "nl": "regels per actie", "en": "rules per action" }, "d": { "nl": "Vaste regels per actie: mag zelf, eerst vragen of nooit.", "en": "Fixed rules per action: may act, ask first or never." } },
+      "5": { "s": "policy-as-code", "d": { "nl": "Centraal beheerd beleid met versiebeheer, geldig voor alle agents.", "en": "Centrally managed, versioned policy that applies to all agents." } }
+    },
+    "audit": {
+      "2": { "s": { "nl": "logbestand", "en": "log file" }, "d": { "nl": "Elke run schrijft gestructureerde events weg.", "en": "Every run writes structured events." } },
+      "3": { "s": { "nl": "trace per stap", "en": "trace per step" }, "d": { "nl": "Eén trace-id over alle stappen en toolaanroepen.", "en": "One trace id across all steps and tool calls." } },
+      "4": { "s": { "nl": "systeem + LLMOps", "en": "system + LLMOps" }, "d": { "nl": "Twee paden: korte, PII-vrije systeemtraces voor end-to-end monitoring, en volledige agent-traces met prompts en toolresultaten voor LLMOps en audit, afgeschermd vanwege PII.", "en": "Two paths: short, PII-free system traces for end-to-end monitoring, and full agent traces with prompts and tool results for LLMOps and audit, shielded because of PII." } },
+      "5": { "s": { "nl": "ketenbreed", "en": "chain-wide" }, "d": { "nl": "Traces lopen door over agents heen, ook via A2A.", "en": "Traces continue across agents, including via A2A." } }
+    },
+    "orch": {
+      "3": { "s": { "nl": "ADK-agent", "en": "ADK agent" }, "d": { "nl": "Eén agent-loop die zelf tools en stappen kiest.", "en": "One agent loop that chooses its own tools and steps." } },
+      "4": { "s": { "nl": "ADK + checkpoints", "en": "ADK + checkpoints" }, "d": { "nl": "De loop pauzeert en hervat rond menselijke besluiten.", "en": "The loop pauses and resumes around human decisions." } },
+      "5": { "s": { "nl": "router + subagents", "en": "router + sub-agents" }, "d": { "nl": "Een router-agent verdeelt werk over gespecialiseerde agents. Code die een agent genereert, draait in een afgeschermde sandbox.", "en": "A router agent distributes work over specialised agents. Code an agent generates runs in a shielded sandbox." } }
+    },
+    "state": {
+      "3": { "s": { "nl": "sessie", "en": "session" }, "d": { "nl": "Sessiestatus binnen één taak.", "en": "Session state within one task." } },
+      "4": { "s": { "nl": "checkpoints, robuust", "en": "checkpoints, resilient" }, "d": { "nl": "Checkpoints vóór risicovolle stappen in duurzame opslag, zodat de agent een storing, herstart of regiowissel overleeft.", "en": "Checkpoints before risky steps in durable storage, so the agent survives an outage, restart or region switch." } },
+      "5": { "s": { "nl": "4 soorten geheugen", "en": "4 kinds of memory" }, "d": { "nl": "Vier soorten geheugen: sessie (deze taak), semantisch (feiten), procedureel (werkwijzen en zelfgeschreven skills) en episodisch (eerdere gebeurtenissen). Zo kan een agent dagen doorwerken en van eerdere taken leren.", "en": "Four kinds of memory: session (this task), semantic (facts), procedural (ways of working and self-written skills) and episodic (earlier events). This lets an agent keep working for days and learn from earlier tasks." } }
+    },
+    "hitl": {
+      "4": { "s": { "nl": "goedkeuringswachtrij", "en": "approval queue" }, "d": { "nl": "Een medewerker keurt elk risicovol voorstel goed of af.", "en": "An employee approves or rejects every risky proposal." } },
+      "5": { "l": "Agent Inbox", "s": { "nl": "realtime toezicht", "en": "real-time oversight" }, "d": { "nl": "Via Agent Inbox volgen managers agents realtime en sturen ze bij. Mensen beoordelen uitzonderingen en steekproeven; hun besluiten voeden de evals.", "en": "Through Agent Inbox, managers follow agents in real time and steer them. People review exceptions and samples; their decisions feed the evals." } }
+    },
+    "gemini": {
+      "0": { "s": { "nl": "chatmodel", "en": "chat model" }, "d": { "nl": "Eén model beantwoordt vragen uit eigen kennis.", "en": "One model answers questions from its own knowledge." } },
+      "1": { "s": { "nl": "model + bronnen", "en": "model + sources" }, "d": { "nl": "Het model antwoordt op basis van opgehaalde bronnen.", "en": "The model answers based on retrieved sources." } },
+      "2": { "s": { "nl": "classificeren", "en": "classifying" }, "d": { "nl": "Het model kiest uit een vaste lijst verzoektypes.", "en": "The model chooses from a fixed list of request types." } },
+      "3": { "s": { "nl": "redeneren & plannen", "en": "reasoning & planning" }, "d": { "nl": "Het model kiest de volgende stap en welke tool.", "en": "The model chooses the next step and which tool." } },
+      "5": { "l": { "nl": "Modelrouter", "en": "Model router" }, "s": "Flash · Pro · fallback", "d": { "nl": "Een router kiest per taak het model: Flash voor eenvoudige classificatie, Pro voor lastige afwegingen en een ander model als fallback. Elke agent kan een eigen model hebben, ook van andere aanbieders.", "en": "A router chooses the model per task: Flash for simple classification, Pro for difficult trade-offs and another model as a fallback. Every agent can have its own model, including from other providers." } }
+    },
+    "extract": {
+      "2": { "s": { "nl": "tekst naar JSON", "en": "text to JSON" }, "d": { "nl": "Haalt velden uit tekst volgens een vast schema.", "en": "Pulls fields out of text according to a fixed schema." } },
+      "3": { "s": { "nl": "tool van de agent", "en": "tool of the agent" }, "d": { "nl": "De extractie is een tool die de agent aanroept wanneer nodig.", "en": "Extraction is a tool the agent calls when needed." } },
+      "5": { "s": { "nl": "multimodaal naar JSON", "en": "multimodal to JSON" }, "d": { "nl": "Werkt ook op scans, foto's en spraak.", "en": "Also works on scans, photos and speech." } }
+    },
+    "gateway": {
+      "3": { "s": "Apigee · MCP-tools", "d": { "nl": "API's als MCP-tools, met authenticatie en logging.", "en": "APIs as MCP tools, with authentication and logging." } },
+      "4": { "l": "Agent Gateway", "s": { "nl": "+ Apigee voor API's", "en": "+ Apigee for APIs" }, "d": { "nl": "Agent Gateway beheert de verbindingen tussen agents, tools en data, met bescherming tegen prompt injection en datalekken. Bestaande API's blijven via Apigee lopen. Per aanroep worden identiteit, scopes en goedkeuring gecontroleerd. MCP-servers van leveranciers alleen via een bewust gekozen patroon.", "en": "Agent Gateway manages the connections between agents, tools and data, with protection against prompt injection and data leaks. Existing APIs keep running through Apigee. Identity, scopes and approval are checked per call. Vendor MCP servers only through a deliberately chosen pattern." } },
+      "5": { "s": { "nl": "toolcatalogus", "en": "tool catalogue" }, "d": { "nl": "Een gedeelde catalogus van MCP-tools voor alle agents, met versiebeheer.", "en": "A shared, versioned catalogue of MCP tools for all agents." } }
+    },
+    "kb": {
+      "1": { "s": "Vertex AI Search", "d": { "nl": "Zoekt passages in procedures, met bronvermelding.", "en": "Finds passages in procedures, with citations." } },
+      "3": { "s": { "nl": "tool van de agent", "en": "tool of the agent" }, "d": { "nl": "De agent bepaalt zelf wanneer hij iets opzoekt.", "en": "The agent decides for itself when to look something up." } },
+      "5": { "s": { "nl": "gedeelde kennislaag", "en": "shared knowledge layer" }, "d": { "nl": "Eén kennislaag voor alle agents, met toegangsrechten per agent.", "en": "One knowledge layer for all agents, with access rights per agent." } }
+    },
+    "bus": {
+      "3": { "s": "Pub/Sub", "d": { "nl": "De agent publiceert een event na elke wijziging.", "en": "The agent publishes an event after every change." } },
+      "5": { "s": "topic-registry", "d": { "nl": "Een topic-registry legt vast welke events er zijn, wie de eigenaar is en wie ze gebruikt.", "en": "A topic registry records which events exist, who owns them and who uses them." } }
+    },
+    "data": {
+      "3": { "s": { "nl": "+ semantische laag", "en": "+ semantic layer" }, "d": { "nl": "Toolbeschrijving en query-logica komen uit dezelfde metadata.", "en": "Tool description and query logic come from the same metadata." } },
+      "5": { "s": "Knowledge Catalog", "d": { "nl": "Meerdere dataproducten, elk met eigen eigenaar en toegangsregels. Knowledge Catalog (Agentic Data Cloud) helpt agents bedrijfstermen en context over databronnen heen te begrijpen.", "en": "Several data products, each with its own owner and access rules. Knowledge Catalog (Agentic Data Cloud) helps agents understand business terms and context across data sources." } }
+    },
+    "registry": {
+      "5": { "s": { "nl": "agents · tools · API's", "en": "agents · tools · APIs" }, "d": { "nl": "Registers voor agents, tools, API's en events, met golden paths, testgereedschap, FinOps en een model registry.", "en": "Registries for agents, tools, APIs and events, with golden paths, test tooling, FinOps and a model registry." } }
+    },
+    "core": {
+      "2": { "s": { "nl": "vaste koppeling", "en": "fixed integration" }, "d": { "nl": "De pijplijn schrijft via een vaste koppeling weg.", "en": "The pipeline writes through a fixed integration." } },
+      "3": { "s": { "nl": "via MCP-tool", "en": "via MCP tool" }, "d": { "nl": "De agent schrijft via een tool achter de gateway.", "en": "The agent writes through a tool behind the gateway." } },
+      "4": { "s": { "nl": "idempotent + akkoord", "en": "idempotent + approved" }, "d": { "nl": "Alleen met idempotency-key en, waar nodig, een goedkeurings-id.", "en": "Only with an idempotency key and, where needed, an approval id." } }
+    }
+  }
+}
