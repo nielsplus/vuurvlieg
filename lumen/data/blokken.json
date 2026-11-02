@@ -35,7 +35,7 @@
       "n": { "nl": "Geschaald", "en": "Scaled" },
       "d": { "nl": "Meerdere agents werken samen via standaarden.", "en": "Multiple agents work together through standards." },
       "iw": { "nl": "Het grootst", "en": "The largest" },
-      "it": { "nl": "Standaarden, toolcatalogus en ketentesten over teams heen. Hier zit de chapter-lead-rol.", "en": "Standards, a tool catalogue and end-to-end chain tests across teams. This is where the chapter lead role sits." }
+      "it": { "nl": "Standaarden, toolcatalogus en ketentesten over teams heen. Hier zit de rol van de IT-integrator op zijn grootst.", "en": "Standards, a tool catalogue and end-to-end chain tests across teams. This is where the IT integrator's role is at its largest." }
     }
   ],
   "harnessStrook": ["armor", "sdp", "validator", "audit", "gateway", "ident", "policy", "hitl"],
