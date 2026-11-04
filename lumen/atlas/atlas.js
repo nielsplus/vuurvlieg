@@ -9,12 +9,12 @@ const L = (a, b) => nl() ? a : b;
 /* Vaste teksten van de pagina */
 const U = {
   nl: {
-    fwEyebrow: "Het framework", fwTitle: "Lumen Agentic Atlas", fwLead: "Mijn framework voor agentic AI. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles (de harness) daarin meegroeien. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe ontwikkeling te plaatsen.",
+    fwEyebrow: "Conceptueel kader", fwTitle: "Lumen Agentic Atlas", fwLead: "Mijn conceptueel kader voor agentic AI. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles (de harness) daarin meegroeien. Ik gebruik het om architecturen te ontwerpen en om elke nieuwe ontwikkeling te plaatsen.",
     kern: "Een agent verdient zijn ruimte met controles, niet andersom.",
     pEyebrow: "Drie principes",
     p: [["De harness groeit mee met wat een agent mag.", "Hoe meer een agent zelf mag doen, hoe meer controles erbij komen."], ["Zo deterministisch mogelijk, zo probabilistisch als nodig.", "Het model begrijpt en stelt voor; code valideert, autoriseert en voert uit. Niet elk proces wordt beter met een agent."], ["Het werk zit op de naden.", "Tussen model en code, tussen agent en bronsystemen, en tussen agent en mens. Daar zit de integrator."]],
-    mapEyebrow: "De plaat",
-    title: "De plaat: een agentarchitectuur per level",
+    mapEyebrow: "Conceptuele kaart",
+    title: "Een agentarchitectuur per level",
     sub: "Een agentarchitectuur voor klantverzoeken bij een fictieve organisatie, op Google Cloud. Kies een maturity level en zie de architectuur en de harness meegroeien. Kijk door de integrator-bril en klik op elk blok voor uitleg.",
     tags: ["fictieve organisatie", "synthetische data", "publieke Google Cloud-componenten", "conceptschets"],
     lens: "Integrator-bril", controls: "Bediening",
@@ -45,12 +45,12 @@ const U = {
     loadErr: "De Atlas kon zijn data niet laden. Open de pagina via de website (of een lokale server), niet als los bestand."
   },
   en: {
-    fwEyebrow: "The framework", fwTitle: "Lumen Agentic Atlas", fwLead: "My framework for agentic AI. It shows how an agent architecture grows over six maturity levels, and which controls (the harness) grow along with it. I use it to design architectures and to place every new development.",
+    fwEyebrow: "Conceptual framework", fwTitle: "Lumen Agentic Atlas", fwLead: "My conceptual framework for agentic AI. It shows how an agent architecture grows over six maturity levels, and which controls (the harness) grow along with it. I use it to design architectures and to place every new development.",
     kern: "An agent earns its room to act through controls, not the other way around.",
     pEyebrow: "Three principles",
     p: [["The harness grows with what an agent may do.", "The more an agent may do on its own, the more controls are added."], ["As deterministic as possible, as probabilistic as needed.", "The model understands and proposes; code validates, authorises and executes. Not every process gets better with an agent."], ["The work sits on the seams.", "Between model and code, between agent and source systems, and between agent and people. That is where the integrator works."]],
-    mapEyebrow: "The map",
-    title: "The map: an agent architecture per level",
+    mapEyebrow: "Conceptual map",
+    title: "An agent architecture per level",
     sub: "An agent architecture for customer requests at a fictional organisation, on Google Cloud. Choose a maturity level and watch the architecture and the harness grow. Look through the integrator lens and click any block for an explanation.",
     tags: ["fictional organisation", "synthetic data", "public Google Cloud components", "concept sketch"],
     lens: "Integrator lens", controls: "Controls",
@@ -107,8 +107,6 @@ function shell() {
     <p class="kern">${esc(t.kern)}</p>
     <p class="lead">${esc(t.fwLead)}</p>
     </div>${Lumen.shield()}</div>
-    <div class="eyebrow" style="margin-top:40px">${esc(t.pEyebrow)}</div>
-    <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
   </section>
   <header>
     <div class="eyebrow">${esc(t.mapEyebrow)}</div>
@@ -137,6 +135,10 @@ function shell() {
     <aside class="card panel" id="panel" aria-live="polite"></aside>
   </div>
   <section class="card"><h2>${esc(t.concepts)}</h2><div class="chips" id="chips"></div></section>
+  <section class="pr">
+    <div class="eyebrow">${esc(t.pEyebrow)}</div>
+    <div class="principles">${t.p.map((p, i) => `<div class="lm-card principle"><div class="n">${i + 1}</div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div>`).join("")}</div>
+  </section>
   <section class="card"><h2>${esc(t.trendlog)}</h2><p class="tlead">${esc(t.tlead)}</p>
     <div class="tlwrap"><table class="tl"><thead><tr>${t.th.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody id="trendrows"></tbody></table></div></section>
   <p class="foot">${esc(t.foot)}</p>`;
