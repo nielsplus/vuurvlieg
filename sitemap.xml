@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://vuurvlieg.com/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/profiel/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/profiel/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/profiel/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/profiel/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/profiel/?lang=nl</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/profiel/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/profiel/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/profiel/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/?lang=nl</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/atlas/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/atlas/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/atlas/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/atlas/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/atlas/?lang=nl</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/atlas/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/atlas/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/atlas/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lichtpunten/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lichtpunten/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lichtpunten/?lang=nl</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lichtpunten/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent&amp;lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent&amp;lang=nl</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent&amp;lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-10-gemini-agent"/>
+  </url>
+</urlset>
