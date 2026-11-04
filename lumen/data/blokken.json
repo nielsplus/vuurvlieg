@@ -72,7 +72,7 @@
       "l": { "nl": "PII-redactie", "en": "PII redaction" },
       "s": "Sensitive Data Prot.",
       "g": "Sensitive Data Protection (DLP API)",
-      "what": { "nl": "Vervangt naam, IBAN en klantnummer door tokens. De echte waarden blijven in een kluis buiten het model.", "en": "Replaces name, IBAN and customer number with tokens. The real values stay in a vault outside the model." },
+      "what": { "nl": "Vervangt naam, adres en klantnummer door tokens. De echte waarden blijven in een kluis buiten het model.", "en": "Replaces name, address and customer number with tokens. The real values stay in a vault outside the model." },
       "why": { "nl": "Dataminimalisatie: het model hoeft niet te weten wie de klant is om te begrijpen wat hij vraagt.", "en": "Data minimisation: the model doesn't need to know who the customer is to understand what they are asking." },
       "it": { "nl": "Tokenkluis en de-tokenisatie op de juiste plek in de keten: eruit vóór het model, terug bij de API. Een fout hier lekt data of breekt de wijziging.", "en": "Token vault and de-tokenisation in the right place in the chain: out before the model, back in at the API. A mistake here leaks data or breaks the change." }
     },
@@ -81,7 +81,7 @@
       "l": "Agent Identity",
       "s": "IAM · least privilege",
       "g": { "nl": "Agent Identity (Gemini Enterprise Agent Platform): een eigen cryptografische ID per agent, met minimale scopes en kortlevende tokens", "en": "Agent Identity (Gemini Enterprise Agent Platform): a cryptographic ID per agent, with minimal scopes and short-lived tokens" },
-      "what": { "nl": "De agent heeft een eigen identiteit met alleen de rechten die bij deze taak horen: klant lezen, adres schrijven, nooit betalen.", "en": "The agent has its own identity with only the rights this task needs: read customer, write address, never pay." },
+      "what": { "nl": "De agent heeft een eigen identiteit met alleen de rechten die bij deze taak horen: klant lezen, adres schrijven, nooit gegevens verwijderen.", "en": "The agent has its own identity with only the rights this task needs: read customer, write address, never delete data." },
       "why": { "nl": "Ook als het model ontspoort, kan het niets doen waarvoor de identiteit geen rechten heeft. Dat is een harde grens buiten het model.", "en": "Even if the model goes off the rails, it can't do anything the identity has no rights for. That is a hard boundary outside the model." },
       "it": { "nl": "Serviceaccounts, scopes en kortlevende tokens inrichten en laten afdwingen door de gateway.", "en": "Setting up service accounts, scopes and short-lived tokens, enforced by the gateway." }
     },
@@ -90,7 +90,7 @@
       "l": "Validator",
       "s": { "nl": "schema + regels", "en": "schema + rules" },
       "g": { "nl": "Pydantic in Cloud Run of als ADK-callback", "en": "Pydantic in Cloud Run or as an ADK callback" },
-      "what": { "nl": "Controleert elke modeluitvoer: klopt het schema, bestaat de datum, is de IBAN-checksum geldig, zijn verplichte velden gevuld?", "en": "Checks every model output: is the schema right, does the date exist, is the IBAN checksum valid, are required fields filled?" },
+      "what": { "nl": "Controleert elke modeluitvoer: klopt het schema, bestaat de datum, is de postcode geldig, zijn verplichte velden gevuld?", "en": "Checks every model output: is the schema right, does the date exist, is the postcode valid, are required fields filled?" },
       "why": { "nl": "Het model kan zich vergissen. Code vangt dat af voordat het schade doet.", "en": "The model can make mistakes. Code catches them before they do damage." },
       "it": { "nl": "Het contract tussen model en systemen: schema's, mapping naar bestaande datamodellen en wat er gebeurt bij een fout.", "en": "The contract between model and systems: schemas, mapping to existing data models and what happens on an error." }
     },
@@ -180,7 +180,7 @@
       "l": { "nl": "Andere agents", "en": "Other agents" },
       "s": "A2A · agent-registry",
       "g": { "nl": "Agent2Agent-protocol (A2A) met een agent-registry", "en": "Agent2Agent protocol (A2A) with an agent registry" },
-      "what": { "nl": "Laat agents elkaar vinden en taken aan elkaar doorgeven, bijvoorbeeld een router-agent of een fraude-agent. Draaien agents in van elkaar afgeschermde omgevingen, dan gaat dat via beheerde koppelpatronen.", "en": "Lets agents find each other and hand tasks to each other, for example a router agent or a fraud agent. When agents run in environments shielded from each other, that happens through managed connection patterns." },
+      "what": { "nl": "Laat agents elkaar vinden en taken aan elkaar doorgeven, bijvoorbeeld een router-agent of een controle-agent. Draaien agents in van elkaar afgeschermde omgevingen, dan gaat dat via beheerde koppelpatronen.", "en": "Lets agents find each other and hand tasks to each other, for example a router agent or a verification agent. When agents run in environments shielded from each other, that happens through managed connection patterns." },
       "why": { "nl": "Op schaal bouw je geen superagent, maar laat je gespecialiseerde agents samenwerken via een standaard.", "en": "At scale you don't build a super-agent; you let specialised agents work together through a standard." },
       "it": { "nl": "Standaarden voor hoe agents elkaar vinden en aanroepen: registry, contracten en ketentesten over teams heen.", "en": "Standards for how agents find and call each other: registry, contracts and chain tests across teams." }
     },
@@ -224,7 +224,7 @@
       "x": 745, "y": 630, "w": 140, "h": 60, "t": "det", "lv": 2, "ir": "kern",
       "l": { "nl": "Core-API", "en": "Core API" },
       "s": { "nl": "wijziging doorvoeren", "en": "applies the change" },
-      "g": { "nl": "Core banking-API (gesimuleerd)", "en": "Core banking API (simulated)" },
+      "g": { "nl": "Kernsysteem-API (gesimuleerd)", "en": "Core system API (simulated)" },
       "what": { "nl": "Voert de wijziging echt door. Dit is het punt van geen terugkeer.", "en": "Actually applies the change. This is the point of no return." },
       "why": { "nl": "Alles daarvoor bepaalt of deze aanroep veilig is. Een idempotency-key voorkomt dat een retry dubbel boekt.", "en": "Everything before it decides whether this call is safe. An idempotency key prevents a retry from booking twice." },
       "it": { "nl": "Idempotentie, transacties en rollback. Dit is de aanroep die nooit dubbel of half mag gebeuren.", "en": "Idempotency, transactions and rollback. This is the call that must never happen twice or halfway." }
@@ -259,7 +259,8 @@
     },
     "validator": {
       "2": { "s": { "nl": "schema + regels", "en": "schema + rules" }, "d": { "nl": "Schema en businessregels op de output van de pijplijn.", "en": "Schema and business rules on the output of the pipeline." } },
-      "3": { "s": { "nl": "ook toolargumenten", "en": "tool arguments too" }, "d": { "nl": "Ook de argumenten die de agent aan tools meegeeft, worden gevalideerd vóór de aanroep.", "en": "The arguments the agent passes to tools are also validated before the call." } }
+      "3": { "s": { "nl": "ook toolargumenten", "en": "tool arguments too" }, "d": { "nl": "Ook de argumenten die de agent aan tools meegeeft, worden gevalideerd vóór de aanroep.", "en": "The arguments the agent passes to tools are also validated before the call." } },
+      "5": { "s": { "nl": "ook samengevoegd", "en": "merged results too" }, "d": { "nl": "Ook het samengevoegde resultaat van parallelle agents wordt gevalideerd, want twee goede deelantwoorden kunnen samen tegenstrijdig zijn.", "en": "The merged result of parallel agents is validated too, because two correct partial answers can contradict each other." } }
     },
     "policy": {
       "4": { "s": { "nl": "regels per actie", "en": "rules per action" }, "d": { "nl": "Vaste regels per actie: mag zelf, eerst vragen of nooit.", "en": "Fixed rules per action: may act, ask first or never." } },
@@ -269,12 +270,12 @@
       "2": { "s": { "nl": "logbestand", "en": "log file" }, "d": { "nl": "Elke run schrijft gestructureerde events weg.", "en": "Every run writes structured events." } },
       "3": { "s": { "nl": "trace per stap", "en": "trace per step" }, "d": { "nl": "Eén trace-id over alle stappen en toolaanroepen.", "en": "One trace id across all steps and tool calls." } },
       "4": { "s": { "nl": "systeem + LLMOps", "en": "system + LLMOps" }, "d": { "nl": "Twee paden: korte, PII-vrije systeemtraces voor end-to-end monitoring, en volledige agent-traces met prompts en toolresultaten voor LLMOps en audit, afgeschermd vanwege PII.", "en": "Two paths: short, PII-free system traces for end-to-end monitoring, and full agent traces with prompts and tool results for LLMOps and audit, shielded because of PII." } },
-      "5": { "s": { "nl": "ketenbreed", "en": "chain-wide" }, "d": { "nl": "Traces lopen door over agents heen, ook via A2A.", "en": "Traces continue across agents, including via A2A." } }
+      "5": { "s": { "nl": "ketenbreed", "en": "chain-wide" }, "d": { "nl": "Traces lopen door over agents heen, ook via A2A en over parallelle takken: één trace-id, met een eigen tak per agent.", "en": "Traces continue across agents, including via A2A and across parallel branches: one trace id, with its own branch per agent." } }
     },
     "orch": {
       "3": { "s": { "nl": "ADK-agent", "en": "ADK agent" }, "d": { "nl": "Eén agent-loop die zelf tools en stappen kiest.", "en": "One agent loop that chooses its own tools and steps." } },
       "4": { "s": { "nl": "ADK + checkpoints", "en": "ADK + checkpoints" }, "d": { "nl": "De loop pauzeert en hervat rond menselijke besluiten.", "en": "The loop pauses and resumes around human decisions." } },
-      "5": { "s": { "nl": "router + subagents", "en": "router + sub-agents" }, "d": { "nl": "Een router-agent verdeelt werk over gespecialiseerde agents. Code die een agent genereert, draait in een afgeschermde sandbox.", "en": "A router agent distributes work over specialised agents. Code an agent generates runs in a shielded sandbox." } }
+      "5": { "s": { "nl": "router + subagents", "en": "router + sub-agents" }, "d": { "nl": "Een router-agent verdeelt werk over gespecialiseerde agents. Deeltaken kunnen tegelijk lopen; de orchestrator voegt de resultaten daarna samen. Code die een agent genereert, draait in een afgeschermde sandbox.", "en": "A router agent distributes work over specialised agents. Sub-tasks can run in parallel; the orchestrator then merges the results. Code an agent generates runs in a shielded sandbox." } }
     },
     "state": {
       "3": { "s": { "nl": "sessie", "en": "session" }, "d": { "nl": "Sessiestatus binnen één taak.", "en": "Session state within one task." } },
