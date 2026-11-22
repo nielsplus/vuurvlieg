@@ -16,7 +16,7 @@
     .hero { padding: 88px 0 40px; position: relative; }
     .hero .sub { font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); color: var(--gold); margin-top: 6px; }
 
-    .parts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .part { display: block; text-decoration: none; color: var(--text); position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
     .part:hover { border-color: var(--gold-soft); transform: translateY(-3px); color: var(--text); }
     .part::before { content: ""; position: absolute; width: 220px; height: 220px; right: -80px; top: -80px; border-radius: 50%; background: radial-gradient(rgba(170,255,68,.14), transparent 70%); }
@@ -46,7 +46,8 @@
     .about { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
     .about p { color: #c4beae; max-width: 640px; }
     .origin { color: var(--muted); font-size: 14px; max-width: 760px; margin-top: 18px; }
-    @media (max-width: 860px) { .parts { grid-template-columns: 1fr; } .cycle { grid-template-columns: 1fr 1fr; row-gap: 40px; } .cycle::before, .cycle .ff { display: none; } }
+    @media (max-width: 1000px) { .parts { grid-template-columns: 1fr; } }
+    @media (max-width: 860px) { .cycle { grid-template-columns: 1fr 1fr; row-gap: 40px; } .cycle::before, .cycle .ff { display: none; } }
     @media (max-width: 480px) { .cycle { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -60,11 +61,15 @@ const TXT = {
     sub: "Agentic AI, mapped",
     kern: "An agent earns its room to act through controls, not the other way around.",
     lead: "Lumen is where I keep track of agentic AI and share how I look at it. My angle is that of the IT integrator: the real work sits on the seams, between model and code, between agent and source systems, and between agent and people.",
-    partsEyebrow: "Two parts", partsTitle: "One way of looking, in two forms",
+    partsEyebrow: "Three parts", partsTitle: "One way of looking, in three forms",
     atlasKind: "Conceptual framework", atlasT: "Lumen Agentic Atlas",
     atlasD: "My conceptual framework for agentic AI, as an interactive conceptual map. It shows how an agent architecture grows over six maturity levels, and which controls grow along with it.",
     atlasL: ["Three principles and six maturity levels", "An interactive map: watch the architecture grow per level", "A trend log that shows where every new development lands"],
     atlasGo: "Open the Agentic Atlas →",
+    lifeKind: "Build and improve", lifeT: "Lifecycle",
+    lifeD: "The Atlas shows what runs when a request comes in. The Lifecycle shows how that system is built and kept good: from goal and data to validation and feedback, per maturity level.",
+    lifeL: ["Six steps, from defining the goal to feeding back", "Choose a level and see what each step looks like", "Four links to the blocks on the Atlas"],
+    lifeGo: "Open the Lifecycle →",
     blogKind: "The blog", blogT: "Glimmers",
     blogD: "Monthly posts on what is new in agentic AI. Each one is read through the Atlas, with the same four questions. When a development changes a block, it is mapped into the Atlas.",
     blogGo: "Read the Glimmers →", latest: "Latest",
@@ -86,11 +91,15 @@ const TXT = {
     sub: "Agentic AI in kaart",
     kern: "Een agent verdient zijn ruimte met controles, niet andersom.",
     lead: "Lumen is de plek waar ik agentic AI bijhoud en laat zien hoe ik ernaar kijk. Ik kijk als IT-integrator: het echte werk zit op de naden, tussen model en code, tussen agent en bronsystemen, en tussen agent en mens.",
-    partsEyebrow: "Twee delen", partsTitle: "Eén manier van kijken, in twee vormen",
+    partsEyebrow: "Drie delen", partsTitle: "Eén manier van kijken, in drie vormen",
     atlasKind: "Conceptueel kader", atlasT: "Lumen Agentic Atlas",
     atlasD: "Mijn conceptueel kader voor agentic AI, als interactieve conceptuele kaart. Het laat zien hoe een agentarchitectuur groeit over zes maturity levels, en welke controles daarin meegroeien.",
     atlasL: ["Drie principes en zes maturity levels", "Een interactieve plaat: zie de architectuur per level meegroeien", "Een trendlog die laat zien waar elke ontwikkeling landt"],
     atlasGo: "Open de Agentic Atlas →",
+    lifeKind: "Bouwen en verbeteren", lifeT: "Lifecycle",
+    lifeD: "De Atlas laat zien wat er draait als een verzoek binnenkomt. De Lifecycle laat zien hoe dat systeem wordt gebouwd en goed blijft: van doel en data tot validatie en terugkoppeling, per maturity level.",
+    lifeL: ["Zes stappen, van het doel bepalen tot terugkoppelen", "Kies een level en zie wat elke stap inhoudt", "Vier koppelingen naar de blokken op de Atlas"],
+    lifeGo: "Open de Lifecycle →",
     blogKind: "Het blog", blogT: "Lichtpunten",
     blogD: "Maandelijkse stukken over wat er nieuw is in agentic AI. Elk stuk wordt gelezen door de bril van de Atlas, met dezelfde vier vragen. Verandert een ontwikkeling een blok, dan wordt die verwerkt in de Atlas.",
     blogGo: "Lees de Lichtpunten →", latest: "Nieuwste",
@@ -131,8 +140,11 @@ function render() {
       <a class="lm-card part reveal" href="/lumen/atlas/">
         <div class="num">1</div><div class="kind">${esc(t.atlasKind)}</div><h3>${esc(t.atlasT)}</h3>
         <p>${esc(t.atlasD)}</p><ul>${t.atlasL.map(x => `<li>${esc(x)}</li>`).join("")}</ul><span class="go">${esc(t.atlasGo)}</span></a>
+      <a class="lm-card part reveal" href="/lumen/lifecycle/">
+        <div class="num">2</div><div class="kind">${esc(t.lifeKind)}</div><h3>${esc(t.lifeT)}</h3>
+        <p>${esc(t.lifeD)}</p><ul>${t.lifeL.map(x => `<li>${esc(x)}</li>`).join("")}</ul><span class="go">${esc(t.lifeGo)}</span></a>
       <a class="lm-card part reveal" href="/lumen/lichtpunten/">
-        <div class="num">2</div><div class="kind">${esc(t.blogKind)}</div><h3>${esc(t.blogT)}</h3>
+        <div class="num">3</div><div class="kind">${esc(t.blogKind)}</div><h3>${esc(t.blogT)}</h3>
         <p>${esc(t.blogD)}</p><span class="go">${esc(t.blogGo)}</span>
         ${lp ? `<div class="latest">${esc(t.latest)} · ${esc(Lumen.month(lp.datum))}<b>${esc(T(lp.t))}</b></div>` : ""}</a>
     </div>
