@@ -1,0 +1,95 @@
+{
+  "_uitleg": "Data voor de Lifecycle-plaat. stappen = de zes stappen (0 t/m 5). evolutie = per level wat er in die stap gebeurt; levels die niet genoemd zijn erven van het vorige level. deel = deelstappen (optioneel). koppelingen = de naden met de Runtime-plaat (Atlas); blokken zijn sleutels uit blokken.json.",
+  "stappen": [
+    {
+      "id": "doel",
+      "n": { "nl": "Doel en risico bepalen", "en": "Define goal and risk" },
+      "w": { "nl": "Wat moet de agent doen, wat mag hij nooit, en in welke risicoklasse valt de taak? Het risico bepaalt hoeveel autonomie hij kan verdienen, dus dit komt vóór alles.", "en": "What must the agent do, what must it never do, and which risk class does the task belong to? The risk decides how much autonomy it can earn, so this comes before everything else." },
+      "evolutie": {
+        "0": { "nl": "Een vraag-en-antwoordtaak zonder gevolgen voor systemen.", "en": "A question-and-answer task with no consequences for systems." },
+        "1": { "nl": "Welke bronnen erbij horen en wie ze mag zien, wordt onderdeel van het doel.", "en": "Which sources belong to it and who may see them becomes part of the goal." },
+        "2": { "nl": "Het doel staat vast als taak met invoer, uitvoer en een foutafhandeling.", "en": "The goal is fixed as a task with input, output and error handling." },
+        "3": { "nl": "Doel, toegestane tools en wat nooit mag, worden vooraf vastgelegd.", "en": "Goal, allowed tools and what is never allowed are fixed up front." },
+        "4": { "nl": "De risicoklasse bepaalt de autonomie en waar een mens moet goedkeuren.", "en": "The risk class decides the autonomy and where a person must approve." },
+        "5": { "nl": "Risicoklassen gelden per keten en worden gedeeld tussen teams.", "en": "Risk classes apply per chain and are shared across teams." }
+      }
+    },
+    {
+      "id": "data",
+      "n": { "nl": "Data verkennen", "en": "Explore data" },
+      "w": { "nl": "Weten wat je data waard is voordat een model ernaar kijkt.", "en": "Know what your data is worth before a model looks at it." },
+      "deel": [
+        { "nl": "Bronnen inventariseren, met eigenaar en toegestaan doel", "en": "Inventory sources, with owner and permitted purpose" },
+        { "nl": "Toegang en gevoeligheid regelen, wat gemaskeerd moet worden", "en": "Settle access and sensitivity, what must be masked" },
+        { "nl": "Kwaliteit meten: volledigheid, dubbelen, formaten, tegenstrijdigheden", "en": "Measure quality: completeness, duplicates, formats, contradictions" },
+        { "nl": "Echte gevallen bekijken, ook de randgevallen", "en": "Look at real cases, including the edge cases" },
+        { "nl": "\"Goed\" definiëren, als basis voor de antwoordsleutel", "en": "Define \"good\", as the basis for the answer key" },
+        { "nl": "Representativiteit en actualiteit controleren", "en": "Check representativeness and freshness" }
+      ],
+      "extra": { "nl": "Daarbij loopt de herkomst (lineage) van elk datapunt mee, en gebruik je synthetische data waar echte data niet mag of ontbreekt.", "en": "Alongside, the lineage of every data point is recorded, and synthetic data is used where real data is not allowed or missing." },
+      "evolutie": {
+        "0": { "nl": "Weinig nodig: de data is wat de gebruiker intypt.", "en": "Little needed: the data is what the user types." },
+        "1": { "nl": "Bronnen en toegangsrechten staan centraal: welke documenten, voor wie.", "en": "Sources and access rights are central: which documents, for whom." },
+        "2": { "nl": "Kwaliteit meten en een eerste steekproef uit echt verkeer.", "en": "Measuring quality and a first sample of real traffic." },
+        "3": { "nl": "Ook randgevallen en de data achter tools en API's.", "en": "Edge cases too, and the data behind tools and APIs." },
+        "4": { "nl": "Een beheerde definitie van \"goed\" en een controle op scheefheid.", "en": "A managed definition of \"good\" and a check for bias." },
+        "5": { "nl": "Gedeelde data met een eigenaar, over teams en agents heen.", "en": "Shared data with an owner, across teams and agents." }
+      }
+    },
+    {
+      "id": "model",
+      "n": { "nl": "Modelleren", "en": "Model" },
+      "w": { "nl": "Model, prompts, tools en context kiezen, en de antwoordsleutel opbouwen.", "en": "Choose the model, prompts, tools and context, and build the answer key." },
+      "evolutie": {
+        "0": { "nl": "Prompts uitproberen met één model.", "en": "Trying out prompts with one model." },
+        "1": { "nl": "Bronnen koppelen en bepalen wat het model mag lezen.", "en": "Connecting sources and deciding what the model may read." },
+        "2": { "nl": "Vaste schema's en een pijplijn die tekst omzet in data.", "en": "Fixed schemas and a pipeline that turns text into data." },
+        "3": { "nl": "Agent- en tool-ontwerp: welke tools, welke beschrijvingen, welke stappen.", "en": "Agent and tool design: which tools, which descriptions, which steps." },
+        "4": { "nl": "Grenzen en policy worden meeontworpen; de antwoordsleutel wordt een beheerd product.", "en": "Boundaries and policy are designed along; the answer key becomes a managed product." },
+        "5": { "nl": "Hergebruikte skills en afspraken tussen agents.", "en": "Reused skills and agreements between agents." }
+      }
+    },
+    {
+      "id": "valideren",
+      "n": { "nl": "Valideren", "en": "Validate" },
+      "w": { "nl": "Aantonen dat het goed genoeg is: harde controles eerst, dan evals op antwoord én pad, dan een onafhankelijke beoordelaar, dan een mens.", "en": "Show that it is good enough: hard checks first, then evals on answer and path, then an independent judge, then a person." },
+      "evolutie": {
+        "0": { "nl": "Handmatig kijken of het antwoord klopt.", "en": "Checking by hand whether the answer is right." },
+        "1": { "nl": "Controleren of het antwoord uit de bronnen komt.", "en": "Checking that the answer comes from the sources." },
+        "2": { "nl": "Een vaste testset en schema- en regelcontroles.", "en": "A fixed test set and schema and rule checks." },
+        "3": { "nl": "Ook het pad beoordelen: welke tools riep de agent aan, in welke volgorde.", "en": "Judging the path too: which tools the agent called, in which order." },
+        "4": { "nl": "Een onafhankelijke beoordelaar met alleen leesrechten, en regressietests bij elke wijziging.", "en": "An independent judge with read-only rights, and regression tests on every change." },
+        "5": { "nl": "Ketentests over agents heen, met een mens-steekproef op de beoordelaar zelf.", "en": "Chain tests across agents, with a human sample on the judge itself." }
+      }
+    },
+    {
+      "id": "uitrollen",
+      "n": { "nl": "Uitrollen", "en": "Release" },
+      "w": { "nl": "Een verbetering komt als kandidaat naast de live versie en gaat pas live na goedkeuring.", "en": "An improvement arrives as a candidate beside the live version and goes live only after approval." },
+      "evolutie": {
+        "0": { "nl": "Handmatig aanpassen en hopen dat het werkt.", "en": "Changing by hand and hoping it works." },
+        "3": { "nl": "Een kandidaat eerst naast de live versie testen.", "en": "Testing a candidate beside the live version first." },
+        "4": { "nl": "Een mens keurt goed, met een versiemap en terugdraaien als vangnet.", "en": "A person approves, with a version folder and rollback as a safety net." },
+        "5": { "nl": "Gefaseerd uitrollen per team of agent.", "en": "Phased release per team or agent." }
+      }
+    },
+    {
+      "id": "terug",
+      "n": { "nl": "Terugkoppelen", "en": "Feed back" },
+      "w": { "nl": "Wat er in productie gebeurt, wordt een nieuw testgeval. Zo wordt het systeem beter zonder dat het zichzelf ongezien aanpast.", "en": "What happens in production becomes a new test case. That is how the system improves without changing itself unseen." },
+      "evolutie": {
+        "0": { "nl": "Geen terugkoppeling; fouten merk je toevallig.", "en": "No feedback; you notice errors by chance." },
+        "2": { "nl": "Logs laten zien welke taken mislukten.", "en": "Logs show which tasks failed." },
+        "3": { "nl": "Een trace per stap laat zien waar het misging.", "en": "A trace per step shows where it went wrong." },
+        "4": { "nl": "Fouten gaan, na menselijke beoordeling, naar de antwoordsleutel.", "en": "Errors go, after human review, into the answer key." },
+        "5": { "nl": "Online monitoring over de hele keten, met drift in beeld.", "en": "Online monitoring across the whole chain, with drift in view." }
+      }
+    }
+  ],
+  "koppelingen": [
+    { "blokken": ["validator"], "lv": 4, "t": { "nl": "Antwoordsleutel naar de validator", "en": "Answer key to the validator" }, "w": { "nl": "De antwoordsleutel uit Modelleren voedt de validator en de onafhankelijke beoordelaar in de Runtime.", "en": "The answer key from Model feeds the validator and the independent judge in the Runtime." } },
+    { "blokken": ["validator", "hitl"], "lv": 4, "t": { "nl": "Evals bepalen wat live mag", "en": "Evals decide what may go live" }, "w": { "nl": "De uitkomst van Valideren bepaalt of een kandidaat live gaat.", "en": "The outcome of Validate decides whether a candidate goes live." } },
+    { "blokken": ["audit"], "lv": 4, "t": { "nl": "Traces worden testgevallen", "en": "Traces become test cases" }, "w": { "nl": "Trace en audit uit de Runtime leveren de nieuwe testgevallen voor Terugkoppelen.", "en": "Trace and audit from the Runtime supply the new test cases for Feed back." } },
+    { "blokken": ["hitl"], "lv": 4, "t": { "nl": "Eén keer goedkeuren", "en": "One approval" }, "w": { "nl": "Het goedkeuren van een kandidaat is dezelfde human review als bij risicovolle acties.", "en": "Approving a candidate is the same human review as for risky actions." } }
+  ]
+}

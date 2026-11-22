@@ -101,4 +101,20 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-11-onafhankelijke-beoordelaar&amp;lang=nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-11-onafhankelijke-beoordelaar"/>
   </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lifecycle/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lifecycle/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lifecycle/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lifecycle/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/lumen/lifecycle/?lang=nl</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/lumen/lifecycle/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lifecycle/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lifecycle/"/>
+  </url>
 </urlset>
