@@ -15,6 +15,10 @@
   <style>
     .head { padding: 72px 0 8px; }
     .stage { width: 100%; margin-top: 18px; border: 1px solid var(--line-soft); border-radius: 14px; background: radial-gradient(ellipse at 50% 70%, #111a08 0%, #050505 70%); overflow: hidden; min-height: 280px; }
+    .seg { display: inline-flex; gap: 4px; margin-top: 18px; padding: 4px; border: 1px solid var(--line); border-radius: 99px; }
+    .seg button { font: inherit; font-size: 13.5px; color: var(--muted); background: transparent; border: 0; border-radius: 99px; padding: 7px 16px; cursor: pointer; }
+    .seg button.on { background: var(--panel-2); color: var(--gold); }
+    .stage { margin-top: 12px !important; }
     .hint { color: var(--muted); font-size: 13px; margin-top: 8px; text-align: center; }
     .big { font-family: var(--serif); font-size: 44px; color: var(--gold); line-height: 1; }
     .chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
@@ -43,21 +47,21 @@
 <script src="nv3d.js?v=2026-11-22"></script>
 <script>
 const TXT = {
-  en: { eyebrow: "Experiment 2", title: "Emergency supplies in 3D", lead: "The same supplies as in experiment 1, now as six towers. A tower fills as more of its items are in order. Drag to turn, tap a tower for details.",
+  en: { eyebrow: "Experiment 2", title: "Emergency supplies in 3D", lead: "The same supplies as in experiment 1, now in 3D. Every item stands on a shelf and fills as you have more of it. Switch between a metal shelving rack and six towers. Drag to turn, tap for details.", rack: "Shelving rack", towers: "Towers",
     total: "of your items are in order", edit: "Edit supplies", back: "Experiment 1", nodata: "No supplies entered yet. Fill in the tracker first, then come back here.",
     nogl: "Your browser cannot show 3D here. The overview below still works.", note: "The data comes from the tracker and stays in this browser on this device.",
-    pick: "Tap a tower or a category", of: "of", hint: "Drag to rotate · tap a tower",
+    pick: "Tap an item or a category", of: "of", hint: "Drag to rotate · tap an item",
     cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Dog" },
     st: { ok: "In order", low: "Too little", soon: "Expires soon", exp: "Expired", skip: "Not applicable", missing: "Missing" } },
-  nl: { eyebrow: "Experiment 2", title: "Noodvoorraad in 3D", lead: "Dezelfde voorraad als in experiment 1, nu als zes torens. Een toren vult zich naarmate meer onderdelen op orde zijn. Sleep om te draaien, tik op een toren voor details.",
+  nl: { eyebrow: "Experiment 2", title: "Noodvoorraad in 3D", lead: "Dezelfde voorraad als in experiment 1, nu in 3D. Elk onderdeel staat op een plank en vult zich naarmate je er meer van hebt. Wissel tussen een stalen stelling en zes torens. Sleep om te draaien, tik voor details.", rack: "Stelling", towers: "Torens",
     total: "van je onderdelen is op orde", edit: "Voorraad aanpassen", back: "Experiment 1", nodata: "Nog geen voorraad ingevuld. Vul eerst de tracker in en kom dan hier terug.",
     nogl: "Je browser kan hier geen 3D tonen. Het overzicht hieronder werkt wel.", note: "De gegevens komen uit de tracker en blijven in deze browser op dit apparaat.",
-    pick: "Tik op een toren of een categorie", of: "van", hint: "Sleep om te draaien · tik op een toren",
+    pick: "Tik op een onderdeel of een categorie", of: "van", hint: "Sleep om te draaien · tik op een onderdeel",
     cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Hond" },
     st: { ok: "Op orde", low: "Te weinig", soon: "Bijna verlopen", exp: "Verlopen", skip: "Niet van toepassing", missing: "Ontbreekt" } }
 };
 const ORDER = ["water", "licht", "gezond", "warmte", "papier", "extra"];
-let scn = null, sel = null;
+let scn = null, sel = null, mode = "rack";
 function render() {
   const t = TXT[Lumen.lang], { esc } = Lumen, sum = NV3D.summary(Lumen.lang);
   document.title = `${t.title} | ${Lumen.lang === "nl" ? "Experimenten" : "Experiments"}`;
@@ -69,6 +73,7 @@ function render() {
     <p class="lead" style="margin-top:18px">${esc(t.lead)}</p></div></section>
   <section><div class="wrap">
     ${sum.saved ? "" : `<p class="note" style="margin-top:14px">${esc(t.nodata)}</p>`}
+    <div class="seg"><button type="button" data-m="rack" class="${mode === "rack" ? "on" : ""}">${esc(t.rack)}</button><button type="button" data-m="towers" class="${mode === "towers" ? "on" : ""}">${esc(t.towers)}</button></div>
     <div class="stage" id="stage"></div><p class="hint">${esc(t.hint)}</p>
     <p style="margin-top:18px"><span class="big">${sum.pct}%</span> <span class="note">${esc(t.total)}</span></p>
     <div class="chips">${ORDER.map(chip).join("")}</div>
@@ -77,7 +82,8 @@ function render() {
     <p class="note" style="margin-bottom:56px">${esc(t.note)}</p>
   </div></section>`;
   const stage = document.getElementById("stage");
-  scn = NV3D.mount(stage, sum, pick);
+  scn = NV3D.mount(stage, sum, pick, mode);
+  document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { mode = b.dataset.m; render(); }));
   if (!scn) { stage.style.display = "none"; document.querySelector(".hint").textContent = t.nogl; }
   document.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => pick(b.dataset.c)));
   panel(sum); if (scn) scn.select(sel);
