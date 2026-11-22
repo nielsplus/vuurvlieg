@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>Noodvoorraad in 3D | Experimenten</title>
+  <meta name="description" content="Experiment 2: je noodvoorraad als 3D-weergave met three.js. Leest dezelfde gegevens als de tracker, alleen in je eigen browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css?v=2026-11-22">
+  <style>
+    .head { padding: 72px 0 8px; }
+    .stage { width: 100%; margin-top: 18px; border: 1px solid var(--line-soft); border-radius: 14px; background: radial-gradient(ellipse at 50% 70%, #111a08 0%, #050505 70%); overflow: hidden; min-height: 280px; }
+    .hint { color: var(--muted); font-size: 13px; margin-top: 8px; text-align: center; }
+    .big { font-family: var(--serif); font-size: 44px; color: var(--gold); line-height: 1; }
+    .chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+    .chip { font: inherit; text-align: left; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+    .chip:hover, .chip.on { border-color: var(--gold-soft); }
+    .chip.on { background: #14120a; }
+    .chip b { display: block; font-size: 13.5px; font-weight: 500; line-height: 1.25; }
+    .chip span { font-family: var(--serif); font-size: 22px; color: var(--gold); }
+    .chip.ok span { color: var(--glow); } .chip.bad span { color: #d9654a; }
+    .panel { margin-top: 16px; padding: 16px; }
+    .panel h2 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom: 8px; }
+    .li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; }
+    .li:last-child { border-bottom: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--muted); }
+    .dot.ok { background: var(--glow); box-shadow: 0 0 8px 2px rgba(170,255,68,.5); } .dot.low, .dot.soon { background: var(--gold); } .dot.bad { background: #d9654a; }
+    .li .n { flex: 1; } .li .q { color: var(--muted); font-size: 12.5px; text-align: right; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 56px; }
+    .note { color: var(--muted); font-size: 13.5px; }
+    .empty { padding: 28px 16px; text-align: center; color: var(--muted); font-size: 14px; }
+    @media (min-width: 640px) { .chips { grid-template-columns: repeat(3, 1fr); } }
+  </style>
+</head>
+<body data-section="exp">
+<main id="app"></main>
+<script src="/lumen/assets/lumen.js?v=2026-11-22"></script>
+<script src="nv3d.js?v=2026-11-22"></script>
+<script>
+const TXT = {
+  en: { eyebrow: "Experiment 2", title: "Emergency supplies in 3D", lead: "The same supplies as in experiment 1, now as six towers. A tower fills as more of its items are in order. Drag to turn, tap a tower for details.",
+    total: "of your items are in order", edit: "Edit supplies", back: "Experiment 1", nodata: "No supplies entered yet. Fill in the tracker first, then come back here.",
+    nogl: "Your browser cannot show 3D here. The overview below still works.", note: "The data comes from the tracker and stays in this browser on this device.",
+    pick: "Tap a tower or a category", of: "of", hint: "Drag to rotate · tap a tower",
+    cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Dog" },
+    st: { ok: "In order", low: "Too little", soon: "Expires soon", exp: "Expired", skip: "Not applicable", missing: "Missing" } },
+  nl: { eyebrow: "Experiment 2", title: "Noodvoorraad in 3D", lead: "Dezelfde voorraad als in experiment 1, nu als zes torens. Een toren vult zich naarmate meer onderdelen op orde zijn. Sleep om te draaien, tik op een toren voor details.",
+    total: "van je onderdelen is op orde", edit: "Voorraad aanpassen", back: "Experiment 1", nodata: "Nog geen voorraad ingevuld. Vul eerst de tracker in en kom dan hier terug.",
+    nogl: "Je browser kan hier geen 3D tonen. Het overzicht hieronder werkt wel.", note: "De gegevens komen uit de tracker en blijven in deze browser op dit apparaat.",
+    pick: "Tik op een toren of een categorie", of: "van", hint: "Sleep om te draaien · tik op een toren",
+    cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Hond" },
+    st: { ok: "Op orde", low: "Te weinig", soon: "Bijna verlopen", exp: "Verlopen", skip: "Niet van toepassing", missing: "Ontbreekt" } }
+};
+const ORDER = ["water", "licht", "gezond", "warmte", "papier", "extra"];
+let scn = null, sel = null;
+function render() {
+  const t = TXT[Lumen.lang], { esc } = Lumen, sum = NV3D.summary(Lumen.lang);
+  document.title = `${t.title} | ${Lumen.lang === "nl" ? "Experimenten" : "Experiments"}`;
+  if (scn) { scn.dispose(); scn = null; }
+  const chip = c => { const o = sum.cats[c], p = Math.round(o.f * 100), cls = o.act && o.f === 1 ? "ok" : (o.bad || (o.act && o.f === 0)) ? "bad" : "";
+    return `<button type="button" class="chip ${cls}${c === sel ? " on" : ""}" data-c="${c}"><b>${esc(t.cats[c])}</b><span>${p}%</span></button>`; };
+  document.getElementById("app").innerHTML = `
+  <section class="head"><div class="wrap"><div class="eyebrow">${esc(t.eyebrow)}</div><h1 class="lm-title">${esc(t.title)}</h1>
+    <p class="lead" style="margin-top:18px">${esc(t.lead)}</p></div></section>
+  <section><div class="wrap">
+    ${sum.saved ? "" : `<p class="note" style="margin-top:14px">${esc(t.nodata)}</p>`}
+    <div class="stage" id="stage"></div><p class="hint">${esc(t.hint)}</p>
+    <p style="margin-top:18px"><span class="big">${sum.pct}%</span> <span class="note">${esc(t.total)}</span></p>
+    <div class="chips">${ORDER.map(chip).join("")}</div>
+    <div class="lm-card panel" id="panel"></div>
+    <div class="btns"><a class="lm-btn" href="/experimenten/noodvoorraad/${Lumen.lang === "nl" ? "?lang=nl" : ""}">${esc(t.edit)}</a></div>
+    <p class="note" style="margin-bottom:56px">${esc(t.note)}</p>
+  </div></section>`;
+  const stage = document.getElementById("stage");
+  scn = NV3D.mount(stage, sum, pick);
+  if (!scn) { stage.style.display = "none"; document.querySelector(".hint").textContent = t.nogl; }
+  document.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => pick(b.dataset.c)));
+  panel(sum); if (scn) scn.select(sel);
+  function pick(c) { sel = c; document.querySelectorAll(".chip").forEach(b => b.classList.toggle("on", b.dataset.c === c)); if (scn) scn.select(c); panel(sum); }
+}
+function panel(sum) {
+  const t = TXT[Lumen.lang], { esc } = Lumen, el = document.getElementById("panel");
+  if (!sel) { el.innerHTML = `<p class="note">${esc(t.pick)}</p>`; return; }
+  const dot = s => s === "ok" ? "ok" : (s === "low" || s === "soon") ? "low" : s === "skip" ? "" : "bad";
+  el.innerHTML = `<h2>${esc(t.cats[sel])}</h2>` + sum.cats[sel].items.map(i =>
+    `<div class="li"><span class="dot ${dot(i.status)}"></span><span class="n">${esc(i.name)}</span><span class="q">${esc(t.st[i.status])}<br>${esc(i.have)} ${esc(t.of)} ${esc(i.target)}</span></div>`).join("");
+}
+Lumen.start("noodvoorraad", render);
+</script>
+</body>
+</html>

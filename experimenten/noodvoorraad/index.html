@@ -76,7 +76,7 @@ const TXT = {
     eyebrow: "Experiment 1", title: "Emergency supplies",
     lead: "A page to keep track of our emergency supplies, set up for a family of four and the dog. The checklist follows the Dutch government's advice to be able to manage your first 72 hours at home. Adjust it to your own situation.",
     privacy: "Everything you enter stays in this browser on this device. Nothing is sent or stored on a server. Use Export to keep a copy or to move it to another device.",
-    done: "complete", of: "of", items: "items", none: "No items yet.",
+    v3d: "View in 3D (experiment 2)", done: "complete", of: "of", items: "items", none: "No items yet.",
     hh: "Household", adults: "Adults", kids: "Children", days: "Days",
     cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Dog" },
     st: { ok: "In order", low: "Too little", soon: "Expires soon", exp: "Expired", skip: "Not applicable", missing: "Missing" },
@@ -95,7 +95,7 @@ const TXT = {
     eyebrow: "Experiment 1", title: "Noodvoorraad",
     lead: "Een pagina om onze noodvoorraad bij te houden, ingericht voor ons gezin van vier en de hond. De lijst volgt het advies van de Rijksoverheid om de eerste 72 uur thuis te kunnen overbruggen. Pas hem aan op je eigen situatie.",
     privacy: "Alles wat je invult blijft in deze browser op dit apparaat. Er wordt niets verstuurd of op een server opgeslagen. Gebruik Exporteren om een kopie te bewaren of mee te nemen naar een ander apparaat.",
-    done: "compleet", of: "van", items: "onderdelen", none: "Nog geen onderdelen.",
+    v3d: "Bekijk in 3D (experiment 2)", done: "compleet", of: "van", items: "onderdelen", none: "Nog geen onderdelen.",
     hh: "Huishouden", adults: "Volwassenen", kids: "Kinderen", days: "Dagen",
     cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Hond" },
     st: { ok: "Op orde", low: "Te weinig", soon: "Bijna verlopen", exp: "Verlopen", skip: "Niet van toepassing", missing: "Ontbreekt" },
@@ -283,6 +283,7 @@ function render() {
       <div class="btns"><button type="button" class="mini" id="exp">${esc(t.export)}</button>
         <button type="button" class="mini" id="imp">${esc(t.import)}</button><input type="file" id="file" accept="application/json,.json" hidden>
         <button type="button" class="mini dim" id="rst">${esc(t.reset)}</button></div></div>
+    <div class="btns"><a class="lm-btn" href="/experimenten/noodvoorraad/3d/${lang === "nl" ? "?lang=nl" : ""}">${esc(t.v3d)}</a></div>
     <div class="src"><b>${esc(t.srcT)}</b><ul>
       <li><a href="https://www.rijksoverheid.nl/onderwerpen/veiligheidsregios-en-crisisbeheersing/vraag-en-antwoord/wat-zit-er-in-een-noodpakket" rel="noopener" target="_blank">${esc(t.src1)}</a></li>
       <li><a href="https://www.denkvooruit.nl" rel="noopener" target="_blank">${esc(t.src2)}</a></li></ul>
