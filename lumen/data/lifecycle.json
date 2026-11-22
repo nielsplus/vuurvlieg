@@ -58,7 +58,7 @@
         "1": { "nl": "Controleren of het antwoord uit de bronnen komt.", "en": "Checking that the answer comes from the sources." },
         "2": { "nl": "Een vaste testset en schema- en regelcontroles.", "en": "A fixed test set and schema and rule checks." },
         "3": { "nl": "Ook het pad beoordelen: welke tools riep de agent aan, in welke volgorde.", "en": "Judging the path too: which tools the agent called, in which order." },
-        "4": { "nl": "Een onafhankelijke beoordelaar met alleen leesrechten, en regressietests bij elke wijziging.", "en": "An independent judge with read-only rights, and regression tests on every change." },
+        "4": { "nl": "Een onafhankelijke beoordelaar met alleen leesrechten, en regressietests bij elke wijziging. Code die een agent schrijft gaat door dezelfde poort: tests als harde controle, de beoordelaar, en een mens bij risicovolle wijzigingen.", "en": "An independent judge with read-only rights, and regression tests on every change. Code an agent writes goes through the same gate: tests as hard checks, the judge, and a person for risky changes." },
         "5": { "nl": "Ketentests over agents heen, met een mens-steekproef op de beoordelaar zelf.", "en": "Chain tests across agents, with a human sample on the judge itself." }
       }
     },
