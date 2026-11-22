@@ -13,8 +13,8 @@
   const T = v => (v && typeof v === "object" && !Array.isArray(v)) ? (v[LANG] ?? v.nl ?? v.en ?? "") : (v ?? "");
 
   const UI = {
-    en: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lights: "Glimmers", foot: "Lumen · agentic AI, mapped. A personal project; all names and data in examples are fictional.", loadErr: "This content could not be loaded." },
-    nl: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lights: "Lichtpunten", foot: "Lumen · agentic AI in kaart. Een persoonlijk project; alle namen en data in voorbeelden zijn verzonnen.", loadErr: "Deze inhoud kon niet worden geladen." }
+    en: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lifecycle: "Lifecycle", lights: "Glimmers", foot: "Lumen · agentic AI, mapped. A personal project; all names and data in examples are fictional.", loadErr: "This content could not be loaded." },
+    nl: { home: "vuurvlieg.com", lumen: "Lumen", atlas: "Agentic Atlas", lifecycle: "Lifecycle", lights: "Lichtpunten", foot: "Lumen · agentic AI in kaart. Een persoonlijk project; alle namen en data in voorbeelden zijn verzonnen.", loadErr: "Deze inhoud kon niet worden geladen." }
   };
   const MONTHS = {
     en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -33,7 +33,7 @@
     const link = (key, href, label) => `<li><a href="${href}"${active === key ? ' aria-current="page"' : ""}>${esc(label)}</a></li>`;
     nav.innerHTML = `<div class="wrap${document.body.dataset.wide ? " wide" : ""}">
       <a class="lm-home" href="/"><span aria-hidden="true">←</span> VUURVLIEG</a>
-      <ul class="lm-links">${link("lumen", "/lumen/", u.lumen)}${link("atlas", "/lumen/atlas/", u.atlas)}${link("lights", "/lumen/lichtpunten/", u.lights)}</ul>
+      <ul class="lm-links">${link("lumen", "/lumen/", u.lumen)}${link("atlas", "/lumen/atlas/", u.atlas)}${link("lifecycle", "/lumen/lifecycle/", u.lifecycle)}${link("lights", "/lumen/lichtpunten/", u.lights)}</ul>
       <div class="lang-switch" role="group" aria-label="Language / Taal">
         <button type="button" data-lang="en" aria-label="English" aria-pressed="${LANG === "en"}">${FLAG_EN} EN</button>
         <button type="button" data-lang="nl" aria-label="Nederlands" aria-pressed="${LANG === "nl"}">${FLAG_NL} NL</button>
