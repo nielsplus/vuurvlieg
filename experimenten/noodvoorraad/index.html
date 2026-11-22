@@ -25,7 +25,10 @@
     .alerts li { font-size: 14px; padding: 6px 0 6px 14px; border-left: 2px solid var(--gold); margin-top: 6px; color: #e8dcb0; }
     .alerts li.bad { border-color: #d9654a; color: #f0b8a8; }
     .alerts li.ok { border-color: var(--glow); color: #cfeab0; }
-    .hh { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .hh { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .days { display: block; margin-top: 16px; font-size: 14px; color: var(--muted); }
+    .days b { color: var(--gold); font-size: 17px; }
+    input[type="range"] { width: 100%; margin-top: 10px; accent-color: #c9a84c; padding: 0; border: 0; background: transparent; }
     .hh label { display: block; font-size: 12.5px; color: var(--muted); }
     input[type="number"], input[type="date"], input[type="text"], select { width: 100%; font: inherit; font-size: 15px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; margin-top: 4px; }
     input:focus, select:focus { outline: none; border-color: var(--gold-soft); }
@@ -75,7 +78,7 @@ const TXT = {
     privacy: "Everything you enter stays in this browser on this device. Nothing is sent or stored on a server. Use Export to keep a copy or to move it to another device.",
     done: "complete", of: "of", items: "items", none: "No items yet.",
     hh: "Household", adults: "Adults", kids: "Children", days: "Days",
-    cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Baby and pets" },
+    cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Dog" },
     st: { ok: "In order", low: "Too little", soon: "Expires soon", exp: "Expired", skip: "Not applicable", missing: "Missing" },
     have: "Have", target: "Need", expires: "Best before", na: "N/A", use: "Use", del: "Remove",
     addT: "Add your own item", name: "Name", cat: "Category", tgt: "Amount needed", add: "Add",
@@ -85,7 +88,7 @@ const TXT = {
     alExp: n => `${n} item${n === 1 ? " has" : "s have"} expired.`, alSoon: n => `${n} item${n === 1 ? "" : "s"} expire${n === 1 ? "s" : ""} within ${SOON_DAYS} days.`,
     alLow: n => `${n} item${n === 1 ? " is" : "s are"} below the amount needed.`, alCheck: "The government advises checking your supplies every six months.", alNoCheck: "No check recorded yet. Check your supplies every six months.", alOk: "All items are in order.",
     srcT: "Sources", src1: "Dutch government: what is in an emergency kit", src2: "Denk Vooruit: the checklist",
-    srcNote: "Amounts follow the government advice: supplies for 72 hours, and cash of € 70 per adult and € 30 per child. Drinking water of 3 litres per person per day is the commonly used rule of thumb. Dog items are added for one dog: 1 litre of water a day is an estimate, so adjust it to the size of your dog. Add medication and, if needed, baby food.",
+    srcNote: "Amounts follow the government advice: supplies for 72 hours, and cash of € 70 per adult and € 30 per child. Drinking water of 3 litres per person per day is the commonly used rule of thumb. Dog items are added for one dog: 1 litre of water a day is an estimate, so adjust it to the size of your dog. Add medication for your own situation.",
     unitCash: "€", unitL: "L", unitSet: "set", unitPD: "person-days", unitDays: "days", unitPc: "pcs"
   },
   nl: {
@@ -94,7 +97,7 @@ const TXT = {
     privacy: "Alles wat je invult blijft in deze browser op dit apparaat. Er wordt niets verstuurd of op een server opgeslagen. Gebruik Exporteren om een kopie te bewaren of mee te nemen naar een ander apparaat.",
     done: "compleet", of: "van", items: "onderdelen", none: "Nog geen onderdelen.",
     hh: "Huishouden", adults: "Volwassenen", kids: "Kinderen", days: "Dagen",
-    cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Baby en huisdieren" },
+    cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Hond" },
     st: { ok: "Op orde", low: "Te weinig", soon: "Bijna verlopen", exp: "Verlopen", skip: "Niet van toepassing", missing: "Ontbreekt" },
     have: "In huis", target: "Nodig", expires: "Houdbaar tot", na: "N.v.t.", use: "Gebruiken", del: "Verwijderen",
     addT: "Eigen onderdeel toevoegen", name: "Naam", cat: "Categorie", tgt: "Aantal nodig", add: "Toevoegen",
@@ -104,7 +107,7 @@ const TXT = {
     alExp: n => `${n} ${n === 1 ? "onderdeel is" : "onderdelen zijn"} verlopen.`, alSoon: n => `${n} ${n === 1 ? "onderdeel verloopt" : "onderdelen verlopen"} binnen ${SOON_DAYS} dagen.`,
     alLow: n => `${n} ${n === 1 ? "onderdeel zit" : "onderdelen zitten"} onder de benodigde hoeveelheid.`, alCheck: "Het advies is om je voorraad elk half jaar te controleren.", alNoCheck: "Nog geen controle vastgelegd. Controleer je voorraad elk half jaar.", alOk: "Alles is op orde.",
     srcT: "Bronnen", src1: "Rijksoverheid: wat zit er in een noodpakket", src2: "Denk Vooruit: de checklist",
-    srcNote: "De hoeveelheden volgen het advies van de overheid: voorraad voor 72 uur, en contant geld van € 70 per volwassene en € 30 per kind. Drie liter drinkwater per persoon per dag is de gangbare vuistregel. Voor de hond is uitgegaan van één hond: 1 liter water per dag is een schatting, pas dat aan op de grootte van je hond. Vul aan met medicijnen en eventueel babyvoeding.",
+    srcNote: "De hoeveelheden volgen het advies van de overheid: voorraad voor 72 uur, en contant geld van € 70 per volwassene en € 30 per kind. Drie liter drinkwater per persoon per dag is de gangbare vuistregel. Voor de hond is uitgegaan van één hond: 1 liter water per dag is een schatting, pas dat aan op de grootte van je hond. Vul aan met medicijnen voor je eigen situatie.",
     unitCash: "€", unitL: "L", unitSet: "set", unitPD: "persoondagen", unitDays: "dagen", unitPc: "stuks"
   }
 };
@@ -127,7 +130,6 @@ const NAMES = {
   cash:    { nl: "Contant geld", en: "Cash" },
   docs:    { nl: "Kopieën van belangrijke papieren", en: "Copies of important papers" },
   phones:  { nl: "Telefoonnummers op papier, met pen", en: "Phone numbers on paper, with a pen" },
-  baby:    { nl: "Babyvoeding", en: "Baby food" },
   pet:     { nl: "Hondenvoer", en: "Dog food" },
   dogwater:{ nl: "Drinkwater voor de hond", en: "Drinking water for the dog" },
   dogkit:  { nl: "Riem, poepzakjes en eventuele medicijnen voor de hond", en: "Lead, waste bags and any medication for the dog" }
@@ -149,7 +151,6 @@ const DEFAULTS = [
   { id: "cash", c: "papier", t: "cash", u: "unitCash" },
   { id: "docs", c: "papier", t: "fix1", u: "unitSet" },
   { id: "phones", c: "papier", t: "fix1", u: "unitSet" },
-  { id: "baby", c: "extra", t: "dy1", u: "unitDays", x: 1, skip: 1 },
   { id: "pet", c: "extra", t: "dy1", u: "unitDays", x: 1 },
   { id: "dogwater", c: "extra", t: "dy1", u: "unitL" },
   { id: "dogkit", c: "extra", t: "fix1", u: "unitSet" }
@@ -269,7 +270,7 @@ function render() {
     <div class="lm-card card"><h2>${esc(t.hh)}</h2><div class="hh">
       <label>${esc(t.adults)}<input type="number" inputmode="numeric" min="0" max="20" value="${S.hh.a}" data-h="a"></label>
       <label>${esc(t.kids)}<input type="number" inputmode="numeric" min="0" max="20" value="${S.hh.k}" data-h="k"></label>
-      <label>${esc(t.days)}<input type="number" inputmode="numeric" min="1" max="30" value="${S.hh.d}" data-h="d"></label></div></div>
+      </div><label class="days">${esc(t.days)}: <b id="dval">${S.hh.d}</b><input type="range" min="1" max="30" step="1" value="${S.hh.d}" data-h="d" id="drange"></label></div>
     ${cats}
     <div class="lm-card card" style="margin-top:28px"><h2>${esc(t.addT)}</h2><form class="add" id="addf">
       <label class="note">${esc(t.name)}<input type="text" maxlength="80" required id="addn"></label>
@@ -297,6 +298,7 @@ function itemFor(el) {
 }
 function bind() {
   const app = document.getElementById("app");
+  document.getElementById("drange").addEventListener("input", e => { document.getElementById("dval").textContent = e.target.value; });
   app.querySelectorAll("[data-h]").forEach(inp => inp.addEventListener("change", () => {
     const min = inp.dataset.h === "d" ? 1 : 0, v = Math.round(Math.min(inp.dataset.h === "d" ? 30 : 20, Math.max(min, Number(inp.value) || min)));
     S.hh[inp.dataset.h] = v; save(); render();
