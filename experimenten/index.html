@@ -30,9 +30,11 @@
 <script>
 const TXT = {
   en: { eyebrow: "vuurvlieg.com", title: "Experiments", lead: "Small things I build and test myself, one at a time. Each experiment stands on its own and has its own page.",
-        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Emergency supplies", d: "A page to keep track of my emergency supplies, based on the Dutch government's 72-hour advice. Everything stays in your own browser.", go: "Open experiment 1 →" }] },
+        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Emergency supplies", d: "A page to keep track of my emergency supplies, based on the Dutch government's 72-hour advice. Everything stays in your own browser.", go: "Open experiment 1 →" },
+          { href: "/experimenten/noodvoorraad/3d/", n: 2, kind: "Experiment", t: "Emergency supplies in 3D", d: "The same supplies as six glowing towers, built with three.js. Reads the data from experiment 1.", go: "Open experiment 2 →" }] },
   nl: { eyebrow: "vuurvlieg.com", title: "Experimenten", lead: "Kleine dingen die ik zelf bouw en test, één voor één. Elk experiment staat op zichzelf en heeft een eigen pagina.",
-        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Noodvoorraad", d: "Een pagina om mijn noodvoorraad bij te houden, op basis van het 72-uursadvies van de Rijksoverheid. Alles blijft in je eigen browser.", go: "Open experiment 1 →" }] }
+        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Noodvoorraad", d: "Een pagina om mijn noodvoorraad bij te houden, op basis van het 72-uursadvies van de Rijksoverheid. Alles blijft in je eigen browser.", go: "Open experiment 1 →" },
+          { href: "/experimenten/noodvoorraad/3d/", n: 2, kind: "Experiment", t: "Noodvoorraad in 3D", d: "Dezelfde voorraad als zes oplichtende torens, gebouwd met three.js. Leest de gegevens uit experiment 1.", go: "Open experiment 2 →" }] }
 };
 function render() {
   const t = TXT[Lumen.lang], { esc } = Lumen;

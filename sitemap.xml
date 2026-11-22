@@ -165,4 +165,20 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/noodvoorraad/?lang=nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/noodvoorraad/"/>
   </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/noodvoorraad/3d/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/noodvoorraad/3d/?lang=nl</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/noodvoorraad/3d/"/>
+  </url>
 </urlset>
