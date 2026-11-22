@@ -33,7 +33,7 @@ What Anthropic itself describes:
 
 My translation:
 - What is allowed in the sandbox (paths, domains) I read as the minimal rights of the coding agent: its own identity in the framework.
-- Tests and other hard checks first, then a judge with read-only rights, then a person.
+- Tests and other hard checks first, then a judge with read-only rights, then a person. This follows the principle of the framework: as deterministic as possible, as probabilistic as needed. Tests and rules always give the same answer for the same code; a judge that is a model does not. That is why it comes only after the hard checks.
 
 ## 4. What should the integrator do with it?
 My translation. Core area: what the coding agent may read, write and reach, the gate in the pipeline that every change must pass, and who is accountable for code an agent delivered. That last point touches Anthropic's own warning that review becomes the bottleneck.

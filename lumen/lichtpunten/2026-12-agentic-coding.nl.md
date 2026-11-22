@@ -33,7 +33,7 @@ Wat Anthropic zelf beschrijft:
 
 Mijn vertaling:
 - Wat in de sandbox mag (paden, domeinen) zie ik als de minimale rechten van de codeer-agent: zijn eigen identiteit in het kader.
-- Tests en andere harde controles eerst, daarna een beoordelaar met alleen leesrechten, daarna een mens.
+- Tests en andere harde controles eerst, daarna een beoordelaar met alleen leesrechten, daarna een mens. Dat volgt het principe van het kader: zo deterministisch als mogelijk, zo probabilistisch als nodig. Tests en regels geven bij dezelfde code altijd hetzelfde antwoord; een beoordelaar die een model is, niet. Daarom komt die pas na de harde controles.
 
 ## 4. Wat moet de integrator ermee?
 Mijn vertaling. Kerngebied: wat de codeer-agent mag lezen, schrijven en bereiken, de poort in de pijplijn waar elke wijziging doorheen moet, en wie verantwoordelijk is voor code die een agent opleverde. Dat laatste raakt Anthropics eigen waarschuwing dat reviewen het knelpunt wordt.
