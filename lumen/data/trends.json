@@ -2,6 +2,15 @@
   "_uitleg": "Eén databron voor de trendlog in de Atlas en de tijdlijn van de Lichtpunten. Nieuwe trend = één object in 'trends'. Nieuw lichtpunt = één object in 'lichtpunten' plus twee Markdown-bestanden in lumen/lichtpunten/<id>.nl.md en <id>.en.md. datum = JJJJ-MM of JJJJ-MM-DD. st = reviewed (beoordeeld, de Atlas verandert niet) of mapped (verwerkt in de Atlas). rel = betrokken blokken (sleutels uit blokken.json). lichtpunt = id van het lichtpunt waar de trend in wordt uitgewerkt (optioneel).",
   "lichtpunten": [
     {
+      "id": "2026-12-agentic-coding",
+      "datum": "2026-12-01",
+      "lv": 4,
+      "rel": ["ident", "policy", "validator", "hitl", "audit"],
+      "st": "reviewed",
+      "t": { "nl": "Anthropic over agentic coding: tests, een sandbox en een mens die blijft kijken", "en": "Anthropic on agentic coding: tests, a sandbox and a person who keeps looking" },
+      "samenvatting": { "nl": "Anthropic: coding agents werken goed omdat tests de uitkomst controleren, maar menselijke review blijft nodig en wordt het knelpunt. Vaste grenzen in een sandbox vervangen een vraag per actie.", "en": "Anthropic: coding agents work well because tests verify the result, but human review stays necessary and becomes the bottleneck. Fixed boundaries in a sandbox replace a question per action." }
+    },
+    {
       "id": "2026-11-onafhankelijke-beoordelaar",
       "datum": "2026-11-22",
       "lv": 4,
@@ -21,6 +30,15 @@
     }
   ],
   "trends": [
+    {
+      "datum": "2026-12", "lv": 4, "rel": ["ident", "policy", "validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-12-agentic-coding",
+      "src": "https://www.anthropic.com/research/building-effective-agents",
+      "t": { "nl": "Anthropic: sandbox, tests en menselijke review bij coding agents", "en": "Anthropic: sandbox, tests and human review for coding agents" },
+      "wat": { "nl": "Volgens Anthropic controleren tests dat code werkt en beoordeelt een mens of het past. Een sandbox met vaste grenzen laat de agent vrij werken; reviewen kan het knelpunt worden.", "en": "According to Anthropic, tests check that code works and a person judges whether it fits. A sandbox with fixed boundaries lets the agent work freely; review can become the bottleneck." },
+      "blok": { "nl": "Geen nieuw blok; identiteit, policy, validator, human review en audit krijgen een invulling voor code.", "en": "No new block; identity, policy, validator, human review and audit get an interpretation for code." },
+      "har": { "nl": "Afgeschermde omgeving met vaste grenzen, tests eerst en een mens die blijft beoordelen.", "en": "Shielded environment with fixed boundaries, tests first and a person who keeps reviewing." },
+      "int": { "nl": "Kerngebied: wat de codeer-agent mag bereiken, de poort in de pijplijn en eigenaarschap van agentcode.", "en": "Core area: what the coding agent may reach, the gate in the pipeline and ownership of agent code." }
+    },
     {
       "datum": "2026-11", "lv": 4, "rel": ["validator", "hitl", "audit"], "st": "mapped", "lichtpunt": "2026-11-onafhankelijke-beoordelaar",
       "src": "https://www.anthropic.com/research/building-effective-agents",
