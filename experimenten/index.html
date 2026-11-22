@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>Experimenten | vuurvlieg.com</title>
+  <meta name="description" content="Experimenten: kleine dingen die ik zelf bouw en test.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css?v=2026-11-22">
+  <style>
+    .head { padding: 72px 0 16px; }
+    .list { display: grid; gap: 16px; margin-top: 28px; padding-bottom: 48px; }
+    .exp { display: block; text-decoration: none; color: var(--text); transition: border-color .3s, transform .3s; }
+    .exp:hover { border-color: var(--gold-soft); transform: translateY(-3px); color: var(--text); }
+    .exp .num { font-family: var(--serif); font-size: 44px; color: var(--gold); line-height: 1; }
+    .exp .kind { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--glow); margin: 8px 0 4px; }
+    .exp h2 { font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1.2; margin-bottom: 8px; }
+    .exp p { color: #c4beae; font-size: 15px; }
+    .exp .go { display: inline-block; margin-top: 12px; color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+  </style>
+</head>
+<body data-section="exp">
+<main id="app"></main>
+<script src="/lumen/assets/lumen.js?v=2026-11-22"></script>
+<script>
+const TXT = {
+  en: { eyebrow: "vuurvlieg.com", title: "Experiments", lead: "Small things I build and test myself, one at a time. Each experiment stands on its own and has its own page.",
+        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Emergency supplies", d: "A page to keep track of my emergency supplies, based on the Dutch government's 72-hour advice. Everything stays in your own browser.", go: "Open experiment 1 →" }] },
+  nl: { eyebrow: "vuurvlieg.com", title: "Experimenten", lead: "Kleine dingen die ik zelf bouw en test, één voor één. Elk experiment staat op zichzelf en heeft een eigen pagina.",
+        items: [{ href: "/experimenten/noodvoorraad/", n: 1, kind: "Experiment", t: "Noodvoorraad", d: "Een pagina om mijn noodvoorraad bij te houden, op basis van het 72-uursadvies van de Rijksoverheid. Alles blijft in je eigen browser.", go: "Open experiment 1 →" }] }
+};
+function render() {
+  const t = TXT[Lumen.lang], { esc } = Lumen;
+  document.title = `${t.title} | vuurvlieg.com`;
+  document.getElementById("app").innerHTML = `<section class="head"><div class="wrap">
+    <div class="eyebrow">${esc(t.eyebrow)}</div><h1 class="lm-title">${esc(t.title)}</h1><p class="lead" style="margin-top:18px">${esc(t.lead)}</p>
+  </div></section><section><div class="wrap"><div class="list">${t.items.map(i => `
+    <a class="lm-card exp reveal" href="${esc(i.href)}"><div class="num">${i.n}</div><div class="kind">${esc(i.kind)}</div><h2>${esc(i.t)}</h2><p>${esc(i.d)}</p><span class="go">${esc(i.go)}</span></a>`).join("")}</div></div></section>`;
+  Lumen.reveal();
+}
+Lumen.start("exp", render);
+</script>
+</body>
+</html>
