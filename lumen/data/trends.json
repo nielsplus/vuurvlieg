@@ -2,6 +2,15 @@
   "_uitleg": "Eén databron voor de trendlog in de Atlas en de tijdlijn van de Lichtpunten. Nieuwe trend = één object in 'trends'. Nieuw lichtpunt = één object in 'lichtpunten' plus twee Markdown-bestanden in lumen/lichtpunten/<id>.nl.md en <id>.en.md. datum = JJJJ-MM of JJJJ-MM-DD. st = reviewed (beoordeeld, de Atlas verandert niet) of mapped (verwerkt in de Atlas). rel = betrokken blokken (sleutels uit blokken.json). lichtpunt = id van het lichtpunt waar de trend in wordt uitgewerkt (optioneel).",
   "lichtpunten": [
     {
+      "id": "2026-11-onafhankelijke-beoordelaar",
+      "datum": "2026-11-22",
+      "lv": 4,
+      "rel": ["validator", "hitl", "audit"],
+      "st": "reviewed",
+      "t": { "nl": "Laat de beoordelaar niet de maker zijn", "en": "The judge should not be the maker" },
+      "samenvatting": { "nl": "Anthropic beschrijft een maker en een beoordelaar in een lus, en waarschuwt voor verlies van controle bij zelfverbetering. Vuistregel: wie het werk doet, beoordeelt het niet.", "en": "Anthropic describes a maker and a judge in a loop, and warns about losing control with self-improvement. Rule of thumb: whoever does the work does not judge it." }
+    },
+    {
       "id": "2026-10-gemini-agent",
       "datum": "2026-10-08",
       "lv": 5,
@@ -12,6 +21,15 @@
     }
   ],
   "trends": [
+    {
+      "datum": "2026-11", "lv": 4, "rel": ["validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-11-onafhankelijke-beoordelaar",
+      "src": "https://www.anthropic.com/research/building-effective-agents",
+      "t": { "nl": "Evaluator-optimizer: maker en beoordelaar gescheiden", "en": "Evaluator-optimizer: maker and judge separated" },
+      "wat": { "nl": "Eén model maakt, een tweede beoordeelt en geeft feedback in een lus. Past bij duidelijke criteria en meetbare winst.", "en": "One model makes, a second judges and gives feedback in a loop. Fits clear criteria and measurable gain." },
+      "blok": { "nl": "Geen nieuw blok; validator, audit en human review krijgen een scherpere rol.", "en": "No new block; validator, audit and human review get a sharper role." },
+      "har": { "nl": "Beoordelaar met alleen leesrechten en een antwoordsleutel buiten bereik van de agent.", "en": "A read-only judge and an answer key out of the agent's reach." },
+      "int": { "nl": "Kerngebied: rollen en rechten scheiden en de antwoordsleutel beheren.", "en": "Core area: separating roles and permissions and managing the answer key." }
+    },
     {
       "datum": "2026-10", "lv": 5, "rel": ["orch", "a2a"], "st": "mapped", "lichtpunt": "2026-10-gemini-agent",
       "src": "https://9to5google.com/2026/10/08/gemini-agent-google-cloud/",
