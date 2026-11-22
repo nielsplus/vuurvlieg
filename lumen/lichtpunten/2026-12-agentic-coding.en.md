@@ -1,5 +1,5 @@
 ---
-titel: When agents write the code, the work moves to verifying
+titel: Anthropic on agentic coding: tests, a sandbox and a person who keeps looking
 datum: 2026-12-01
 level: 4
 blokken: [ident, policy, validator, hitl, audit]
@@ -7,34 +7,36 @@ status: reviewed
 bronnen:
   - https://www.anthropic.com/research/building-effective-agents
   - https://anthropic.com/engineering/claude-code-sandboxing
-  - https://cloud.google.com/transform/when-ai-writes-the-code-who-reviews-it-cto-google-cloud
-  - https://thenewstack.io/?p=22827666
+  - https://www.anthropic.com/institute/recursive-self-improvement
 ---
 
-Agentic coding is where agents first work truly independently. That also makes it the first place to show where the bottleneck ends up: not in writing, but in judging.
+Agentic coding is where agents first work truly independently. Anthropic builds such agents and uses them itself, and writes about them in three places. This Glimmer reads those three through the lens of the framework.
 
-## What do we see
-In an engineering post, Anthropic explains why coding agents work well. The result can be verified with automated tests, the agent can improve its work from test results, and the problem is well bounded. At the same time human review remains necessary, because tests show that code works but not whether it fits the wider requirements of the system.
+## What does Anthropic say
+**Why it works.** In the engineering post on effective agents, Anthropic explains why coding agents work well: the result can be verified with automated tests, the agent can adjust its work from the test results, and the problem is bounded. Anthropic adds directly that human review stays crucial, because tests show that code works but not whether it fits the wider requirements of the system. According to the same post, agents should be tested extensively in a shielded environment, with suitable guardrails, because autonomy costs more and lets errors accumulate.
 
-For safety, Anthropic describes a sandbox approach: fixed boundaries within which the agent may work freely, instead of approving every action separately. Both file and network isolation are needed. Internally, it is said to cut the number of approval prompts by 84 percent.
+**How to run it safely.** In the post on sandboxing in Claude Code, Anthropic chooses fixed boundaries up front, instead of approving every action separately. Effective sandboxing needs both file and network isolation. You can decide per path and domain what is and is not allowed. Anthropic reports that internally this cut the number of approval prompts by 84 percent, and that even a successful prompt injection stays inside the sandbox.
 
-The bottleneck is widely recognised. Google Cloud describes that writing code is no longer the constraint, but reviewing and integrating it. A GitLab survey reports that 85 percent of respondents confirm this, and that 43 percent cannot reliably tell which code comes from an AI.
+**What changes in practice.** The Anthropic Institute describes that Anthropic has a growing share of AI development done by AI, and that Anthropic engineers deliver on average about eight times as much code per quarter as in 2021-2025. The post warns that human review can become a bottleneck if people cannot judge code as fast as Claude makes it. Anthropic says organisations need tools to validate and verify what AI systems do.
 
 ## 1. Which level does this belong to?
 Level 4. The agent can already act. The question is how much it may do, within which limits, and who approves.
 
 ## 2. Which block changes?
-No new block. Five existing blocks get a concrete meaning here: Agent Identity (its own identity with minimal rights for the coding agent), Policy & budget (what it may do alone, what it must ask first), Validator (tests as hard checks), Human review and Trace & audit.
+No new block. Five existing blocks get a meaning for code: Agent Identity, Policy & budget, Validator, Human review and Trace & audit. That is my link to the framework, not Anthropic's classification.
 
 ## 3. What does it mean for the harness?
+What Anthropic itself describes:
+- Fixed boundaries up front instead of a question per action, with file and network isolation together.
+- Tests as feedback and as a check, and a person who keeps reviewing.
+- A second model giving feedback on the first (the evaluator-optimizer pattern from the same engineering post), provided the criteria are clear.
+
 My translation:
-- The agent works in a shielded environment with its own identity and only the rights for this task.
-- Tests and other hard checks come first. After that comes an independent judge with read-only rights.
-- Risk decides the review: small, low-risk changes can be reviewed automatically, risky ones go to a person.
-- It is recorded which code an agent wrote, so its origin can be traced.
+- What is allowed in the sandbox (paths, domains) I read as the minimal rights of the coding agent: its own identity in the framework.
+- Tests and other hard checks first, then a judge with read-only rights, then a person.
 
 ## 4. What should the integrator do with it?
-Core area: the rights and identity of the coding agent, the gate in the pipeline that every change must pass, and ownership. Who is accountable for code an agent delivered, and who can still explain it later?
+My translation. Core area: what the coding agent may read, write and reach, the gate in the pipeline that every change must pass, and who is accountable for code an agent delivered. That last point touches Anthropic's own warning that review becomes the bottleneck.
 
 ## Reviewed, not mapped
-The Atlas does not change. The Lifecycle gets one sentence at the Validate step: code from agents goes through the same gate as the rest. My verdict is **deploy** for the bounded part (tests, sandbox, identity) and **try** for automatically reviewing low-risk changes, until you have your own figures for it.
+The Atlas does not change. The Lifecycle gets one sentence at the Validate step: code from agents goes through the same gate as the rest. My verdict is **deploy** for sandbox, tests and human review, and **try** for an independent judge on code. That second one is not Anthropic advice for coding; it is my application of their pattern.
