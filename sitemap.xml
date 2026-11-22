@@ -133,4 +133,36 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-11-agentic-coding&amp;lang=nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/lumen/lichtpunten/lees.html?id=2026-11-agentic-coding"/>
   </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/?lang=nl</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/noodvoorraad/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/noodvoorraad/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/noodvoorraad/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/noodvoorraad/"/>
+  </url>
+  <url>
+    <loc>https://vuurvlieg.com/experimenten/noodvoorraad/?lang=nl</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vuurvlieg.com/experimenten/noodvoorraad/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://vuurvlieg.com/experimenten/noodvoorraad/?lang=nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vuurvlieg.com/experimenten/noodvoorraad/"/>
+  </url>
 </urlset>

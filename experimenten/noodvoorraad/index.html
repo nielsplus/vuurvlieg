@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>Noodvoorraad | Experimenten</title>
+  <meta name="description" content="Experiment 1: een pagina om een noodvoorraad bij te houden, op basis van het 72-uursadvies van de Rijksoverheid.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/lumen/assets/lumen.css?v=2026-11-22">
+  <style>
+    .head { padding: 72px 0 8px; }
+    .card { padding: 18px; margin-top: 16px; }
+    .card h2 { font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.2; margin-bottom: 10px; }
+    .note { color: var(--muted); font-size: 13.5px; }
+    .sum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+    .sum .big { font-family: var(--serif); font-size: 44px; color: var(--gold); line-height: 1; }
+    .bar { height: 8px; border-radius: 99px; background: var(--line-soft); overflow: hidden; margin: 12px 0 10px; }
+    .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--glow)); transition: width .3s; }
+    .alerts { list-style: none; margin: 8px 0 0; padding: 0; }
+    .alerts li { font-size: 14px; padding: 6px 0 6px 14px; border-left: 2px solid var(--gold); margin-top: 6px; color: #e8dcb0; }
+    .alerts li.bad { border-color: #d9654a; color: #f0b8a8; }
+    .alerts li.ok { border-color: var(--glow); color: #cfeab0; }
+    .hh { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .hh label { display: block; font-size: 12.5px; color: var(--muted); }
+    input[type="number"], input[type="date"], input[type="text"], select { width: 100%; font: inherit; font-size: 15px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; margin-top: 4px; }
+    input:focus, select:focus { outline: none; border-color: var(--gold-soft); }
+    .cat { margin-top: 26px; }
+    .cat h3 { font-family: var(--serif); font-weight: 500; font-size: 22px; color: var(--gold); margin-bottom: 4px; }
+    .item { padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+    .item.skip { opacity: .45; }
+    .row1 { display: flex; align-items: center; gap: 10px; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; background: var(--muted); }
+    .dot.ok { background: var(--glow); box-shadow: 0 0 8px 2px rgba(170,255,68,.5); }
+    .dot.low { background: var(--gold); }
+    .dot.bad { background: #d9654a; }
+    .item .name { flex: 1; font-size: 16px; }
+    .item .state { font-size: 12px; color: var(--muted); }
+    .row2 { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 14px; margin-top: 8px; padding-left: 21px; }
+    .qty { display: flex; align-items: center; gap: 6px; }
+    .qty button, .mini { font: inherit; font-size: 15px; color: var(--text); background: transparent; border: 1px solid var(--line); border-radius: 8px; min-width: 38px; height: 38px; cursor: pointer; padding: 0 10px; }
+    .qty button:hover, .mini:hover { border-color: var(--gold-soft); color: var(--gold); }
+    .qty input { width: 76px; margin-top: 0; text-align: center; }
+    .qty .of { color: var(--muted); font-size: 14px; white-space: nowrap; }
+    .exp-in { flex: 1; min-width: 150px; max-width: 190px; }
+    .exp-in label { font-size: 12px; color: var(--muted); }
+    .mini.dim { color: var(--muted); font-size: 13px; }
+    .add { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .add .r { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .src { margin: 28px 0 56px; font-size: 13.5px; color: var(--muted); }
+    .src a { color: var(--gold); }
+    .src li { margin: 4px 0 4px 18px; }
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--panel-2); border: 1px solid var(--gold-soft); color: var(--text); padding: 9px 16px; border-radius: 99px; font-size: 13.5px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 20; }
+    .toast.on { opacity: 1; }
+    @media (max-width: 420px) { .hh { gap: 8px; } .add .r { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body data-section="exp">
+<main id="app"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/lumen/assets/lumen.js?v=2026-11-22"></script>
+<script>
+const KEY = "vuurvlieg-noodvoorraad-v1";
+const SOON_DAYS = 90, CHECK_DAYS = 183;
+
+const TXT = {
+  en: {
+    eyebrow: "Experiment 1", title: "Emergency supplies",
+    lead: "A page to keep track of my emergency supplies. The checklist follows the Dutch government's advice to be able to manage your first 72 hours at home. Adjust it to your own situation.",
+    privacy: "Everything you enter stays in this browser on this device. Nothing is sent or stored on a server. Use Export to keep a copy or to move it to another device.",
+    done: "complete", of: "of", items: "items", none: "No items yet.",
+    hh: "Household", adults: "Adults", kids: "Children", days: "Days",
+    cats: { water: "Water and food", licht: "Light, power and communication", gezond: "Health and hygiene", warmte: "Warmth and shelter", papier: "Money and papers", extra: "Baby and pets" },
+    st: { ok: "In order", low: "Too little", soon: "Expires soon", exp: "Expired", skip: "Not applicable", missing: "Missing" },
+    have: "Have", target: "Need", expires: "Best before", na: "N/A", use: "Use", del: "Remove",
+    addT: "Add your own item", name: "Name", cat: "Category", tgt: "Amount needed", add: "Add",
+    dataT: "Data and check", checked: "I checked everything today", lastCheck: "Last check", never: "never",
+    export: "Export", import: "Import", reset: "Back to default list", resetOk: "Reset to the default list?",
+    toastSaved: "Saved on this device", toastExp: "Exported", toastImp: "Imported", toastBad: "That file could not be read", toastChk: "Check date saved", toastReset: "List reset",
+    alExp: n => `${n} item${n === 1 ? " has" : "s have"} expired.`, alSoon: n => `${n} item${n === 1 ? "" : "s"} expire${n === 1 ? "s" : ""} within ${SOON_DAYS} days.`,
+    alLow: n => `${n} item${n === 1 ? " is" : "s are"} below the amount needed.`, alCheck: "The government advises checking your supplies every six months.", alNoCheck: "No check recorded yet. Check your supplies every six months.", alOk: "All items are in order.",
+    srcT: "Sources", src1: "Dutch government: what is in an emergency kit", src2: "Denk Vooruit: the checklist",
+    srcNote: "Amounts follow the government advice: supplies for 72 hours, and cash of € 70 per adult and € 30 per child. Drinking water of 3 litres per person per day is the commonly used rule of thumb. Add medication, baby food and pet food for your own situation.",
+    unitCash: "€", unitL: "L", unitSet: "set", unitPD: "person-days", unitDays: "days", unitPc: "pcs"
+  },
+  nl: {
+    eyebrow: "Experiment 1", title: "Noodvoorraad",
+    lead: "Een pagina om mijn noodvoorraad bij te houden. De lijst volgt het advies van de Rijksoverheid om de eerste 72 uur thuis te kunnen overbruggen. Pas hem aan op je eigen situatie.",
+    privacy: "Alles wat je invult blijft in deze browser op dit apparaat. Er wordt niets verstuurd of op een server opgeslagen. Gebruik Exporteren om een kopie te bewaren of mee te nemen naar een ander apparaat.",
+    done: "compleet", of: "van", items: "onderdelen", none: "Nog geen onderdelen.",
+    hh: "Huishouden", adults: "Volwassenen", kids: "Kinderen", days: "Dagen",
+    cats: { water: "Water en eten", licht: "Licht, stroom en communicatie", gezond: "Gezondheid en hygiëne", warmte: "Warmte en beschutting", papier: "Geld en papieren", extra: "Baby en huisdieren" },
+    st: { ok: "Op orde", low: "Te weinig", soon: "Bijna verlopen", exp: "Verlopen", skip: "Niet van toepassing", missing: "Ontbreekt" },
+    have: "In huis", target: "Nodig", expires: "Houdbaar tot", na: "N.v.t.", use: "Gebruiken", del: "Verwijderen",
+    addT: "Eigen onderdeel toevoegen", name: "Naam", cat: "Categorie", tgt: "Aantal nodig", add: "Toevoegen",
+    dataT: "Gegevens en controle", checked: "Ik heb vandaag alles gecontroleerd", lastCheck: "Laatste controle", never: "nog niet",
+    export: "Exporteren", import: "Importeren", reset: "Terug naar standaardlijst", resetOk: "Terug naar de standaardlijst?",
+    toastSaved: "Opgeslagen op dit apparaat", toastExp: "Geëxporteerd", toastImp: "Geïmporteerd", toastBad: "Dit bestand kon niet worden gelezen", toastChk: "Controledatum opgeslagen", toastReset: "Lijst teruggezet",
+    alExp: n => `${n} ${n === 1 ? "onderdeel is" : "onderdelen zijn"} verlopen.`, alSoon: n => `${n} ${n === 1 ? "onderdeel verloopt" : "onderdelen verlopen"} binnen ${SOON_DAYS} dagen.`,
+    alLow: n => `${n} ${n === 1 ? "onderdeel zit" : "onderdelen zitten"} onder de benodigde hoeveelheid.`, alCheck: "Het advies is om je voorraad elk half jaar te controleren.", alNoCheck: "Nog geen controle vastgelegd. Controleer je voorraad elk half jaar.", alOk: "Alles is op orde.",
+    srcT: "Bronnen", src1: "Rijksoverheid: wat zit er in een noodpakket", src2: "Denk Vooruit: de checklist",
+    srcNote: "De hoeveelheden volgen het advies van de overheid: voorraad voor 72 uur, en contant geld van € 70 per volwassene en € 30 per kind. Drie liter drinkwater per persoon per dag is de gangbare vuistregel. Vul aan met medicijnen, babyvoeding en voer voor huisdieren voor je eigen situatie.",
+    unitCash: "€", unitL: "L", unitSet: "set", unitPD: "persoondagen", unitDays: "dagen", unitPc: "stuks"
+  }
+};
+
+/* Standaardlijst. t = hoe het doel wordt berekend: pd = per persoon per dag, pp = per persoon, fix = vast aantal, cash = geld, dy = per dag. x = heeft een houdbaarheidsdatum. skip = standaard n.v.t. */
+const NAMES = {
+  water:   { nl: "Drinkwater", en: "Drinking water" },
+  food:    { nl: "Lang houdbaar eten", en: "Long-life food" },
+  opener:  { nl: "Blikopener", en: "Can opener" },
+  torch:   { nl: "Zaklamp", en: "Torch" },
+  batt:    { nl: "Batterijen", en: "Batteries" },
+  power:   { nl: "Powerbank", en: "Power bank" },
+  radio:   { nl: "Radio op batterijen of zwengel", en: "Battery or crank radio" },
+  match:   { nl: "Lucifers of aansteker", en: "Matches or lighter" },
+  firstaid:{ nl: "EHBO-set", en: "First aid kit" },
+  meds:    { nl: "Medicijnen", en: "Medication" },
+  hyg:     { nl: "Hygiëneartikelen en toiletpapier", en: "Hygiene items and toilet paper" },
+  blanket: { nl: "Deken of slaapzak", en: "Blanket or sleeping bag" },
+  tools:   { nl: "Gereedschap", en: "Tools" },
+  cash:    { nl: "Contant geld", en: "Cash" },
+  docs:    { nl: "Kopieën van belangrijke papieren", en: "Copies of important papers" },
+  phones:  { nl: "Telefoonnummers op papier, met pen", en: "Phone numbers on paper, with a pen" },
+  baby:    { nl: "Babyvoeding", en: "Baby food" },
+  pet:     { nl: "Voer voor huisdieren", en: "Pet food" }
+};
+const DEFAULTS = [
+  { id: "water", c: "water", t: "pd3", u: "unitL", x: 1 },
+  { id: "food", c: "water", t: "pd1", u: "unitPD", x: 1 },
+  { id: "opener", c: "water", t: "fix1", u: "unitPc" },
+  { id: "torch", c: "licht", t: "fix1", u: "unitPc" },
+  { id: "batt", c: "licht", t: "fix1", u: "unitSet", x: 1 },
+  { id: "power", c: "licht", t: "fix1", u: "unitPc" },
+  { id: "radio", c: "licht", t: "fix1", u: "unitPc" },
+  { id: "match", c: "licht", t: "fix1", u: "unitPc" },
+  { id: "firstaid", c: "gezond", t: "fix1", u: "unitSet", x: 1 },
+  { id: "meds", c: "gezond", t: "fix1", u: "unitSet", x: 1 },
+  { id: "hyg", c: "gezond", t: "fix1", u: "unitSet" },
+  { id: "blanket", c: "warmte", t: "pp1", u: "unitPc" },
+  { id: "tools", c: "warmte", t: "fix1", u: "unitSet" },
+  { id: "cash", c: "papier", t: "cash", u: "unitCash" },
+  { id: "docs", c: "papier", t: "fix1", u: "unitSet" },
+  { id: "phones", c: "papier", t: "fix1", u: "unitSet" },
+  { id: "baby", c: "extra", t: "dy1", u: "unitDays", x: 1, skip: 1 },
+  { id: "pet", c: "extra", t: "dy1", u: "unitDays", x: 1, skip: 1 }
+];
+const CAT_ORDER = ["water", "licht", "gezond", "warmte", "papier", "extra"];
+
+function fresh() {
+  return { v: 1, hh: { a: 2, k: 0, d: 3 }, lastCheck: "", items: DEFAULTS.map(d => ({ ...d, have: 0, exp: "", skip: d.skip ? 1 : 0 })), custom: [] };
+}
+let S = load();
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return fresh();
+    return sanitize(JSON.parse(raw)) || fresh();
+  } catch (e) { return fresh(); }
+}
+/* Alleen verwachte velden en typen toelaten, ook bij importeren van een bestand */
+function sanitize(o) {
+  if (!o || typeof o !== "object" || !Array.isArray(o.items)) return null;
+  const num = (v, min, max, def) => { v = Number(v); return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : def; };
+  const date = v => (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v)) ? v : "";
+  const base = fresh();
+  const hh = o.hh || {};
+  base.hh = { a: Math.round(num(hh.a, 0, 20, 2)), k: Math.round(num(hh.k, 0, 20, 0)), d: Math.round(num(hh.d, 1, 30, 3)) };
+  base.lastCheck = date(o.lastCheck);
+  const known = new Map(base.items.map(i => [i.id, i]));
+  o.items.forEach(i => {
+    if (!i || typeof i.id !== "string" || !known.has(i.id)) return;
+    const k = known.get(i.id);
+    k.have = num(i.have, 0, 100000, 0); k.exp = date(i.exp); k.skip = i.skip ? 1 : 0;
+  });
+  const cats = new Set(CAT_ORDER);
+  base.custom = (Array.isArray(o.custom) ? o.custom : []).slice(0, 100).filter(c => c && typeof c.name === "string" && c.name.trim()).map(c => ({
+    id: "c" + Math.random().toString(36).slice(2, 9), name: c.name.trim().slice(0, 80), c: cats.has(c.c) ? c.c : "extra",
+    target: num(c.target, 1, 100000, 1), have: num(c.have, 0, 100000, 0), exp: date(c.exp), skip: c.skip ? 1 : 0, x: 1
+  }));
+  return base;
+}
+function save(msgKey) {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  if (msgKey) toast(TXT[Lumen.lang][msgKey]);
+}
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById("toast"); if (!el) return;
+  el.textContent = msg; el.classList.add("on");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("on"), 1800);
+}
+
+const today = () => new Date(new Date().toISOString().slice(0, 10));
+const daysUntil = d => Math.round((new Date(d) - today()) / 86400000);
+
+function targetOf(it) {
+  const { a, k, d } = S.hh, people = a + k;
+  if (it.target != null) return it.target;                        // eigen onderdeel
+  if (it.t === "cash") return 70 * a + 30 * k;
+  const m = /^(pd|pp|fix|dy)(\d+)$/.exec(it.t || ""); if (!m) return 1;
+  const n = +m[2];
+  return m[1] === "pd" ? n * people * d : m[1] === "pp" ? n * people : m[1] === "dy" ? n * d : n;
+}
+function statusOf(it) {
+  if (it.skip) return "skip";
+  const tgt = targetOf(it);
+  if (it.exp && it.x) { const du = daysUntil(it.exp); if (du < 0) return "exp"; if (du <= SOON_DAYS) return "soon"; }
+  return it.have >= tgt ? "ok" : (it.have > 0 ? "low" : "missing");
+}
+const allItems = () => [...S.items, ...S.custom];
+const unitText = (it, t) => it.u ? t[it.u] : t.unitPc;
+const nameOf = (it, lang) => it.name || (NAMES[it.id] ? NAMES[it.id][lang] : it.id);
+
+function render() {
+  const t = TXT[Lumen.lang], { esc } = Lumen, lang = Lumen.lang;
+  document.title = `${t.title} | ${lang === "nl" ? "Experimenten" : "Experiments"}`;
+  const items = allItems(), active = items.filter(i => !i.skip);
+  const st = items.map(statusOf);
+  const okN = items.filter((i, n) => st[n] === "ok").length, total = active.length;
+  const pct = total ? Math.round(okN / total * 100) : 0;
+  const nExp = st.filter(s => s === "exp").length, nSoon = st.filter(s => s === "soon").length, nLow = st.filter(s => s === "low" || s === "missing").length;
+  const alerts = [];
+  if (nExp) alerts.push(`<li class="bad">${esc(t.alExp(nExp))}</li>`);
+  if (nSoon) alerts.push(`<li>${esc(t.alSoon(nSoon))}</li>`);
+  if (nLow) alerts.push(`<li>${esc(t.alLow(nLow))}</li>`);
+  if (!S.lastCheck) alerts.push(`<li>${esc(t.alNoCheck)}</li>`);
+  else if (-daysUntil(S.lastCheck) > CHECK_DAYS) alerts.push(`<li>${esc(t.alCheck)}</li>`);
+  if (!alerts.length) alerts.push(`<li class="ok">${esc(t.alOk)}</li>`);
+
+  const row = (it, idx, custom) => {
+    const s = statusOf(it), tgt = targetOf(it), key = (custom ? "c" : "d") + idx;
+    const dot = s === "ok" ? "ok" : (s === "low" || s === "soon") ? "low" : s === "skip" ? "" : "bad";
+    return `<div class="item${it.skip ? " skip" : ""}" data-k="${key}">
+      <div class="row1"><span class="dot ${dot}"></span><span class="name">${esc(nameOf(it, lang))}</span><span class="state">${esc(t.st[s])}</span></div>
+      <div class="row2">
+        <div class="qty" aria-label="${esc(t.have)}"><button type="button" data-a="minus" aria-label="−">−</button>
+          <input type="number" inputmode="decimal" min="0" step="any" value="${esc(it.have)}" data-a="have" aria-label="${esc(t.have)}">
+          <button type="button" data-a="plus" aria-label="+">+</button>
+          <span class="of">${esc(t.of)} ${esc(Math.round(tgt * 10) / 10)} ${esc(unitText(it, t))}</span></div>
+        ${it.x ? `<div class="exp-in"><label>${esc(t.expires)}<input type="date" value="${esc(it.exp)}" data-a="exp"></label></div>` : ""}
+        <button type="button" class="mini dim" data-a="skip">${esc(it.skip ? t.use : t.na)}</button>
+        ${custom ? `<button type="button" class="mini dim" data-a="del">${esc(t.del)}</button>` : ""}
+      </div></div>`;
+  };
+  const cats = CAT_ORDER.map(c => {
+    const rows = [...S.items.map((it, i) => it.c === c ? row(it, i, false) : ""), ...S.custom.map((it, i) => it.c === c ? row(it, i, true) : "")].join("");
+    return rows ? `<section class="cat"><h3>${esc(t.cats[c])}</h3>${rows}</section>` : "";
+  }).join("");
+
+  document.getElementById("app").innerHTML = `
+  <section class="head"><div class="wrap">
+    <div class="eyebrow">${esc(t.eyebrow)}</div><h1 class="lm-title">${esc(t.title)}</h1>
+    <p class="lead" style="margin-top:18px">${esc(t.lead)}</p><p class="note" style="margin-top:12px">${esc(t.privacy)}</p>
+  </div></section>
+  <section><div class="wrap">
+    <div class="lm-card card"><div class="sum"><span class="big">${pct}%</span><span>${esc(t.done)} · ${okN} ${esc(t.of)} ${total} ${esc(t.items)}</span></div>
+      <div class="bar"><i style="width:${pct}%"></i></div><ul class="alerts">${alerts.join("")}</ul></div>
+    <div class="lm-card card"><h2>${esc(t.hh)}</h2><div class="hh">
+      <label>${esc(t.adults)}<input type="number" inputmode="numeric" min="0" max="20" value="${S.hh.a}" data-h="a"></label>
+      <label>${esc(t.kids)}<input type="number" inputmode="numeric" min="0" max="20" value="${S.hh.k}" data-h="k"></label>
+      <label>${esc(t.days)}<input type="number" inputmode="numeric" min="1" max="30" value="${S.hh.d}" data-h="d"></label></div></div>
+    ${cats}
+    <div class="lm-card card" style="margin-top:28px"><h2>${esc(t.addT)}</h2><form class="add" id="addf">
+      <label class="note">${esc(t.name)}<input type="text" maxlength="80" required id="addn"></label>
+      <div class="r"><label class="note">${esc(t.cat)}<select id="addc">${CAT_ORDER.map(c => `<option value="${c}">${esc(t.cats[c])}</option>`).join("")}</select></label>
+      <label class="note">${esc(t.tgt)}<input type="number" min="1" value="1" id="addt"></label></div>
+      <div class="btns"><button type="submit" class="lm-btn">${esc(t.add)}</button></div></form></div>
+    <div class="lm-card card"><h2>${esc(t.dataT)}</h2>
+      <p class="note">${esc(t.lastCheck)}: ${S.lastCheck ? esc(Lumen.fullDate(S.lastCheck)) : esc(t.never)}</p>
+      <div class="btns"><button type="button" class="lm-btn" id="chk">${esc(t.checked)}</button></div>
+      <div class="btns"><button type="button" class="mini" id="exp">${esc(t.export)}</button>
+        <button type="button" class="mini" id="imp">${esc(t.import)}</button><input type="file" id="file" accept="application/json,.json" hidden>
+        <button type="button" class="mini dim" id="rst">${esc(t.reset)}</button></div></div>
+    <div class="src"><b>${esc(t.srcT)}</b><ul>
+      <li><a href="https://www.rijksoverheid.nl/onderwerpen/veiligheidsregios-en-crisisbeheersing/vraag-en-antwoord/wat-zit-er-in-een-noodpakket" rel="noopener" target="_blank">${esc(t.src1)}</a></li>
+      <li><a href="https://www.denkvooruit.nl" rel="noopener" target="_blank">${esc(t.src2)}</a></li></ul>
+      <p style="margin-top:10px">${esc(t.srcNote)}</p></div>
+  </div></section>`;
+  bind();
+}
+
+function itemFor(el) {
+  const row = el.closest(".item"); if (!row) return null;
+  const k = row.dataset.k, i = +k.slice(1);
+  return k[0] === "c" ? S.custom[i] : S.items[i];
+}
+function bind() {
+  const app = document.getElementById("app");
+  app.querySelectorAll("[data-h]").forEach(inp => inp.addEventListener("change", () => {
+    const min = inp.dataset.h === "d" ? 1 : 0, v = Math.round(Math.min(inp.dataset.h === "d" ? 30 : 20, Math.max(min, Number(inp.value) || min)));
+    S.hh[inp.dataset.h] = v; save(); render();
+  }));
+  app.querySelectorAll(".item [data-a]").forEach(el => {
+    const a = el.dataset.a, it = itemFor(el); if (!it) return;
+    if (a === "have") el.addEventListener("change", () => { it.have = Math.max(0, Number(el.value) || 0); save(); render(); });
+    else if (a === "exp") el.addEventListener("change", () => { it.exp = /^\d{4}-\d{2}-\d{2}$/.test(el.value) ? el.value : ""; save(); render(); });
+    else el.addEventListener("click", () => {
+      if (a === "plus") it.have = Math.round((it.have + 1) * 100) / 100;
+      else if (a === "minus") it.have = Math.max(0, Math.round((it.have - 1) * 100) / 100);
+      else if (a === "skip") it.skip = it.skip ? 0 : 1;
+      else if (a === "del") S.custom = S.custom.filter(c => c !== it);
+      save(); render();
+    });
+  });
+  document.getElementById("addf").addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("addn").value.trim(); if (!name) return;
+    S.custom.push({ id: "c" + Date.now().toString(36), name: name.slice(0, 80), c: document.getElementById("addc").value, target: Math.max(1, Number(document.getElementById("addt").value) || 1), have: 0, exp: "", skip: 0, x: 1 });
+    save("toastSaved"); render();
+  });
+  document.getElementById("chk").addEventListener("click", () => { S.lastCheck = new Date().toISOString().slice(0, 10); save("toastChk"); render(); });
+  document.getElementById("exp").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(S, null, 2)], { type: "application/json" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "noodvoorraad.json";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast(TXT[Lumen.lang].toastExp);
+  });
+  const file = document.getElementById("file");
+  document.getElementById("imp").addEventListener("click", () => file.click());
+  file.addEventListener("change", () => {
+    const f = file.files[0]; if (!f || f.size > 500000) { toast(TXT[Lumen.lang].toastBad); return; }
+    const r = new FileReader();
+    r.onload = () => { try { const n = sanitize(JSON.parse(r.result)); if (!n) throw 0; S = n; save("toastImp"); render(); } catch (e) { toast(TXT[Lumen.lang].toastBad); } };
+    r.readAsText(f);
+  });
+  document.getElementById("rst").addEventListener("click", () => { if (confirm(TXT[Lumen.lang].resetOk)) { S = fresh(); save("toastReset"); render(); } });
+}
+Lumen.start("noodvoorraad", render);
+</script>
+</body>
+</html>
