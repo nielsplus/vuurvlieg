@@ -3,7 +3,7 @@ titel: Laat de beoordelaar niet de maker zijn
 datum: 2026-11-22
 level: 4
 blokken: [validator, hitl, audit]
-status: reviewed
+status: mapped
 bronnen:
   - https://www.anthropic.com/research/building-effective-agents
   - https://www.anthropic.com/institute/recursive-self-improvement
@@ -37,5 +37,5 @@ Dat past bij het uitgangspunt van het kader: zo deterministisch als mogelijk. De
 ## 4. Wat moet de integrator ermee?
 Kerngebied: rollen en rechten scheiden, de antwoordsleutel beheren als eigen product, en per taak vastleggen hoeveel autonomie die heeft verdiend.
 
-## Beoordeeld, niet verwerkt
-De Atlas verandert niet. De blokken bestaan al, het gaat om de rolverdeling. Mijn oordeel is proberen: begin met een beoordelaar op één afgebakende taak met een duidelijke antwoordsleutel, en laat een mens goedkeuren zolang je de beoordelaar zelf nog niet vertrouwt.
+## Verwerkt in de Atlas
+De Atlas laat dit op level 4 zien bij de validator: naast schema en regels komt een onafhankelijke beoordelaar met alleen leesrechten. Er komt geen nieuw blok bij, het gaat om de rolverdeling. Mijn oordeel is proberen: begin met een beoordelaar op één afgebakende taak met een duidelijke antwoordsleutel, en laat een mens goedkeuren zolang je de beoordelaar zelf nog niet vertrouwt.

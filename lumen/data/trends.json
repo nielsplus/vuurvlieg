@@ -6,7 +6,7 @@
       "datum": "2026-11-22",
       "lv": 4,
       "rel": ["validator", "hitl", "audit"],
-      "st": "reviewed",
+      "st": "mapped",
       "t": { "nl": "Laat de beoordelaar niet de maker zijn", "en": "The judge should not be the maker" },
       "samenvatting": { "nl": "Anthropic beschrijft een maker en een beoordelaar in een lus, en waarschuwt voor verlies van controle bij zelfverbetering. Vuistregel: wie het werk doet, beoordeelt het niet.", "en": "Anthropic describes a maker and a judge in a loop, and warns about losing control with self-improvement. Rule of thumb: whoever does the work does not judge it." }
     },
@@ -22,11 +22,11 @@
   ],
   "trends": [
     {
-      "datum": "2026-11", "lv": 4, "rel": ["validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-11-onafhankelijke-beoordelaar",
+      "datum": "2026-11", "lv": 4, "rel": ["validator", "hitl", "audit"], "st": "mapped", "lichtpunt": "2026-11-onafhankelijke-beoordelaar",
       "src": "https://www.anthropic.com/research/building-effective-agents",
       "t": { "nl": "Evaluator-optimizer: maker en beoordelaar gescheiden", "en": "Evaluator-optimizer: maker and judge separated" },
       "wat": { "nl": "Eén model maakt, een tweede beoordeelt en geeft feedback in een lus. Past bij duidelijke criteria en meetbare winst.", "en": "One model makes, a second judges and gives feedback in a loop. Fits clear criteria and measurable gain." },
-      "blok": { "nl": "Geen nieuw blok; validator, audit en human review krijgen een scherpere rol.", "en": "No new block; validator, audit and human review get a sharper role." },
+      "blok": { "nl": "Validator krijgt op level 4 een onafhankelijke beoordelaar; human review en audit krijgen een scherpere rol.", "en": "On level 4 the validator gets an independent judge; human review and audit get a sharper role." },
       "har": { "nl": "Beoordelaar met alleen leesrechten en een antwoordsleutel buiten bereik van de agent.", "en": "A read-only judge and an answer key out of the agent's reach." },
       "int": { "nl": "Kerngebied: rollen en rechten scheiden en de antwoordsleutel beheren.", "en": "Core area: separating roles and permissions and managing the answer key." }
     },

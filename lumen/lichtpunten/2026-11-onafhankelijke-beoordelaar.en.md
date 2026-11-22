@@ -3,7 +3,7 @@ titel: The judge should not be the maker
 datum: 2026-11-22
 level: 4
 blokken: [validator, hitl, audit]
-status: reviewed
+status: mapped
 bronnen:
   - https://www.anthropic.com/research/building-effective-agents
   - https://www.anthropic.com/institute/recursive-self-improvement
@@ -37,5 +37,5 @@ This fits the framework's principle: as deterministic as possible. The permissio
 ## 4. What should the integrator do with it?
 Core area: separating roles and permissions, managing the answer key as a product of its own, and recording per task how much autonomy it has earned.
 
-## Reviewed, not mapped
-The Atlas does not change. The blocks already exist; this is about the division of roles. My verdict is try: start with a judge on one well-bounded task with a clear answer key, and let a person approve until you trust the judge itself.
+## Mapped
+The Atlas shows this at level 4 on the validator: besides schema and rules comes an independent judge with read-only rights. No new block is added; this is about the division of roles. My verdict is try: start with a judge on one well-bounded task with a clear answer key, and let a person approve until you trust the judge itself.
