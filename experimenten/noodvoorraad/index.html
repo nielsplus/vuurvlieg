@@ -71,7 +71,7 @@ const SOON_DAYS = 90, CHECK_DAYS = 183;
 const TXT = {
   en: {
     eyebrow: "Experiment 1", title: "Emergency supplies",
-    lead: "A page to keep track of my emergency supplies. The checklist follows the Dutch government's advice to be able to manage your first 72 hours at home. Adjust it to your own situation.",
+    lead: "A page to keep track of our emergency supplies, set up for a family of four and the dog. The checklist follows the Dutch government's advice to be able to manage your first 72 hours at home. Adjust it to your own situation.",
     privacy: "Everything you enter stays in this browser on this device. Nothing is sent or stored on a server. Use Export to keep a copy or to move it to another device.",
     done: "complete", of: "of", items: "items", none: "No items yet.",
     hh: "Household", adults: "Adults", kids: "Children", days: "Days",
@@ -85,12 +85,12 @@ const TXT = {
     alExp: n => `${n} item${n === 1 ? " has" : "s have"} expired.`, alSoon: n => `${n} item${n === 1 ? "" : "s"} expire${n === 1 ? "s" : ""} within ${SOON_DAYS} days.`,
     alLow: n => `${n} item${n === 1 ? " is" : "s are"} below the amount needed.`, alCheck: "The government advises checking your supplies every six months.", alNoCheck: "No check recorded yet. Check your supplies every six months.", alOk: "All items are in order.",
     srcT: "Sources", src1: "Dutch government: what is in an emergency kit", src2: "Denk Vooruit: the checklist",
-    srcNote: "Amounts follow the government advice: supplies for 72 hours, and cash of € 70 per adult and € 30 per child. Drinking water of 3 litres per person per day is the commonly used rule of thumb. Add medication, baby food and pet food for your own situation.",
+    srcNote: "Amounts follow the government advice: supplies for 72 hours, and cash of € 70 per adult and € 30 per child. Drinking water of 3 litres per person per day is the commonly used rule of thumb. Dog items are added for one dog: 1 litre of water a day is an estimate, so adjust it to the size of your dog. Add medication and, if needed, baby food.",
     unitCash: "€", unitL: "L", unitSet: "set", unitPD: "person-days", unitDays: "days", unitPc: "pcs"
   },
   nl: {
     eyebrow: "Experiment 1", title: "Noodvoorraad",
-    lead: "Een pagina om mijn noodvoorraad bij te houden. De lijst volgt het advies van de Rijksoverheid om de eerste 72 uur thuis te kunnen overbruggen. Pas hem aan op je eigen situatie.",
+    lead: "Een pagina om onze noodvoorraad bij te houden, ingericht voor ons gezin van vier en de hond. De lijst volgt het advies van de Rijksoverheid om de eerste 72 uur thuis te kunnen overbruggen. Pas hem aan op je eigen situatie.",
     privacy: "Alles wat je invult blijft in deze browser op dit apparaat. Er wordt niets verstuurd of op een server opgeslagen. Gebruik Exporteren om een kopie te bewaren of mee te nemen naar een ander apparaat.",
     done: "compleet", of: "van", items: "onderdelen", none: "Nog geen onderdelen.",
     hh: "Huishouden", adults: "Volwassenen", kids: "Kinderen", days: "Dagen",
@@ -104,7 +104,7 @@ const TXT = {
     alExp: n => `${n} ${n === 1 ? "onderdeel is" : "onderdelen zijn"} verlopen.`, alSoon: n => `${n} ${n === 1 ? "onderdeel verloopt" : "onderdelen verlopen"} binnen ${SOON_DAYS} dagen.`,
     alLow: n => `${n} ${n === 1 ? "onderdeel zit" : "onderdelen zitten"} onder de benodigde hoeveelheid.`, alCheck: "Het advies is om je voorraad elk half jaar te controleren.", alNoCheck: "Nog geen controle vastgelegd. Controleer je voorraad elk half jaar.", alOk: "Alles is op orde.",
     srcT: "Bronnen", src1: "Rijksoverheid: wat zit er in een noodpakket", src2: "Denk Vooruit: de checklist",
-    srcNote: "De hoeveelheden volgen het advies van de overheid: voorraad voor 72 uur, en contant geld van € 70 per volwassene en € 30 per kind. Drie liter drinkwater per persoon per dag is de gangbare vuistregel. Vul aan met medicijnen, babyvoeding en voer voor huisdieren voor je eigen situatie.",
+    srcNote: "De hoeveelheden volgen het advies van de overheid: voorraad voor 72 uur, en contant geld van € 70 per volwassene en € 30 per kind. Drie liter drinkwater per persoon per dag is de gangbare vuistregel. Voor de hond is uitgegaan van één hond: 1 liter water per dag is een schatting, pas dat aan op de grootte van je hond. Vul aan met medicijnen en eventueel babyvoeding.",
     unitCash: "€", unitL: "L", unitSet: "set", unitPD: "persoondagen", unitDays: "dagen", unitPc: "stuks"
   }
 };
@@ -128,7 +128,9 @@ const NAMES = {
   docs:    { nl: "Kopieën van belangrijke papieren", en: "Copies of important papers" },
   phones:  { nl: "Telefoonnummers op papier, met pen", en: "Phone numbers on paper, with a pen" },
   baby:    { nl: "Babyvoeding", en: "Baby food" },
-  pet:     { nl: "Voer voor huisdieren", en: "Pet food" }
+  pet:     { nl: "Hondenvoer", en: "Dog food" },
+  dogwater:{ nl: "Drinkwater voor de hond", en: "Drinking water for the dog" },
+  dogkit:  { nl: "Riem, poepzakjes en eventuele medicijnen voor de hond", en: "Lead, waste bags and any medication for the dog" }
 };
 const DEFAULTS = [
   { id: "water", c: "water", t: "pd3", u: "unitL", x: 1 },
@@ -148,12 +150,14 @@ const DEFAULTS = [
   { id: "docs", c: "papier", t: "fix1", u: "unitSet" },
   { id: "phones", c: "papier", t: "fix1", u: "unitSet" },
   { id: "baby", c: "extra", t: "dy1", u: "unitDays", x: 1, skip: 1 },
-  { id: "pet", c: "extra", t: "dy1", u: "unitDays", x: 1, skip: 1 }
+  { id: "pet", c: "extra", t: "dy1", u: "unitDays", x: 1 },
+  { id: "dogwater", c: "extra", t: "dy1", u: "unitL" },
+  { id: "dogkit", c: "extra", t: "fix1", u: "unitSet" }
 ];
 const CAT_ORDER = ["water", "licht", "gezond", "warmte", "papier", "extra"];
 
 function fresh() {
-  return { v: 1, hh: { a: 2, k: 0, d: 3 }, lastCheck: "", items: DEFAULTS.map(d => ({ ...d, have: 0, exp: "", skip: d.skip ? 1 : 0 })), custom: [] };
+  return { v: 1, hh: { a: 2, k: 2, d: 3 }, lastCheck: "", items: DEFAULTS.map(d => ({ ...d, have: 0, exp: "", skip: d.skip ? 1 : 0 })), custom: [] };
 }
 let S = load();
 
