@@ -260,6 +260,7 @@
     "validator": {
       "2": { "s": { "nl": "schema + regels", "en": "schema + rules" }, "d": { "nl": "Schema en businessregels op de output van de pijplijn.", "en": "Schema and business rules on the output of the pipeline." } },
       "3": { "s": { "nl": "ook toolargumenten", "en": "tool arguments too" }, "d": { "nl": "Ook de argumenten die de agent aan tools meegeeft, worden gevalideerd vóór de aanroep.", "en": "The arguments the agent passes to tools are also validated before the call." } },
+      "4": { "s": { "nl": "ook onafhankelijke beoordelaar", "en": "independent judge too" }, "d": { "nl": "Naast schema en regels beoordeelt een tweede, onafhankelijke beoordelaar de kwaliteit van het werk. Hij heeft alleen leesrechten en kan het werk en de antwoordsleutel niet aanpassen. Verbeteringen komen als kandidaat naast de live versie en een mens keurt ze goed.", "en": "Besides schema and rules, a second, independent judge assesses the quality of the work. It has read-only rights and cannot change the work or the answer key. Improvements arrive as a candidate beside the live version and a person approves them." } },
       "5": { "s": { "nl": "ook samengevoegd", "en": "merged results too" }, "d": { "nl": "Ook het samengevoegde resultaat van parallelle agents wordt gevalideerd, want twee goede deelantwoorden kunnen samen tegenstrijdig zijn.", "en": "The merged result of parallel agents is validated too, because two correct partial answers can contradict each other." } }
     },
     "policy": {
