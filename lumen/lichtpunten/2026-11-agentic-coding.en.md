@@ -1,6 +1,6 @@
 ---
 titel: Anthropic on agentic coding: tests, a sandbox and a person who keeps looking
-datum: 2026-12-01
+datum: 2026-11-22
 level: 4
 blokken: [ident, policy, validator, hitl, audit]
 status: reviewed

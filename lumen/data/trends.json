@@ -2,8 +2,8 @@
   "_uitleg": "Eén databron voor de trendlog in de Atlas en de tijdlijn van de Lichtpunten. Nieuwe trend = één object in 'trends'. Nieuw lichtpunt = één object in 'lichtpunten' plus twee Markdown-bestanden in lumen/lichtpunten/<id>.nl.md en <id>.en.md. datum = JJJJ-MM of JJJJ-MM-DD. st = reviewed (beoordeeld, de Atlas verandert niet) of mapped (verwerkt in de Atlas). rel = betrokken blokken (sleutels uit blokken.json). lichtpunt = id van het lichtpunt waar de trend in wordt uitgewerkt (optioneel).",
   "lichtpunten": [
     {
-      "id": "2026-12-agentic-coding",
-      "datum": "2026-12-01",
+      "id": "2026-11-agentic-coding",
+      "datum": "2026-11-22",
       "lv": 4,
       "rel": ["ident", "policy", "validator", "hitl", "audit"],
       "st": "reviewed",
@@ -31,7 +31,7 @@
   ],
   "trends": [
     {
-      "datum": "2026-12", "lv": 4, "rel": ["ident", "policy", "validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-12-agentic-coding",
+      "datum": "2026-11", "lv": 4, "rel": ["ident", "policy", "validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-11-agentic-coding",
       "src": "https://www.anthropic.com/research/building-effective-agents",
       "t": { "nl": "Anthropic: sandbox, tests en menselijke review bij coding agents", "en": "Anthropic: sandbox, tests and human review for coding agents" },
       "wat": { "nl": "Volgens Anthropic controleren tests dat code werkt en beoordeelt een mens of het past. Een sandbox met vaste grenzen laat de agent vrij werken; reviewen kan het knelpunt worden.", "en": "According to Anthropic, tests check that code works and a person judges whether it fits. A sandbox with fixed boundaries lets the agent work freely; review can become the bottleneck." },
