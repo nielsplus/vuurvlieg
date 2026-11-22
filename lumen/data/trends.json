@@ -2,6 +2,15 @@
   "_uitleg": "Eén databron voor de trendlog in de Atlas en de tijdlijn van de Lichtpunten. Nieuwe trend = één object in 'trends'. Nieuw lichtpunt = één object in 'lichtpunten' plus twee Markdown-bestanden in lumen/lichtpunten/<id>.nl.md en <id>.en.md. datum = JJJJ-MM of JJJJ-MM-DD. st = reviewed (beoordeeld, de Atlas verandert niet) of mapped (verwerkt in de Atlas). rel = betrokken blokken (sleutels uit blokken.json). lichtpunt = id van het lichtpunt waar de trend in wordt uitgewerkt (optioneel).",
   "lichtpunten": [
     {
+      "id": "2026-12-agentic-coding",
+      "datum": "2026-12-01",
+      "lv": 4,
+      "rel": ["ident", "policy", "validator", "hitl", "audit"],
+      "st": "reviewed",
+      "t": { "nl": "Als agents de code schrijven, verschuift het werk naar controleren", "en": "When agents write the code, the work moves to verifying" },
+      "samenvatting": { "nl": "Coding agents werken goed omdat tests de uitkomst controleren, maar het knelpunt verschuift van schrijven naar beoordelen. Sandbox, eigen identiteit en risicogestuurde review vormen het harnas.", "en": "Coding agents work well because tests verify the result, but the bottleneck moves from writing to judging. A sandbox, its own identity and risk-based review form the harness." }
+    },
+    {
       "id": "2026-11-onafhankelijke-beoordelaar",
       "datum": "2026-11-22",
       "lv": 4,
@@ -21,6 +30,15 @@
     }
   ],
   "trends": [
+    {
+      "datum": "2026-12", "lv": 4, "rel": ["ident", "policy", "validator", "hitl", "audit"], "st": "reviewed", "lichtpunt": "2026-12-agentic-coding",
+      "src": "https://www.anthropic.com/research/building-effective-agents",
+      "t": { "nl": "Agentic coding: sandbox, tests en review als poort", "en": "Agentic coding: sandbox, tests and review as a gate" },
+      "wat": { "nl": "Coding agents leveren veel code; tests controleren dat het werkt, een mens beoordeelt of het past. Het knelpunt is beoordelen, niet schrijven.", "en": "Coding agents deliver a lot of code; tests check that it works, a person judges whether it fits. The bottleneck is judging, not writing." },
+      "blok": { "nl": "Geen nieuw blok; identiteit, policy, validator, human review en audit krijgen een invulling voor code.", "en": "No new block; identity, policy, validator, human review and audit get an interpretation for code." },
+      "har": { "nl": "Afgeschermde omgeving, minimale rechten, tests eerst en risicogestuurde review.", "en": "Shielded environment, minimal rights, tests first and risk-based review." },
+      "int": { "nl": "Kerngebied: rechten van de codeer-agent, de poort in de pijplijn en eigenaarschap van agentcode.", "en": "Core area: the coding agent's rights, the gate in the pipeline and ownership of agent code." }
+    },
     {
       "datum": "2026-11", "lv": 4, "rel": ["validator", "hitl", "audit"], "st": "mapped", "lichtpunt": "2026-11-onafhankelijke-beoordelaar",
       "src": "https://www.anthropic.com/research/building-effective-agents",
